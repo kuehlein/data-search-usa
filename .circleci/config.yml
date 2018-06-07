@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cypress/base:6
+        environment:
+          TERM: xterm
+    working_directory: ~/app
+    parallelism: 1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "package.json" }}
+            - v1-npm-deps
+      - run: npm install
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Running E2E tests with JUnit reporter
+          command: npm run test-junit
+      - store_test_results:
+          path: junit-results
+      - run:
+          name: Running E2E tests with multiple reporters
+          command: npm run test-multiple
+      - store_test_results:
+          path: multiple-results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots

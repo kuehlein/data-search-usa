@@ -10,7 +10,15 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=junit-results/my-test-output.xml'",
+    "test-multiple": "cypress run --reporter mocha-multi-reporters --reporter-options configFile=config.json",
+    "cy-open": "cypress open",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "cypress": "^3.0.1",
+    "mocha": "^5.2.0",
+    "mocha-junit-reporter": "^1.17.0",
+    "mocha-multi-reporters": "^1.1.7"
   }
 }
