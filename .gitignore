@@ -19,7 +19,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # cypress + circleci
-/cypress
+cypress/videos/
+cypress/screenscots/
 test-results.xml
 results/
 .DS_Store
