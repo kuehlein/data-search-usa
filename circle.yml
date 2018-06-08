@@ -10,9 +10,8 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - v1-npm-deps
-      - run: npm install
+          key: v1-npm-deps
+      - run: npm ci
       - save_cache:
           key: v1-npm-deps
           paths:
