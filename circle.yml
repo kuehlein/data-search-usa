@@ -11,7 +11,7 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-npm-deps
-      - run: npm install
+      - run: npm ci
       - save_cache:
           key: v1-npm-deps
           paths:
