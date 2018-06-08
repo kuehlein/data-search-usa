@@ -1,14 +1,23 @@
 {
   "name": "income-and-taxes",
+  "description": "Using US gov API data to compare income, taxes, and more...",
+  "author": "Kyle Uehlein",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "sequelize": "^4.37.10"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-server": "node server",
     "build": "react-scripts build",
     "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=junit-results/my-test-output.xml'",
     "test-multiple": "cypress run --reporter mocha-multi-reporters --reporter-options configFile=config.json",
@@ -20,5 +29,6 @@
     "mocha": "^5.2.0",
     "mocha-junit-reporter": "^1.17.0",
     "mocha-multi-reporters": "^1.1.7"
-  }
+  },
+  "license": "MIT"
 }
