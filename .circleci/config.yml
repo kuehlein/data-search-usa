@@ -16,7 +16,7 @@ jobs:
           - v1-deps
       - run: npm ci
       - save_cache:
-        key: v1-deps-{ .Branch }-{ checksum "package.json" }
+        key: v1-deps
           paths:
             - ~/.cache
             - ~/.npm
