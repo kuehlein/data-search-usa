@@ -8,21 +8,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install brew
-          command: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
-      - run:
-          name: remove node modules
-          command: 'sudo rm -rf /usr/local/lib/node_modules'
-      - run:
-          name: remove npm
-          command: 'sudo rm -rf ~/.npm'
-      - run:
-          name: uninstall node
-          command: 'brew uninstall --force node'
-      - run:
-          name: install node
-          command: 'brew install node'
-      - run:
           name: install npm
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
