@@ -2,7 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cypress/base:6
+      #- image: cypress/base:6
+      - image: node:8.0
         environment:
           TERM: xterm
     working_directory: ~/app
