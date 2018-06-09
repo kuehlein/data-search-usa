@@ -11,16 +11,15 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-deps-{ .Branch }-{ checksum "package.json" }
-            - v1-deps-{ .Branch }
+            - v1-deps-{ checksum "package.json" }
             - v1-deps
       - run: npm ci
       - save_cache:
-          key: v1-deps-{ .Branch }-{ checksum "package.json" }
+          key: v1-deps-{ checksum "package.json" }
             paths:
               - node_modules
-              - ~/.cache
-              - ~/.npm
+         #     - ~/.cache
+          #    - ~/.npm
       - run:
           name: Running E2E tests with JUnit reporter
           command: npm run test-junit
