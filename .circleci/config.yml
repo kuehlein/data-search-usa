@@ -7,9 +7,6 @@ jobs:
       - image: cypress/base:6
     steps:
       - checkout
-      - run:
-          name: install npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
