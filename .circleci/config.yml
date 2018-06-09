@@ -3,13 +3,13 @@ jobs:
   build:
     working_directory: ~/income-and-taxes
     docker:
-      - image: circleci/node:8.0
+      - image: circleci/node:8.11.2
       - image: cypress/base:6
     steps:
       - checkout
       - run:
           name: install npm
-          command: sudo npm install -g npm@latest
+          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
