@@ -12,9 +12,9 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-npm-deps
-      - run:
-          name: "Updating npm"
-          command: npm install npm@latest
+      #- run:
+       #   name: "Updating npm"
+        #  command: npm install npm@latest
       - run: npm ci
       - save_cache:
           key: v1-npm-deps
