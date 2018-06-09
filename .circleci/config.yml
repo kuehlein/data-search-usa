@@ -2,7 +2,6 @@ version: 2
 jobs:
   build:
     docker:
-      #- image: cypress/base:6
       - image: node:8.0
         environment:
           TERM: xterm
@@ -15,21 +14,12 @@ jobs:
           - v1-deps-{ .Branch }-{ checksum "package.json" }
           - v1-deps-{ .Branch }
           - v1-deps
-      #- restore_cache:
-       #   key: v1-npm-deps
-      #- run:
-       #   name: "Updating npm"
-        #  command: npm install npm@latest
       - run: npm ci
       - save_cache:
         key: v1-deps-{ .Branch }-{ checksum "package.json" }
           paths:
             - ~/.cache
             - ~/.npm
- #     - save_cache:
-  #        key: v1-npm-deps
-   #       paths:
-    #        - node_modules
       - run:
           name: Running E2E tests with JUnit reporter
           command: npm run test-junit
