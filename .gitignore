@@ -27,3 +27,6 @@ results/
 xunit.xml
 junit-results/
 multiple-results/
+
+# api token
+api-token-circleci.txt
