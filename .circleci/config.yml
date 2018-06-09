@@ -1,23 +1,32 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/income-and-taxes
     docker:
+      - image: circleci/node:8.11.2
       - image: cypress/base:6
-        environment:
-          TERM: xterm
-    working_directory: ~/app
-    parallelism: 1
     steps:
       - checkout
+      - run:
+          name: install npm
+          command: 'sudo npm install -g npm@latest'
       - restore_cache:
-          keys:
-            - v1-npm-deps-{{ checksum "package.json" }}
-            - v1-npm-deps
-      - run: npm install
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: npm ci
+          command: npm ci
       - save_cache:
-          key: v1-npm-deps-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - node_modules
+            - ~/.cache
+            - ~/.npm
+  test:
+    docker:
+      - image: circleci/node:8.0
+      - image: cypress/base:6
+    steps:
+      - checkout
       - run:
           name: Running E2E tests with JUnit reporter
           command: npm run test-junit
@@ -29,6 +38,21 @@ jobs:
       - store_test_results:
           path: multiple-results
       - store_artifacts:
-          path: cypress/videos
+          path: test-results.xml
+          prefix: tests
       - store_artifacts:
+          path: multiple-results
+          path: cypress/videos
           path: cypress/screenshots
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

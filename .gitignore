@@ -20,9 +20,13 @@ yarn-error.log*
 
 # cypress + circleci
 cypress/videos/
+cypress/screenscots/
 test-results.xml
 results/
 .DS_Store
 xunit.xml
 junit-results/
 multiple-results/
+
+# api token
+api-token-circleci.txt
