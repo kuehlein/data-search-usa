@@ -8,9 +8,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - run:
           name: install brew
           command: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
       - run:
