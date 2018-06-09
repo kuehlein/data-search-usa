@@ -10,8 +10,8 @@ jobs:
     parallelism: 1
     steps:
       - checkout
-      - restore_cache:
-          key: v1-npm-deps
+    #  - restore_cache:
+     #     key: v1-npm-deps
       #- run:
        #   name: "Updating npm"
         #  command: npm install npm@latest
