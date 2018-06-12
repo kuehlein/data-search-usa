@@ -23,14 +23,14 @@ const createApp = new Promise (() => {
   app.use('/api', require('./api'))
 
   // static file-serving middleware
-  app.use(express.static(path.join(__dirname, '..', 'client', '/', 'public')))
+  app.use(express.static(path.join(__dirname, '..', 'client/', 'public')))
 
   // staticly serve styles
-  app.use(express.static(path.join(__dirname, '..', 'client', 'src/main.css')))
+  app.use(express.static(path.join(__dirname, '..', 'client/', 'src/', 'main.css')))
 
   // sends index.html
   app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client/', 'public/index.html'))
+    res.sendFile(path.join(__dirname, '..', 'client/', 'public/', 'index.html'))
   })
 
   // error handling endware
@@ -58,10 +58,6 @@ if (require.main === module) {
 } else {
   createApp()
 }
-
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' })
-})
 
 
 module.exports = app
