@@ -1,6 +1,7 @@
 'use strict'
 
 const router = require('express').Router()
+const request = require('request-promise')
 // necessary models
 
 
@@ -10,9 +11,9 @@ const router = require('express').Router()
 // })
 
 // GET - data.gov employment data
-// router.get('/api/latest-hubble', (req, res) => {
+// router.get('/latest-hubble', (req, res) => {
 //   const options = {
-//     uri: 'https://data.dol.gov/get/inspection/limit/10',
+//     uri: 'http://hubblesite.org/news_release/news/2018-27', // https://data.dol.gov/get/inspection/limit/10
 //     method: 'GET',
 //     headers: {
 //       'Content-Type': 'application/json'
@@ -27,11 +28,11 @@ const router = require('express').Router()
 
 //GET - finds all products
 router.get('/hi', (req, res, next) => {
-  const data = {
-    data: 'This is some data'
+  const test = {
+    testing: 'This is sent from the server'
   }
 
-  res.send(data)
+  res.send(test) // setting headers after they are sent?
     .catch(next)
 })
 
