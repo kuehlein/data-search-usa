@@ -1,5 +1,3 @@
-// 'use strict'
-
 // import axios from 'axios'
 // import { BACK_END, setModeRead, setModeAdd, setModeEdit, fetchAllQuestions } from '../../store'
 
@@ -109,22 +107,22 @@
 // /**
 //  * REDUCER
 //  */
-// export default (state = {}, action) => {
-//   switch (action.type) {
+export default (state = {}, action) => {
+  switch (action.type) {
 
-//     case SET_QUESTION:
-//     case CREATE_QUESTION:
-//     case CHANGE_QUESTION:
-//       return action.question
+    // case SET_QUESTION:
+    // case CREATE_QUESTION:
+    // case CHANGE_QUESTION:
+    //   return action.question
 
-//     case NEW_QUESTION:
-//       return {}
+    // case NEW_QUESTION:
+    //   return {}
 
-//     case GET_QUESTION:
-//       return state
+    // case GET_QUESTION:
+    //   return state
 
-//     default:
-//       return state
-//   }
+    default:
+      return state
+  }
 
-// }
+}
