@@ -6,15 +6,15 @@ const request = require('request-promise')
 
 
 //PARAM - sets product instance to req.product
-router.param('uri', (req, res, next, uri) => {
-  req.uri = uri
+router.param('table', (req, res, next, table) => {
+  req.table = table
   next()
 })
 
 // GET - datausa employment data
-router.get('/datausa/:uri', (req, res) => {
+router.get('/datausa/:table', (req, res) => {
   const options = {
-    uri: `http://api.datausa.io/api/?show=${req.uri}&sumlevel=all&year=latest`,
+    uri: `http://api.datausa.io/api/?show=${req.table}&sumlevel=all`,
     simple: false,
     json: true
   }

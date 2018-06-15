@@ -1,43 +1,32 @@
 import React, { Component } from 'react'
-import axios from 'axios'
-import logo from '../../assets/logo.svg'
+import { connect } from 'react-redux'
+
 import './App.css'
-import createTable from './utils'
+import { Pannel, Map } from '../index'
 
 
-export default class App extends Component {
+class App extends Component {
   constructor() {
     super()
-    this.state = {
-      datausa: {}
-    }
-  }
-
-  componentDidMount () {
-    const uri = 'cip'
-
-    axios.get(`/api/table/datausa/${uri}`)
-      .then(res => this.setState({ datausa: res.data }))
-      .catch(err => console.log(err))
   }
 
   render() {
-    const { datausa } = this.state
-console.log(datausa)
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <div className="App-intro">
-          { datausa.headers && createTable(datausa.headers, datausa.data) }
-        </div>
+        <Pannel />
+        <Map table={ this.state.table } /> { /* send props to trigger reload */ }
       </div>
     )
   }
 
 }
+
+const mapStateToProps = state => ({
+  table: state.table
+})
+
+
+export default connect(mapStateToProps)(App)
 
 /*
  * Classification of Instructional Programs:
