@@ -1,6 +1,6 @@
 'use strict'
 
-const db = require('./_db')
+// const db = require('./_db')
 const models = require('./models')
 
 
@@ -8,6 +8,6 @@ const models = require('./models')
 
 
 module.exports = {
-  db,
+  // db,
   models
 }
