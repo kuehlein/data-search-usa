@@ -2,57 +2,28 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import logo from '../../assets/logo.svg'
 import './App.css'
+import createTable from './utils'
+
 
 export default class App extends Component {
   constructor() {
     super()
     this.state = {
-      response: [],
-      datausa: []
+      datausa: {}
     }
   }
 
   componentDidMount () {
-    axios.get('/api/employment/usgov')
-      .then(res => {
-        const addresses = Array.isArray(res.data)
-          ? res.data.map(meta => ({
-              street: meta.MAIL_STREET,
-              city: meta.MAIL_CITY,
-              state: meta.MAIL_STATE,
-              zip: meta.MAIL_ZIP
-            }))
-          : res.data
-        this.setState({ response: addresses })
-      })
-      .catch(err => console.log(err))
+    const uri = 'cip'
 
-      axios.get('/api/employment/datausa')
-      .then(res => {
-        const addresses = Array.isArray(res.data)
-          // ? res.data.map(meta => ({
-              // street: meta.MAIL_STREET,
-              // city: meta.MAIL_CITY,
-              // state: meta.MAIL_STATE,
-              // zip: meta.MAIL_ZIP
-            // }))
-            ? res.data
-          : res.data
-        this.setState({ datausa: addresses })
-      })
+    axios.get(`/api/table/datausa/${uri}`)
+      .then(res => this.setState({ datausa: res.data }))
       .catch(err => console.log(err))
   }
 
   render() {
-    const { response, datausa } = this.state
-    const loopOverKeys = (res) => {
-      const all = []
-      for (let key in res) {
-        all.push([key, res[key]])
-      }
-      return all
-    }
-console.log(datausa) // <------------------------------
+    const { datausa } = this.state
+console.log(datausa)
     return (
       <div className="App">
         <header className="App-header">
@@ -60,31 +31,36 @@ console.log(datausa) // <------------------------------
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
-          {
-            Array.isArray(datausa)
-            ? datausa.map((res, i) => (
-                <p key={ i }>{ `${res.street} ${res.city}, ${res.state}, ${res.zip}` }</p>
-              ))
-            :
-              loopOverKeys(datausa).map((field, i) => (
-                <p key={ i }>{ `${field[0]}: ${field[1]}` }</p>
-              ))
-          }
+          { datausa.headers && createTable(datausa.headers, datausa.data) }
         </div>
-        {/* <div className="App-intro">
-          {
-            Array.isArray(response)
-              ? response.map((res, i) => (
-                  <p key={ i }>{ `${res.street} ${res.city}, ${res.state}, ${res.zip}` }</p>
-                ))
-              :
-                loopOverKeys(response).map((field, i) => (
-                  <p key={ i }>{ `${field[0]}: ${field[1]}` }</p>
-                ))
-          }
-        </div> */}
       </div>
     )
   }
 
 }
+
+/*
+ * Classification of Instructional Programs:
+ * ?show=cip&sumlevel=all
+ *          &sumlevel=2
+ *          &sumlevel=4
+ *          &sumlevel=6
+ *
+ * ?show=geo&sumlevel=nation
+ *
+ * ?show=naics&sumlevel=all
+ *
+ *  ?show=*
+ *         &year=latest
+ *         &required=COLUMN_NAME1,COLUMN_NAME2,...,COLUMN_NAMEX
+ *         &COLUMN_NAME=COLUMN_NUMBER
+ *           -filter the results - show data from a single column
+ *         &where=COLUMN_NAME:(operator)VALUE
+ *           -operators:
+ *              greater than: >
+ *              less than: <
+ *              string starts with: ^
+ *              string ends with: $ (placed after text)
+ *              not equal (integer): !
+ *              not equal (str): str!
+ */
