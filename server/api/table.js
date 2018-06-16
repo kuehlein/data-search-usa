@@ -5,17 +5,15 @@ const request = require('request-promise')
 // necessary models
 
 
-//PARAM - sets product instance to req.product
-router.param('table', (req, res, next, table) => {
-  req.level = table === 'geo' ? 'nation' : 'all'
-  req.table = table
-  next()
-})
-
 // GET - datausa employment data
-router.get('/datausa/:table', (req, res) => {
+router.get('/datausa/:table/:level/:misc', (req, res) => {
+  const { table, level, misc } = req.params
+
+  // loop through misc and figure out what exists
+  // then format the request properly?
+
   const options = {
-    uri: `http://api.datausa.io/api/?show=${req.table}&sumlevel=${req.level}`,
+    uri: `http://api.datausa.io/api/?show=${table}&sumlevel=${level}`,
     simple: false,
     json: true
   }
@@ -25,35 +23,22 @@ router.get('/datausa/:table', (req, res) => {
     .catch(err => res.status(400).send('error'))
 })
 
+// do these in reverse order so that
+// the less complex requests are skipped over
+// ???
+// wouldnt all following be hit if matched?
+// router.get('/datausa/:table/:level', (req, res) => {
+//   const { table, level } = req.params
+//   const options = {
+//     uri: `http://api.datausa.io/api/?show=${table}&sumlevel=${level}`,
+//     simple: false,
+//     json: true
+//   }
 
-/*
-?show=cip
-    CIP codes are available at four basic sumlevels: 2-digit (high level), 4 digit, 6-digit (most detailed) and all (2, 4 and 6)
-
-?show=cip <--- Classification of Instructional Programs
-?show=geo <--- geographies
-?show=naics <--- ?
-
-&sumlevel=nation
-&sumlevel=all
-&sumlevel=state
-
-&year=latest
-
-&required=COLUMN_NAME1,COLUMN_NAME2,...,COLUMN_NAMEX
-
-&COLUMN_NAME=COLUMN_NUMBER
-    You could filter the results to only show data from a single column
-
-&where=COLUMN_NAME:(operator)VALUE
-    operators:
-        greater than: >
-        less than: <
-        string starts with: ^
-        string ends with: $ (placed after text)
-        not equal (integer): !
-        not equal (str): str!
-*/
+//   request(options)
+//     .then(data => res.status(200).send(data))
+//     .catch(err => res.status(400).send('error'))
+// })
 
 
 module.exports = router

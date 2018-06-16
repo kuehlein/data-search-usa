@@ -16,14 +16,17 @@ class Map extends Component {
 
   componentWillReceiveProps (nextProps) {
     const { table } = nextProps
+    const level = table === 'geo' ? 'nation' : 'all'
+    const misc = ''
 
-    axios.get(`/api/table/datausa/${table}`)
+    axios.get(`/api/table/datausa/${table}/${level}/${misc}`)
       .then(res => this.setState({ datausa: res.data }))
       .catch(err => console.log(err))
   }
 
   render () {
     const { datausa } = this.state
+    console.log(datausa) // <----(DELETE)--------<<<
 
     return (
       <div className="App-intro">
@@ -40,3 +43,6 @@ const mapStateToProps = state => ({
 
 
 export default connect(mapStateToProps)(Map)
+
+
+// victory charts
