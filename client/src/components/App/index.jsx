@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <div className="App">
         <Pannel />
-        <Map table={ this.state.table } /> { /* send props to trigger reload */ }
+        <Map />
       </div>
     )
   }

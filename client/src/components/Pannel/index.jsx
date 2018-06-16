@@ -9,9 +9,6 @@ import './Pannel.css'
 class Pannel extends Component {
   constructor() {
     super()
-    this.state = {
-      table: ''
-    }
     this.handleClick = this.handleClick.bind(this)
   }
 
@@ -26,7 +23,7 @@ class Pannel extends Component {
         <h1 className="App-title">Welcome to React</h1>
         <div>
           <button onClick={ () => this.handleClick('cip') }>cip</button>
-          { /* <button onClick={ () => this.handleClick('geo') }>geo</button> */ }
+          <button onClick={ () => this.handleClick('geo') }>geo</button>
           <button onClick={ () => this.handleClick('naics') }>naics</button>
         </div>
       </header>

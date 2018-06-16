@@ -7,6 +7,7 @@ const request = require('request-promise')
 
 //PARAM - sets product instance to req.product
 router.param('table', (req, res, next, table) => {
+  req.level = table === 'geo' ? 'nation' : 'all'
   req.table = table
   next()
 })
@@ -14,7 +15,7 @@ router.param('table', (req, res, next, table) => {
 // GET - datausa employment data
 router.get('/datausa/:table', (req, res) => {
   const options = {
-    uri: `http://api.datausa.io/api/?show=${req.table}&sumlevel=all`,
+    uri: `http://api.datausa.io/api/?show=${req.table}&sumlevel=${req.level}`,
     simple: false,
     json: true
   }

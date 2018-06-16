@@ -14,9 +14,8 @@ class Map extends Component {
     }
   }
 
-  componentDidMount () {
-    const { table } = this.props
-    console.log('props', this.props)
+  componentWillReceiveProps (nextProps) {
+    const { table } = nextProps
 
     axios.get(`/api/table/datausa/${table}`)
       .then(res => this.setState({ datausa: res.data }))
@@ -35,5 +34,9 @@ class Map extends Component {
 
 }
 
+const mapStateToProps = state => ({
+  table: state.table
+})
 
-export default connect(null)(Map)
+
+export default connect(mapStateToProps)(Map)
