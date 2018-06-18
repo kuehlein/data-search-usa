@@ -59,7 +59,7 @@ const fillTable = data => {
     if (rows.length < depth + 1) {
       rows.push([])
     }
-    rows[depth].push(<td key={ count }>{ numberWithCommas(data[count]) }</td>) // need to loop through these children
+    rows[depth].push(<td key={ count }>{ data[count] }</td>) // need to loop through these children
     count++
     if (data[depth].length === data.length) {
       count = 0
@@ -71,7 +71,7 @@ const fillTable = data => {
 }
 
 // formats the numbers with ','
-const numberWithCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+// const numberWithCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
 // delineates each row of data
 // headers are formatted differntly

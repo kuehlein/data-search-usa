@@ -17,9 +17,8 @@ class Map extends Component {
   componentWillReceiveProps (nextProps) {
     const { table } = nextProps
     const level = table === 'geo' ? 'nation' : 'all'
-    const misc = ''
 
-    axios.get(`/api/table/datausa/${table}/${level}/${misc}`)
+    axios.get(`/api/table/datausa/${table}`) // /${level}
       .then(res => this.setState({ datausa: res.data }))
       .catch(err => console.log(err))
   }
@@ -30,7 +29,25 @@ class Map extends Component {
 
     return (
       <div className="App-intro">
-        { datausa.headers && createTable(datausa.headers, datausa.data) }
+        { /* datausa.headers && createTable(datausa.headers, datausa.data) */ }
+        <br />
+        <br />
+        <br />
+        <br />
+        {
+          datausa.headers
+            && 'data retrieved successfully' ||
+          datausa.error
+            && 'this table is not available at this time' ||
+          'please make a request'
+        } {
+            datausa.source &&
+            <div>
+              <p>dataset: { datausa.source.dataset }</p>
+              <p>org: <a href={ `${datausa.source.link}` }>{ datausa.source.org }</a></p>
+              <p>table: { datausa.source.table }</p>
+            </div>
+        }
       </div>
     )
   }
