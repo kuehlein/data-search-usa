@@ -20,6 +20,14 @@ class ButtonDisplay extends Component {
       .catch(err => console.log(err))
   }
 
+  componentWillReceiveProps (nextProps) {
+    // const { table } = nextProps
+
+    // axios.get(`/api/table/datausa/${table}`)
+    //   .then(res => this.props.setOptions({ datausa: res.data }))
+    //   .catch(err => console.log(err))
+  }
+
   handleClick (type) {
     this.props.setTable(type)
     this.setState({ current: type })
@@ -48,10 +56,13 @@ class ButtonDisplay extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  setTable: type => dispatch(setTable(type))
+  setTable: table => dispatch(setTable(table))
 })
 
 
 export default connect(null, mapDispatchToProps)(ButtonDisplay)
 
 // save buttons to db and retrieve their names
+
+
+// how do i set a table, then the corresponding options in the store?

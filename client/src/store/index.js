@@ -4,10 +4,12 @@ import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import table from './table'
+import options from './options'
 
 
 const reducer = combineReducers({
-  table
+  table,
+  options
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -20,6 +22,7 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './table'
+export * from './options'
 
 // server api route
 export const SERVER = 'http://localhost:3001'
