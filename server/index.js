@@ -1,63 +1,60 @@
-'use strict'
+const path = require("path");
+const express = require("express");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
 
-const path = require('path')
-const express = require('express')
-const morgan = require('morgan')
-const bodyParser = require('body-parser')
-
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3001;
 // const { db } = require('./db')
-const app = express()
+const app = express();
+const api = require("./api");
 
-
-const createApp = new Promise (() => {
-
+const createApp = new Promise(() => {
   // logging middleware
-  app.use(morgan('dev'))
+  app.use(morgan("dev"));
 
   // body parsing middleware
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   // route to api
-  app.use('/api', require('./api'))
+  app.use("/api", api);
 
   // static file-serving middleware
-  app.use(express.static(path.join(__dirname, '..', 'client/', 'public')))
+  app.use(express.static(path.join(__dirname, "..", "client/", "public")));
 
   // staticly serve styles
-  app.use(express.static(path.join(__dirname, '..', 'client/', 'src/', 'main.css')))
+  app.use(
+    express.static(path.join(__dirname, "..", "client/", "src/", "main.css"))
+  );
 
   // sends index.html
-  app.use('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client/', 'public/', 'index.html'))
-  })
+  app.use("*", (req, res) => {
+    res.sendFile(
+      path.join(__dirname, "..", "client/", "public/", "index.html")
+    );
+  });
 
   // error handling endware
   app.use((err, req, res, next) => {
-    console.error(err)
-    console.error(err.stack)
-    res.status(err.status || 500).send(err.message || 'Internal server error.')
-  })
-})
+    console.error(err);
+    console.error(err.stack);
+    res.status(err.status || 500).send(err.message || "Internal server error.");
+  });
+});
 
 const startListening = () => {
-  const server = app.listen(PORT, () => console.log(`Gettin down and dirty on port ${ PORT }`))
-}
+  app.listen(PORT, () => console.log(`Gettin down and dirty on port ${PORT}`));
+};
 
-// const syncDb = () => db.sync()
+// const syncDb = () => db.sync();
 
 // This evaluates as true when this file is run directly from the command line,
-// i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
-// It will evaluate false when this module is required by another module - for example,
-// if we wanted to require our app in a test spec
+// It will evaluate false when this module is required by another module - ( etc. test spec)
 if (require.main === module) {
-  // syncDb()
-  createApp
-    .then(startListening())
+  // syncDb();
+  createApp.then(startListening());
 } else {
-  createApp()
+  createApp();
 }
 
-
-module.exports = app
+module.exports = app;

@@ -1,5 +1,3 @@
-'use strict'
-
 // const Sequelize = require('sequelize')
 
 // const DB_NAME = 'income-and-taxes'
