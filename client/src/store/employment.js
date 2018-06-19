@@ -109,7 +109,6 @@
 //  */
 export default (state = {}, action) => {
   switch (action.type) {
-
     // case SET_QUESTION:
     // case CREATE_QUESTION:
     // case CHANGE_QUESTION:
@@ -122,7 +121,6 @@ export default (state = {}, action) => {
     //   return state
 
     default:
-      return state
+      return state;
   }
-
-}
+};

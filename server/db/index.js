@@ -1,7 +1,5 @@
-'use strict'
-
 // const db = require('./_db')
-const models = require('./models')
+const models = require('./models');
 
 
 // Associations here
@@ -9,5 +7,5 @@ const models = require('./models')
 
 module.exports = {
   // db,
-  models
-}
+  models,
+};
