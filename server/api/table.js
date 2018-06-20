@@ -16,18 +16,35 @@ router.get("/datausa", (req, res) => {
 });
 
 // GET - datausa tables
+// router.get("/datausa/:table/", (req, res) => {
+//   const { table } = req.params;
+
+//   const options = {
+//     uri: `http://api.datausa.io/attrs/${table}/`,
+//     simple: false,
+//     json: true
+//   };
+//   // data array
+//   // ["num", "title"]
+//   // headers
+
+// figure out how to require specific columns
+
+//   request(options)
+//     .then(data => res.status(200).send(data))
+//     .catch(err => res.status(400).send(err));
+// });
+
+// GET - datausa tables
 router.get("/datausa/:table/", (req, res) => {
   const { table } = req.params;
 
-  // loop through misc and figure out what exists
-  // then format the request properly?
-
   const options = {
     // &sumlevel=${level}
-    uri: `http://api.datausa.io/api/?show=${table}&force=headers`,
+    uri: `http://api.datausa.io/api/?show=${table}`,
     simple: false,
     json: true
-  }; // how to only ask for headers
+  };
 
   request(options)
     .then(data => res.status(200).send(data))
