@@ -23,10 +23,11 @@ router.get("/datausa/:table/", (req, res) => {
   // then format the request properly?
 
   const options = {
-    uri: `http://api.datausa.io/api/?show=${table}`, // &sumlevel=${level}
+    // &sumlevel=${level}
+    uri: `http://api.datausa.io/api/?show=${table}&force=headers`,
     simple: false,
     json: true
-  };
+  }; // how to only ask for headers
 
   request(options)
     .then(data => res.status(200).send(data))
