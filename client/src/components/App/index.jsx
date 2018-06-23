@@ -11,8 +11,6 @@ const App = () => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  table: state.table
-});
+export default connect(null)(App);
 
-export default connect(mapStateToProps)(App);
+// create a template to simulate content while requests are loading

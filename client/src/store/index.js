@@ -3,14 +3,16 @@ import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import table from "./table";
 import allTables from "./allTables";
-import options from "./options";
+import currentTable from "./currentTable";
+import allOptions from "./allOptions";
+import currentOptions from "./currentOptions";
 
 const reducer = combineReducers({
-  table,
   allTables,
-  options
+  currentTable,
+  allOptions,
+  currentOptions
 });
 
 const middleware = composeWithDevTools(
@@ -20,9 +22,10 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware);
 
 export default store;
-export * from "./table";
+export * from "./currentTable";
 export * from "./allTables";
-export * from "./options";
+export * from "./allOptions";
+export * from "./currentOptions";
 
 // server api route
 export const SERVER = "http://localhost:3001";
