@@ -18,7 +18,7 @@ class TableSelection extends Component {
     axios
       .get("/api/table/datausa")
       .then(res => {
-        this.props.setAllTables(res.data[0]);
+        this.props.setAllTables(res.data[0].sort());
         this.props.setAllOptions(res.data[1]);
       })
       .catch(err => console.log(err));
