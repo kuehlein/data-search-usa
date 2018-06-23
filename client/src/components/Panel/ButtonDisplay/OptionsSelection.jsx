@@ -5,6 +5,7 @@ import axios from "axios";
 
 import { setCurrentOptions } from "../../../store";
 
+// when a table is selected, display the search options as buttons
 class OptionsSelection extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,9 @@ class OptionsSelection extends Component {
   componentWillReceiveProps(nextProps) {
     const { currentTable, allOptions } = nextProps;
 
+    // if a table is selected, make a request to the api to determine
+    // the specific table and cross reference it agaisnt allOptions
+    // to see which columns are available in the table
     if (currentTable) {
       axios
         .get(`/api/table/datausa/${currentTable}`)
@@ -29,30 +33,23 @@ class OptionsSelection extends Component {
   }
 
   handleClick(type) {
-    const { selected } = this.state;
-    let index = 0;
+    const copy = this.state.selected.slice();
 
-    const removeElement = (array, i) => {
-      array[i] = array[array.length - 1];
-      array.pop();
-      return array;
-    };
-    const getIndex = (elem, column) => {
-      if (elem === column) {
-        return true;
+    // check to see if a search option is selected on local state
+    // if so, remove it, if not, add it
+    const addOrRemove = (arr, column) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === column) {
+          arr[i] = arr[arr.length - 1];
+          arr.pop();
+          return arr;
+        }
       }
-      index++;
-      return false;
+      arr.push(column);
+      return arr;
     };
 
-    const update =
-      selected.findIndex(elem => getIndex(elem, type)) !== -1
-        ? removeElement(selected.slice(), index)
-        : selected.concat([type]);
-
-    index = 0;
-
-    this.setState({ selected: update });
+    this.setState({ selected: addOrRemove(copy, type) }); // needs to clear when table changes
   }
 
   handleSubmit() {
@@ -61,6 +58,7 @@ class OptionsSelection extends Component {
 
     console.log("hit");
 
+    // make a request for the currentTable with the selected options
     axios
       .get(`/api/table/datausa/${currentTable}/${selected}`)
       .then(res => res) // ?
@@ -114,3 +112,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(OptionsSelection);
+
+// make currentOptions clear when currentTable changes
+// mess with map's state to fix request

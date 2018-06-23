@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import OptionsSelection from "./OptionsSelection";
 import TableSelection from "./TableSelection";
 
+// presentational component for button logic
 const ButtonDisplay = () => (
   <div>
     <TableSelection />

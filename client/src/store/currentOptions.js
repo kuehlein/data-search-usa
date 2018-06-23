@@ -1,4 +1,11 @@
 /*
+ * currentOptions are the options that are currently
+ * available for querying the currnetTable
+ *
+ * these options were pulled from allOptions using currentTable
+ */
+
+/*
  * ACTION TYPES
  */
 const SET_CURRENT_OPTIONS = "SET_CURRENT_OPTIONS";

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "./App.css";
 import { Panel, Map } from "../index";
 
+// the main component of the app
 const App = () => (
   <div className="App">
     <Panel />

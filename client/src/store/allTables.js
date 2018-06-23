@@ -1,4 +1,12 @@
 /*
+ * allTables is a selection of tables that datausa
+ * currently has available to query.
+ *
+ * these tables are retrieved from a request to:
+ * "http://api.datausa.io/attrs/list/"
+ */
+
+/*
  * ACTION TYPES
  */
 const SET_ALL_TABLES = "SET_ALL_TABLES";

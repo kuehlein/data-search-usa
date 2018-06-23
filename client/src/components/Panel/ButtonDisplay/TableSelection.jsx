@@ -3,8 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-import { setCurrentTable, setAllTables, setAllOptions } from "../../../store";
+import {
+  setCurrentOptions,
+  setCurrentTable,
+  setAllTables,
+  setAllOptions
+} from "../../../store";
 
+// Request available tables from the api and display the options as buttons
 class TableSelection extends Component {
   constructor(props) {
     super(props);
@@ -23,15 +29,16 @@ class TableSelection extends Component {
       .catch(err => console.log(err));
   }
 
-  // componentWillReceiveProps(nextProps) {
-  // const { currentTable } = nextProps;
-  // axios
-  //   .get(`/api/table/datausa/${currentTable}`)
-  //   .then(res => thing)
-  //   .catch(err => console.log(err));
-  // }
+  componentWillReceiveProps(nextProps) {
+    // if the selected table is changed, clear the currentOptions
+    // used for that table
+    if (nextProps.currentTable !== this.props.currentTable) {
+      this.props.setCurrentOptions([]); // ?
+    }
+  }
 
   handleClick(type) {
+    // choose a table to request
     this.props.setCurrentTable(type);
   }
 
@@ -51,7 +58,8 @@ class TableSelection extends Component {
   }
 }
 TableSelection.defaultProps = {
-  // currentTable: "",
+  currentTable: "",
+  setCurrentOptions: [],
   setCurrentTable: "",
   allTables: [],
   setAllTables: [],
@@ -59,7 +67,8 @@ TableSelection.defaultProps = {
 };
 
 TableSelection.propTypes = {
-  // currentTable: PropTypes.string,
+  currentTable: PropTypes.string,
+  setCurrentOptions: PropTypes.func,
   setCurrentTable: PropTypes.func,
   allTables: PropTypes.arrayOf(PropTypes.string),
   setAllTables: PropTypes.func,
@@ -67,11 +76,13 @@ TableSelection.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  // currentTable: state.table,
+  currentTable: state.currentTable,
   allTables: state.allTables
 });
 
 const mapDispatchToProps = dispatch => ({
+  setCurrentOptions: currentOptions =>
+    dispatch(setCurrentOptions(currentOptions)),
   setCurrentTable: currentTable => dispatch(setCurrentTable(currentTable)),
   setAllTables: allTables => dispatch(setAllTables(allTables)),
   setAllOptions: allOptions => dispatch(setAllOptions(allOptions))
