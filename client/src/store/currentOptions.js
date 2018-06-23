@@ -1,0 +1,32 @@
+/*
+ * currentOptions are the options that are currently
+ * available for querying the currnetTable
+ *
+ * these options were pulled from allOptions using currentTable
+ */
+
+/*
+ * ACTION TYPES
+ */
+const SET_CURRENT_OPTIONS = "SET_CURRENT_OPTIONS";
+
+/*
+ * ACTION CREATORS
+ */
+export const setCurrentOptions = options => ({
+  type: SET_CURRENT_OPTIONS,
+  options
+});
+
+/*
+ * REDUCER
+ */
+export default (state = [], action) => {
+  switch (action.type) {
+    case SET_CURRENT_OPTIONS:
+      return action.options;
+
+    default:
+      return state;
+  }
+};
