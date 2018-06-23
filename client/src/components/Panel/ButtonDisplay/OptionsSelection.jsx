@@ -22,7 +22,7 @@ class OptionsSelection extends Component {
     // if a table is selected, make a request to the api to determine
     // the specific table and cross reference it agaisnt allOptions
     // to see which columns are available in the table
-    if (currentTable) {
+    if (currentTable !== this.props.currentTable) {
       axios
         .get(`/api/table/datausa/${currentTable}`)
         .then(
@@ -38,7 +38,7 @@ class OptionsSelection extends Component {
 
     // if the selected table is changed, clear the currentOptions
     // used for that table
-    if (nextProps.currentTable !== this.props.currentTable) {
+    if (currentTable !== this.props.currentTable) {
       this.setState({ selected: [] });
       this.props.setCurrentOptions([]);
     }
@@ -67,8 +67,6 @@ class OptionsSelection extends Component {
   handleSubmit() {
     const { currentTable } = this.props;
     const { selected } = this.state;
-
-    console.log("hit");
 
     // make a request for the currentTable with the selected options
     axios
