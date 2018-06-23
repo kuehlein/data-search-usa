@@ -3,12 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-import {
-  setCurrentOptions,
-  setCurrentTable,
-  setAllTables,
-  setAllOptions
-} from "../../../store";
+import { setCurrentTable, setAllTables, setAllOptions } from "../../../store";
 
 // Request available tables from the api and display the options as buttons
 class TableSelection extends Component {
@@ -27,14 +22,6 @@ class TableSelection extends Component {
         this.props.setAllOptions(res.data[1]);
       })
       .catch(err => console.log(err));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // if the selected table is changed, clear the currentOptions
-    // used for that table
-    if (nextProps.currentTable !== this.props.currentTable) {
-      this.props.setCurrentOptions([]); // ?
-    }
   }
 
   handleClick(type) {
@@ -58,8 +45,6 @@ class TableSelection extends Component {
   }
 }
 TableSelection.defaultProps = {
-  currentTable: "",
-  setCurrentOptions: [],
   setCurrentTable: "",
   allTables: [],
   setAllTables: [],
@@ -67,8 +52,6 @@ TableSelection.defaultProps = {
 };
 
 TableSelection.propTypes = {
-  currentTable: PropTypes.string,
-  setCurrentOptions: PropTypes.func,
   setCurrentTable: PropTypes.func,
   allTables: PropTypes.arrayOf(PropTypes.string),
   setAllTables: PropTypes.func,
@@ -76,13 +59,10 @@ TableSelection.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  currentTable: state.currentTable,
   allTables: state.allTables
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentOptions: currentOptions =>
-    dispatch(setCurrentOptions(currentOptions)),
   setCurrentTable: currentTable => dispatch(setCurrentTable(currentTable)),
   setAllTables: allTables => dispatch(setAllTables(allTables)),
   setAllOptions: allOptions => dispatch(setAllOptions(allOptions))

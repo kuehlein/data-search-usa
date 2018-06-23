@@ -25,10 +25,22 @@ class OptionsSelection extends Component {
     if (currentTable) {
       axios
         .get(`/api/table/datausa/${currentTable}`)
-        .then(res =>
-          this.props.setCurrentOptions(allOptions[res.data.source.table])
+        .then(
+          res =>
+            res.data.error
+              ? this.props.setCurrentOptions([
+                  "THIS TABLE IS CURRENTLY UNAVAILABLE"
+                ])
+              : this.props.setCurrentOptions(allOptions[res.data.source.table])
         )
         .catch(err => console.log(err));
+    }
+
+    // if the selected table is changed, clear the currentOptions
+    // used for that table
+    if (nextProps.currentTable !== this.props.currentTable) {
+      this.setState({ selected: [] });
+      this.props.setCurrentOptions([]);
     }
   }
 
@@ -49,7 +61,7 @@ class OptionsSelection extends Component {
       return arr;
     };
 
-    this.setState({ selected: addOrRemove(copy, type) }); // needs to clear when table changes
+    this.setState({ selected: addOrRemove(copy, type) });
   }
 
   handleSubmit() {

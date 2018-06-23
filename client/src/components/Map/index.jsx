@@ -17,11 +17,11 @@ class Map extends Component {
   componentWillReceiveProps(nextProps) {
     const { currentTable } = nextProps;
 
-    axios
-      .get(`/api/table/datausa/${currentTable}`)
-      // .then(res => this.props.)
-      .then(res => this.setState({ datausa: res.data }))
-      .catch(err => console.log(err));
+    // axios
+    //   .get(`/api/table/datausa/${currentTable}`)
+    //   // .then(res => this.props.)
+    //   .then(res => this.setState({ datausa: res.data }))
+    //   .catch(err => console.log(err));
   }
 
   render() {

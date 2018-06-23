@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import logo from "../../assets/logo.svg";
 import "./Panel.css";
 
@@ -14,4 +13,4 @@ const Panel = () => (
   </header>
 );
 
-export default connect(null)(Panel);
+export default Panel;

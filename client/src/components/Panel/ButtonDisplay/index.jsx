@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 import OptionsSelection from "./OptionsSelection";
 import TableSelection from "./TableSelection";
@@ -13,6 +13,6 @@ const ButtonDisplay = () => (
   </div>
 );
 
-export default connect(null)(ButtonDisplay);
+export default ButtonDisplay;
 
 // save buttons to db and retrieve their names

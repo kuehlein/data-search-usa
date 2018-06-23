@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 
 import "./App.css";
 import { Panel, Map } from "../index";
@@ -12,6 +11,6 @@ const App = () => (
   </div>
 );
 
-export default connect(null)(App);
+export default App;
 
 // create a template to simulate content while requests are loading
