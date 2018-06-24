@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import axios from "axios";
 
-import { setCurrentTable, setAllTables, setAllOptions } from "../../../store";
+import MapButtons from "./MapButtons";
+import { setCurrentTable, fetchPanelInitial } from "../../../store";
 
 // Request available tables from the api and display the options as buttons
 class TableSelection extends Component {
@@ -13,15 +13,8 @@ class TableSelection extends Component {
   }
 
   componentDidMount() {
-    // two requests are made to datausa's api
-    // the response of the axios call holds both
-    axios
-      .get("/api/table/datausa")
-      .then(res => {
-        this.props.setAllTables(res.data[0].sort());
-        this.props.setAllOptions(res.data[1]);
-      })
-      .catch(err => console.log(err));
+    // retrieve the data for the initial store's state of the panel
+    this.props.fetchPanelInitial();
   }
 
   handleClick(type) {
@@ -32,30 +25,19 @@ class TableSelection extends Component {
   render() {
     const { allTables } = this.props;
 
-    return (
-      <div>
-        {allTables &&
-          allTables.map(category => (
-            <button key={category} onClick={() => this.handleClick(category)}>
-              {category}
-            </button>
-          ))}
-      </div>
-    );
+    return <MapButtons handleClick={this.handleClick} allTables={allTables} />;
   }
 }
 TableSelection.defaultProps = {
   setCurrentTable: "",
   allTables: [],
-  setAllTables: [],
-  setAllOptions: {}
+  fetchPanelInitial: () => {}
 };
 
 TableSelection.propTypes = {
   setCurrentTable: PropTypes.func,
   allTables: PropTypes.arrayOf(PropTypes.string),
-  setAllTables: PropTypes.func,
-  setAllOptions: PropTypes.func
+  fetchPanelInitial: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -64,8 +46,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentTable: currentTable => dispatch(setCurrentTable(currentTable)),
-  setAllTables: allTables => dispatch(setAllTables(allTables)),
-  setAllOptions: allOptions => dispatch(setAllOptions(allOptions))
+  fetchPanelInitial: () => dispatch(fetchPanelInitial())
 });
 
 export default connect(

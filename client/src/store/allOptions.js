@@ -1,3 +1,9 @@
+import axios from "axios";
+import store from "./";
+import { setAllTables } from "./allTables";
+import { setCurrentOptions } from "./currentOptions";
+import { removeMissingTable } from "../utils";
+
 /*
  * allOptions manages the state of an object requested
  * from datausa's api that contains all of the tables
@@ -22,6 +28,43 @@ export const setAllOptions = allOptions => ({
   type: SET_ALL_OPTIONS,
   allOptions
 });
+
+/*
+ * THUNK CREATORS
+ */
+// two requests are made to datausa's api
+// res.data[0] - allTables
+// res.data[1] - allOptions
+export const fetchPanelInitial = () => dispatch =>
+  axios
+    .get("/api/table/datausa")
+    .then(res => {
+      dispatch(setAllTables(res.data[0].sort()));
+      dispatch(setAllOptions(res.data[1]));
+    })
+    .catch(err => console.log(err));
+
+/*
+ * when a new table is selected request datausa
+ * to find the exact table name and cross reference
+ * allOptions to find the corresponding options. if an
+ * error is returned, remove the table from allTables.
+ */
+export const fetchCurrentOptions = (nextTable, allOptions) => dispatch =>
+  axios
+    .get(`/api/table/datausa/${nextTable}`)
+    .then(res => {
+      if (res.data.error) {
+        const { currentTable, allTables } = store.getState();
+        const copyOfAllTables = removeMissingTable(currentTable, allTables);
+
+        dispatch(setCurrentOptions(["THIS TABLE IS CURRENTLY UNAVAILABLE"]));
+        dispatch(setAllTables(copyOfAllTables));
+      } else {
+        dispatch(setCurrentOptions(allOptions[res.data.source.table]));
+      }
+    })
+    .catch(err => console.log(err));
 
 /*
  * REDUCER
