@@ -3,7 +3,7 @@ const request = require("request-promise");
 // necessary models
 
 // GET - datausa catagory titles
-router.get("/datausa", (req, res) => {
+router.get("/", (req, res) => {
   const options1 = {
     uri: "http://api.datausa.io/attrs/list/", // tables
     simple: false,
@@ -28,7 +28,7 @@ router.get("/datausa", (req, res) => {
 });
 
 // GET - datausa table fields
-router.get("/datausa/:table", (req, res) => {
+router.get("/:table", (req, res) => {
   const { table } = req.params;
 
   const options = {
@@ -38,26 +38,23 @@ router.get("/datausa/:table", (req, res) => {
   };
 
   request(options)
-    .then(data => res.status(200).send(data))
+    .then(response => res.status(200).send(response))
     .catch(err => res.status(400).send(err));
 });
 
 // GET - datausa tables using selected fields
-router.get("/datausa/:table/:fields", (req, res) => {
+router.get("/:table/:fields", (req, res) => {
   const { table, fields } = req.params;
 
   const options = {
     // &sumlevel=${level}
-    uri: `http://api.datausa.io/api/?show=${table}`,
+    uri: `http://api.datausa.io/api/?show=${table}&required=${fields}`,
     simple: false,
     json: true
   };
 
-  // data.source.table
-  // contains column names
-
   request(options)
-    .then(data => res.status(200).send(data))
+    .then(response => res.status(200).send(response))
     .catch(err => res.status(400).send(err));
 });
 
