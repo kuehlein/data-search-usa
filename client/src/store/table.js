@@ -26,7 +26,7 @@ export const setTable = table => ({
  */
 export const fetchTable = (currentTable, selected) => dispatch =>
   axios
-    .get(`/api/table/datausa/${currentTable}/${selected}`)
+    .get(`/api/datausa/${currentTable}/${selected.join(",")}`)
     .then(res => dispatch(setTable(res.data)))
     .catch(err => console.log(err));
 

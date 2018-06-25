@@ -13,12 +13,10 @@ class TableSelection extends Component {
   }
 
   componentDidMount() {
-    // retrieve the data for the initial store's state of the panel
     this.props.fetchPanelInitial();
   }
 
   handleClick(type) {
-    // choose a table to request
     this.props.setCurrentTable(type);
   }
 

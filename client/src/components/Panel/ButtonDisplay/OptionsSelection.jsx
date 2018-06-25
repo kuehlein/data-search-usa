@@ -18,19 +18,16 @@ class OptionsSelection extends Component {
       selected: []
     };
     this.handleClick = this.handleClick.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     const { fetchCurrentOptions, setCurrentOptions, allOptions } = this.props;
     const { currentTable } = nextProps;
 
-    // find the options for the table selected
     if (currentTable !== this.props.currentTable) {
       fetchCurrentOptions(currentTable, allOptions);
 
-      // if the selected table is changed, clear the
-      // currentOptions used for that table
+      // if the table is changed, clear the currentOptions
       if (this.state.selected.length) {
         this.setState({ selected: [] });
         setCurrentOptions([]);
@@ -41,23 +38,12 @@ class OptionsSelection extends Component {
   handleClick(type) {
     const copyOfSelected = this.state.selected.slice();
 
-    // check to see if a search option is selected
-    // on local state if so, remove it, if not, add it
     this.setState({ selected: addOrRemove(copyOfSelected, type) });
   }
 
-  handleSubmit() {
-    const { fetchTable, currentTable } = this.props;
-    const { selected } = this.state;
-
-    console.log("submit hit");
-
-    // make a request for the currentTable with the selected options
-    fetchTable(currentTable, selected);
-  }
-
   render() {
-    const { currentOptions } = this.props;
+    const { currentOptions, fetchTable, currentTable } = this.props;
+    const { selected } = this.state;
     console.log(this.state.selected); // <------(DELETE)---<<<
 
     return (
@@ -67,7 +53,7 @@ class OptionsSelection extends Component {
           currentOptions={currentOptions}
         />
         <br />
-        <button onSubmit={() => this.handleSubmit()}>Go!</button>
+        <button onClick={() => fetchTable(currentTable, selected)}>Go!</button>
       </div>
     );
   }

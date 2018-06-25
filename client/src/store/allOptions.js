@@ -32,12 +32,10 @@ export const setAllOptions = allOptions => ({
 /*
  * THUNK CREATORS
  */
-// two requests are made to datausa's api
-// res.data[0] - allTables
-// res.data[1] - allOptions
+// two requests to datausa's api, for tables and options
 export const fetchPanelInitial = () => dispatch =>
   axios
-    .get("/api/table/datausa")
+    .get("/api/datausa")
     .then(res => {
       dispatch(setAllTables(res.data[0].sort()));
       dispatch(setAllOptions(res.data[1]));
@@ -52,7 +50,7 @@ export const fetchPanelInitial = () => dispatch =>
  */
 export const fetchCurrentOptions = (nextTable, allOptions) => dispatch =>
   axios
-    .get(`/api/table/datausa/${nextTable}`)
+    .get(`/api/datausa/${nextTable}`)
     .then(res => {
       if (res.data.error) {
         const { currentTable, allTables } = store.getState();
@@ -61,7 +59,7 @@ export const fetchCurrentOptions = (nextTable, allOptions) => dispatch =>
         dispatch(setCurrentOptions(["THIS TABLE IS CURRENTLY UNAVAILABLE"]));
         dispatch(setAllTables(copyOfAllTables));
       } else {
-        dispatch(setCurrentOptions(allOptions[res.data.source.table]));
+        dispatch(setCurrentOptions(allOptions[res.data.source.table].sort()));
       }
     })
     .catch(err => console.log(err));
