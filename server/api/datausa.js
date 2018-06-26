@@ -32,7 +32,7 @@ router.get("/:table", (req, res) => {
   const { table } = req.params;
 
   const options = {
-    uri: `http://api.datausa.io/api/?show=${table}&year=latest&required=year`,
+    uri: `http://api.datausa.io/api/?show=${table}&limit=1`,
     simple: false,
     json: true
   };
