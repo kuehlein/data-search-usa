@@ -1,7 +1,8 @@
 import axios from "axios";
 import store from "./";
 import { setAllTables } from "./allTables";
-import { removeMissingTable } from "../utils";
+import { setFilterOptions } from "./filterOptions";
+import { removeMissingTable, findLevels } from "../utils";
 
 /*
  * currentOptions are the options that are currently
@@ -29,8 +30,8 @@ export const setCurrentOptions = options => ({
 /*
  * when a new table is selected request datausa
  * to find the exact table name and cross reference
- * allOptions to find the corresponding options. if an
- * error is returned, remove the table from allTables.
+ * allOptions to find the corresponding options and filterOptions.
+ * if an error is returned, remove the table from allTables.
  */
 export const fetchCurrentOptions = (nextTable, allOptions) => dispatch =>
   axios
@@ -43,8 +44,15 @@ export const fetchCurrentOptions = (nextTable, allOptions) => dispatch =>
         dispatch(setCurrentOptions(["THIS TABLE IS CURRENTLY UNAVAILABLE"]));
         dispatch(setAllTables(copyOfAllTables));
       } else {
-        console.log("co", res);
+        const filterOptions = {
+          tableName: res.data.source.table,
+          otherTables: res.data.logic.map(set => set.table),
+          sumLevel: findLevels(res.data.source.supported_levels),
+          year: res.data.source.supported_levels.year || []
+        };
+
         dispatch(setCurrentOptions(allOptions[res.data.source.table].sort()));
+        dispatch(setFilterOptions(filterOptions));
       }
     })
     .catch(err => console.log(err));
@@ -61,3 +69,15 @@ export default (state = [], action) => {
       return state;
   }
 };
+
+/*
+ * filterOptions
+ *
+ * otherTables: [] <--- logic[?].supported_levels (loop)
+ * level: [] <--------- source.supported_levels
+ * year: [] <---------- in supported levels
+ */
+
+// create filterOptions
+// setFilterOption within fetchCurrentOptions
+// implement filterDisplay

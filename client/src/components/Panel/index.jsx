@@ -3,6 +3,7 @@ import logo from "../../assets/logo.svg";
 import "./Panel.css";
 
 import ButtonDisplay from "./ButtonDisplay";
+import FilterDisplay from "./FilterDisplay";
 
 // the presentaional component for the control panel
 const Panel = () => (
@@ -38,9 +39,15 @@ const Panel = () => (
     </nav>
 
     <ButtonDisplay />
+    <FilterDisplay />
   </div>
 );
 
 export default Panel;
 
 // apply "disabled" to currently in use tab
+
+// choose table
+// choose filter fields
+// choose column
+// choose where statements (as many as selected)

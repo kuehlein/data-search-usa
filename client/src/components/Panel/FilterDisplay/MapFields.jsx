@@ -2,16 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MapFields = props => {
-  const { handleClick, currentOptions, allTables } = props;
-  const propsAvailable = allTables.length ? allTables : currentOptions;
+  const { handleClick, fields, where } = props;
+  const propsAvailable = fields.length ? fields : where;
 
   return (
     <div>
       {propsAvailable &&
-        propsAvailable.map(column => (
-          <div key={column}>
+        propsAvailable.map(field => (
+          <div key={field}>
             <label>
-              {column}
+              {field}
               <input type="text" name="fname" />
             </label>
             <br />
@@ -21,17 +21,16 @@ const MapFields = props => {
   );
 };
 MapFields.defaultProps = {
-  handleClick: () => {},
-  allTables: [],
-  currentOptions: []
+  handleClick: () => {}
 };
 
 MapFields.propTypes = {
-  handleClick: PropTypes.func,
-  allTables: PropTypes.arrayOf(PropTypes.string),
-  currentOptions: PropTypes.arrayOf(PropTypes.string)
+  handleClick: PropTypes.func
 };
 
 export default MapFields;
 
-// THIS IS ONLY A GIST SO FAR
+// array = select
+// integer = input
+//
+// sumlevel ???

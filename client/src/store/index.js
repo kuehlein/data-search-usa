@@ -8,13 +8,15 @@ import allTables from "./allTables";
 import currentTable from "./currentTable";
 import allOptions from "./allOptions";
 import currentOptions from "./currentOptions";
+import filterOptions from "./filterOptions";
 
 const reducer = combineReducers({
   table,
   allTables,
   currentTable,
   allOptions,
-  currentOptions
+  currentOptions,
+  filterOptions
 });
 
 const middleware = composeWithDevTools(
@@ -29,6 +31,7 @@ export * from "./allTables";
 export * from "./currentTable";
 export * from "./allOptions";
 export * from "./currentOptions";
+export * from "./filterOptions";
 
 // server api route
 export const SERVER = "http://localhost:3001";
