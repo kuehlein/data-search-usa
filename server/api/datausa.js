@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const request = require("request-promise");
-const utils = require("./utils");
 // necessary models
 
 // GET - datausa catagory titles
@@ -16,8 +15,6 @@ router.get("/", (req, res) => {
     json: true
   };
   let firstResponse;
-
-  // res.status(200).send([utils.attributes.data, utils.variables.metadata]);
 
   request(options1)
     .then(response => {
@@ -40,8 +37,6 @@ router.get("/:table", (req, res) => {
     json: true
   };
 
-  // res.status(200).send(utils.degree);
-
   request(options)
     .then(response => res.status(200).send(response))
     .catch(err => res.status(400).send(err));
@@ -57,8 +52,6 @@ router.get("/:table/:fields", (req, res) => {
     simple: false,
     json: true
   };
-
-  // res.status(200).send(utils.degree);
 
   request(options)
     .then(response => res.status(200).send(response))
