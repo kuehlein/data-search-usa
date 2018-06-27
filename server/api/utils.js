@@ -7,4 +7,4 @@ const err = (status, message) => {
 
 module.exports = {
   err
-};
+}

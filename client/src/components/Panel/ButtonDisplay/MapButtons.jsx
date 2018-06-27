@@ -6,14 +6,30 @@ const MapButtons = props => {
   const propsAvailable = allTables.length ? allTables : currentOptions;
 
   return (
-    <div>
+    <div className="d-flex justify-content-center flex-wrap">
       {propsAvailable &&
         propsAvailable.map(column => (
-          <button key={column} onClick={() => handleClick(column)}>
+          <button
+            type="button"
+            className="btn btn-light"
+            key={column}
+            onClick={() => handleClick(column)}
+          >
             {column}
           </button>
         ))}
     </div>
+    // <div className="form-group">
+    //   <label for="sel1">Select list:</label>
+    //   <select className="form-control" id="sel1">
+    //     {propsAvailable &&
+    //       propsAvailable.map(column => (
+    //         <option key={column} onClick={() => handleClick(column)}>
+    //           {column}
+    //         </option>
+    //       ))}
+    //   </select>
+    // </div>
   );
 };
 MapButtons.defaultProps = {

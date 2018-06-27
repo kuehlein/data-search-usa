@@ -25,7 +25,7 @@ const Map = props => {
   console.log(table); // <----(DELETE)--------<<<
 
   return (
-    <div className="App-intro">
+    <div>
       <br />
       <br />
       <br />

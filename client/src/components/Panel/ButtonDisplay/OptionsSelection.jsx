@@ -47,13 +47,19 @@ class OptionsSelection extends Component {
     console.log(this.state.selected); // <------(DELETE)---<<<
 
     return (
-      <div>
+      <div className="d-flex flex-column justify-content-center">
         <MapButtons
           handleClick={this.handleClick}
           currentOptions={currentOptions}
         />
         <br />
-        <button onClick={() => fetchTable(currentTable, selected)}>Go!</button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => fetchTable(currentTable, selected)}
+        >
+          Go!
+        </button>
       </div>
     );
   }
