@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import MapButtons from "./MapButtons";
-import { addOrRemove } from "../../../utils";
+import MapButtons from "./IterableContent/MapButtons";
+import { addOrRemove } from "../../utils";
 import {
   setCurrentOptions,
   fetchCurrentOptions,
   fetchTable
-} from "../../../store";
+} from "../../store";
 
 // when a table is selected, display the search options as buttons
 class OptionsSelection extends Component {

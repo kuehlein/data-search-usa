@@ -41,37 +41,37 @@ export const fields = [
 export const where = [
   {
     name: "Greater Than",
-    expression: `${column}:>${value}`, // check that greater than and less than dont conflict
+    expression: ":>", // check that greater than and less than dont conflict
     field: "",
     description: "Search for values greater than the input value."
   },
   {
     name: "Less Than",
-    expression: `${column}:<${value}`,
+    expression: ":<",
     field: "",
     description: "Search for values less than the input value."
   },
   {
     name: "Starts With",
-    expression: `${column}:^${value}`,
+    expression: ":^",
     field: "",
     description: "Search for values that start with the input word."
   },
   {
     name: "Ends With",
-    expression: `${column}:${value}$`,
+    expression: ":$",
     field: "",
     description: "Search for values that end with the input word."
   },
   {
     name: "Number Not Equal To",
-    expression: `${column}:!${value}`,
+    expression: ":!",
     field: "",
     description: "Search for values that are not equal to input number."
   },
   {
     name: "Text Not Equal To",
-    expression: `${column}:str!${value}`,
+    expression: ":str!",
     field: "",
     description: "Search for values that are not equal to input text."
   }

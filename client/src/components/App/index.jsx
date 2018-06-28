@@ -1,11 +1,11 @@
 import React from "react";
 
 import "./App.css";
-import { Panel, Map } from "../index";
+import { Panel, Map, Navbar } from "../index";
 
 const App = () => (
   <div>
-    {/* navbar */}
+    <Navbar />
     <Panel />
     <Map />
   </div>

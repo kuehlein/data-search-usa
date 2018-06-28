@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import MapButtons from "./MapButtons";
-import { setCurrentTable, fetchPanelInitial } from "../../../store";
+import MapButtons from "./IterableContent/MapButtons";
+import { setCurrentTable, fetchPanelInitial } from "../../store";
 
 // Request available tables from the api and display the options as buttons
 class TableSelection extends Component {
