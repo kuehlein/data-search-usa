@@ -2,7 +2,7 @@ import { checkIfEmpty } from "../../../utils";
 
 export const fields = (otherTables, currentOptions, sumlevel, year) => [
   {
-    name: "Use Table", // loop through 'logic' array and find all 'table' attributes to create an array of options
+    name: "Use Table",
     type: "force",
     field: checkIfEmpty(otherTables),
     description: "Forces the use of a particular data table."
@@ -19,7 +19,7 @@ export const fields = (otherTables, currentOptions, sumlevel, year) => [
     field:
       currentOptions[0] === "THIS TABLE IS CURRENTLY UNAVAILABLE"
         ? checkIfEmpty([])
-        : currentOptions,
+        : checkIfEmpty(currentOptions),
     description: "Column name to use for ordering the resulting data array."
   },
   {
@@ -41,38 +41,32 @@ export const fields = (otherTables, currentOptions, sumlevel, year) => [
 export const where = [
   {
     name: "Greater Than",
-    expression: ":>", // check that greater than and less than dont conflict
-    field: "",
+    type: ":>", // check that greater than and less than dont conflict
     description: "Search for values greater than the input value."
   },
   {
     name: "Less Than",
-    expression: ":<",
-    field: "",
+    type: ":<",
     description: "Search for values less than the input value."
   },
   {
     name: "Starts With",
-    expression: ":^",
-    field: "",
+    type: ":^",
     description: "Search for values that start with the input word."
   },
   {
     name: "Ends With",
-    expression: ":$",
-    field: "",
+    type: ":$",
     description: "Search for values that end with the input word."
   },
   {
     name: "Number Not Equal To",
-    expression: ":!",
-    field: "",
+    type: ":!",
     description: "Search for values that are not equal to input number."
   },
   {
     name: "Text Not Equal To",
-    expression: ":str!",
-    field: "",
+    type: ":str!",
     description: "Search for values that are not equal to input text."
   }
 ];

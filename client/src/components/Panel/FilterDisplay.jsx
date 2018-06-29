@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import MapFields from "./IterableContent//MapFields";
+
+import { addOrUpdate } from "../../utils";
+import MapFields from "./IterableContent/MapFields";
 
 // filter options for a table query
 class FilterDisplay extends Component {
@@ -10,16 +12,14 @@ class FilterDisplay extends Component {
     this.state = {
       filters: []
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { currentOptions } = this.props;
+    const { currentTable } = this.props;
 
     // does not update when props are recieved
-    if (currentOptions !== nextProps.currentOptions) {
-      // fetchCurrentOptions(currentTable, allOptions);
-
+    if (currentTable !== nextProps.currentTable) {
       // if the table is changed, clear the currentOptions
       if (this.state.filters.length) {
         this.setState({ filters: [] });
@@ -27,8 +27,14 @@ class FilterDisplay extends Component {
     }
   }
 
-  handleClick(type) {
-    // this.setState({ filters: this.state.filters.concat([type]) });
+  handleChange(event, type) {
+    const fieldState = {
+      type: type,
+      value: event.target.value
+    };
+    const nextState = addOrUpdate(this.state.filters, fieldState);
+
+    this.setState({ filters: nextState });
   }
 
   render() {
@@ -39,18 +45,18 @@ class FilterDisplay extends Component {
         ? where
         : fields(otherTables, currentOptions, sumlevel, year);
 
+    console.log("state", this.state.filters);
+
     return (
       <div className="d-flex flex-column justify-content-center">
-        <MapFields
-          /* handleClick={() => this.handleClick()} */
-          template={propsAvailable}
-        />
+        <MapFields handleChange={this.handleChange} template={propsAvailable} />
       </div>
     );
   }
 }
 FilterDisplay.defaultProps = {
   currentOptions: [],
+  currentTable: "",
   filterOptions: {},
   fields: [],
   where: []
@@ -58,6 +64,7 @@ FilterDisplay.defaultProps = {
 
 FilterDisplay.propTypes = {
   currentOptions: PropTypes.arrayOf(PropTypes.string),
+  currentTable: PropTypes.string,
   filterOptions: PropTypes.objectOf(PropTypes.any),
   fields: PropTypes.any,
   where: PropTypes.arrayOf(PropTypes.object)
@@ -65,6 +72,7 @@ FilterDisplay.propTypes = {
 
 const mapStateToProps = state => ({
   currentOptions: state.currentOptions,
+  currentTable: state.currentTable,
   filterOptions: state.filterOptions
 });
 

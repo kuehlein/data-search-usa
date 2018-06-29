@@ -52,3 +52,21 @@ export const findLevels = allTables => {
 // checks if there are any option for a select element before mapping
 export const checkIfEmpty = arr =>
   arr.length ? arr : ["No Values Available At This Time."];
+
+// checks state for a value, adds or updates it accordingly
+export const addOrUpdate = (state, value) => {
+  const copyOfState = state.slice();
+
+  for (let i = 0; i < state.length; i++) {
+    if (state[i].type === value.type) {
+      if (value.value === "") {
+        copyOfState.splice(i, 1);
+        return copyOfState;
+      }
+      copyOfState[i] = value;
+      return copyOfState;
+    }
+  }
+
+  return copyOfState.concat(value);
+};
