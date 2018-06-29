@@ -37,12 +37,13 @@ export const addOrRemove = (arr, column) => {
 
 // finds the different sumLevels for a certain attribute
 export const findLevels = allTables => {
-  const levels = [];
+  let levels = [];
   const keys = Object.keys(allTables);
 
   for (let i = 0; i < keys.length; i++) {
     if (allTables[keys[i]] !== "year" && allTables[keys[i]] !== "table") {
-      levels.push({ type: keys[i], [keys[i]]: allTables[keys[i]] });
+      const options = allTables[keys[i]].map(str => `${str} (${keys[i]})`);
+      levels = levels.concat(options);
     }
   }
   return levels;

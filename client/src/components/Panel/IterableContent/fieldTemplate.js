@@ -16,7 +16,10 @@ export const fields = (otherTables, currentOptions, sumlevel, year) => [
   {
     name: "Order of Columns",
     type: "order",
-    field: checkIfEmpty(currentOptions),
+    field:
+      currentOptions[0] === "THIS TABLE IS CURRENTLY UNAVAILABLE"
+        ? checkIfEmpty([])
+        : currentOptions,
     description: "Column name to use for ordering the resulting data array."
   },
   {

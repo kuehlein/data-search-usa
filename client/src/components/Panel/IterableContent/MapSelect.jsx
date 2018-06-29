@@ -11,6 +11,7 @@ const MapFields = props => {
         {field.name}
         {Array.isArray(field.field) ? (
           <select name={field.name} title={field.description}>
+            <option />
             {field.field.map((elem, i) => (
               <option key={i} value={elem}>
                 {elem}
