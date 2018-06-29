@@ -78,8 +78,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(FilterDisplay);
 
-// make select fields work
 // clear them on change
-// clean up code
-// track state in fields onChange
 // set up search with filters
