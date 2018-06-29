@@ -28,5 +28,3 @@ MapFields.propTypes = {
 };
 
 export default MapFields;
-
-// onChange

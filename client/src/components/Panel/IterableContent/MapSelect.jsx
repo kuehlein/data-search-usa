@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import FieldSelect from "./FieldSelect";
 
 // flesh out the appropriate options for filtering
 const MapFields = props => {
@@ -10,24 +11,13 @@ const MapFields = props => {
       <label htmlFor={field.name}>
         {field.name}
         {Array.isArray(field.field) ? (
-          <select
-            name={field.name}
-            title={field.description}
-            onChange={e => handleChange(e, field.type)}
-          >
-            <option />
-            {field.field.map((elem, i) => (
-              <option key={i} value={elem}>
-                {elem}
-              </option>
-            ))}
-          </select>
+          <FieldSelect field={field} handleChange={handleChange} />
         ) : (
           <input
             type="text"
             name={field.name}
             title={field.description}
-            onChange={handleChange}
+            onChange={e => handleChange(e, field.type)}
           />
         )}
       </label>

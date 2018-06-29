@@ -57,12 +57,12 @@ export const checkIfEmpty = arr =>
 export const addOrUpdate = (state, value) => {
   const copyOfState = state.slice();
 
+  if (value.value === "") {
+    return copyOfState;
+  }
+
   for (let i = 0; i < state.length; i++) {
     if (state[i].type === value.type) {
-      if (value.value === "") {
-        copyOfState.splice(i, 1);
-        return copyOfState;
-      }
       copyOfState[i] = value;
       return copyOfState;
     }

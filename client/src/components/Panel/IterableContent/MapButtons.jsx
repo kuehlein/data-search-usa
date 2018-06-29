@@ -20,7 +20,7 @@ const MapButtons = props => {
         ))}
     </div>
     // <div className="form-group">
-    //   <label for="sel1">Select list:</label>
+    //   <label htmlFor="sel1">Select list:</label>
     //   <select className="form-control" id="sel1">
     //     {propsAvailable &&
     //       propsAvailable.map(column => (
