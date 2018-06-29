@@ -47,7 +47,7 @@ export const fetchCurrentOptions = (nextTable, allOptions) => dispatch =>
         const filterOptions = {
           tableName: res.data.source.table,
           otherTables: res.data.logic.map(set => set.table),
-          sumLevel: findLevels(res.data.source.supported_levels),
+          sumlevel: findLevels(res.data.source.supported_levels),
           year: res.data.source.supported_levels.year || []
         };
 

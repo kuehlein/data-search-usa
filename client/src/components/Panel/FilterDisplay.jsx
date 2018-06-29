@@ -32,8 +32,12 @@ class FilterDisplay extends Component {
   }
 
   render() {
-    const { fields, where } = this.props;
-    const propsAvailable = fields.length ? fields : where;
+    const { currentOptions, filterOptions, fields, where } = this.props;
+    const { otherTables, sumlevel, year } = filterOptions;
+    const propsAvailable =
+      typeof fields !== "function"
+        ? where
+        : fields(otherTables, currentOptions, sumlevel, year);
 
     return (
       <div className="d-flex flex-column justify-content-center">
@@ -47,18 +51,21 @@ class FilterDisplay extends Component {
 }
 FilterDisplay.defaultProps = {
   currentOptions: [],
+  filterOptions: {},
   fields: [],
   where: []
 };
 
 FilterDisplay.propTypes = {
   currentOptions: PropTypes.arrayOf(PropTypes.object),
-  fields: PropTypes.arrayOf(PropTypes.object),
+  filterOptions: PropTypes.objectOf(PropTypes.any),
+  fields: PropTypes.any,
   where: PropTypes.arrayOf(PropTypes.object)
 };
 
 const mapStateToProps = state => ({
-  currentOptions: state.currentOptions
+  currentOptions: state.currentOptions,
+  filterOptions: state.filterOptions
 });
 
 export default connect(mapStateToProps)(FilterDisplay);

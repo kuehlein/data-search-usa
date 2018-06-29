@@ -1,10 +1,6 @@
-import store from "../../../store";
 import { checkIfEmpty } from "../../../utils";
 
-const { currentOptions, filterOptions } = store.getState();
-const { otherTables, sumlevel, year } = filterOptions;
-
-export const fields = [
+export const fields = (otherTables, currentOptions, sumlevel, year) => [
   {
     name: "Use Table", // loop through 'logic' array and find all 'table' attributes to create an array of options
     type: "force",
@@ -38,7 +34,41 @@ export const fields = [
   }
 ];
 
-// for each selected column
+// export const fields = [
+//   {
+//     name: "Use Table", // loop through 'logic' array and find all 'table' attributes to create an array of options
+//     type: "force",
+//     field: checkIfEmpty(otherTables),
+//     description: "Forces the use of a particular data table."
+//   },
+//   {
+//     name: "Limit Rows",
+//     type: "limit",
+//     field: Infinity,
+//     description: "Limits the number of rows returned by the query."
+//   },
+//   {
+//     name: "Order of Columns",
+//     type: "order",
+//     field: checkIfEmpty(currentOptions),
+//     description: "Column name to use for ordering the resulting data array."
+//   },
+//   {
+//     name: "Level",
+//     type: "sumlevel",
+//     field: checkIfEmpty(sumlevel), // required
+//     description:
+//       "This restricts the data fetched to only display the specified levels." // If more than one 'show' attribute is specified, sumlevel must be a comma-separated list with a value for each attribute.
+//   },
+//   {
+//     name: "Year", // only show if applicable
+//     type: "year",
+//     field: checkIfEmpty(year),
+//     description: "Filters the returned data to the given year."
+//   }
+// ];
+
+// // for each selected column
 export const where = [
   {
     name: "Greater Than",
