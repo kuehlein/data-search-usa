@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import MapSelect from "./MapSelect";
 
-// flesh out the appropriate options for filtering
+// map out filter fields
 const MapFields = props => {
-  const { handleClick, template } = props;
+  const { /* handleClick, */ template } = props;
 
   return (
     <div>
@@ -18,12 +18,12 @@ const MapFields = props => {
   );
 };
 MapFields.defaultProps = {
-  handleClick: () => {},
-  template: []
+  /* handleClick: () => {}, */
+  template: [{}]
 };
 
 MapFields.propTypes = {
-  handleClick: PropTypes.func,
+  /* handleClick: PropTypes.func, */
   template: PropTypes.arrayOf(PropTypes.object)
 };
 

@@ -18,7 +18,6 @@ class FilterDisplay extends Component {
 
     // does not update when props are recieved
     if (currentOptions !== nextProps.currentOptions) {
-      // fix this
       // fetchCurrentOptions(currentTable, allOptions);
 
       // if the table is changed, clear the currentOptions
@@ -29,7 +28,7 @@ class FilterDisplay extends Component {
   }
 
   handleClick(type) {
-    this.setState({ filters: this.state.filters.concat([type]) });
+    // this.setState({ filters: this.state.filters.concat([type]) });
   }
 
   render() {
@@ -39,7 +38,7 @@ class FilterDisplay extends Component {
     return (
       <div className="d-flex flex-column justify-content-center">
         <MapFields
-          handleClick={() => this.handleClick()}
+          /* handleClick={() => this.handleClick()} */
           template={propsAvailable}
         />
       </div>

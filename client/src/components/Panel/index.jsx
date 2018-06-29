@@ -18,6 +18,7 @@ const Panel = () => (
     <OptionsSelection />
     <FilterDisplay where={where} />
     {/* add another? */}
+    {/* Go! */}
   </div>
 );
 

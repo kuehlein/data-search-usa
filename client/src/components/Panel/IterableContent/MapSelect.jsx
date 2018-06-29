@@ -10,16 +10,15 @@ const MapFields = props => {
       <label htmlFor={field.name}>
         {field.name}
         {Array.isArray(field.field) ? (
-          <select name={field.name}>
-            {field.length &&
-              field.map(elem => (
-                <option key={elem.name} value={elem.field}>
-                  {elem.field}
-                </option>
-              ))}
+          <select name={field.name} title={field.description}>
+            {field.field.map((elem, i) => (
+              <option key={i} value={elem}>
+                {elem}
+              </option>
+            ))}
           </select>
         ) : (
-          <input type="text" name={field.name} />
+          <input type="text" name={field.name} title={field.description} />
         )}
       </label>
     </div>
@@ -30,7 +29,7 @@ MapFields.defaultProps = {
 };
 
 MapFields.propTypes = {
-  field: PropTypes.arrayOf(PropTypes.object)
+  field: PropTypes.any
 };
 
 export default MapFields;
