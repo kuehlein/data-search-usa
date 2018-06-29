@@ -57,7 +57,7 @@ FilterDisplay.defaultProps = {
 };
 
 FilterDisplay.propTypes = {
-  currentOptions: PropTypes.arrayOf(PropTypes.object),
+  currentOptions: PropTypes.arrayOf(PropTypes.string),
   filterOptions: PropTypes.objectOf(PropTypes.any),
   fields: PropTypes.any,
   where: PropTypes.arrayOf(PropTypes.object)
