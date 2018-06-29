@@ -27,12 +27,13 @@ export const removeMissingTable = (currentTable, allTables) => {
 // check to see if a search option is selected on local state
 // if so, remove it, if not, add it
 export const addOrRemove = (arr, column) => {
-  const length = arr.length;
+  const copyOfArr = arr.slice();
+  const length = copyOfArr.length;
 
-  removeFromArray(arr, column);
-  if (arr.length === length) arr.push(column);
+  removeFromArray(copyOfArr, column);
+  if (copyOfArr.length === length) copyOfArr.push(column);
 
-  return arr;
+  return copyOfArr;
 };
 
 // finds the different sumLevels for a certain attribute

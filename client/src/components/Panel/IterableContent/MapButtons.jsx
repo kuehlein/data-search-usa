@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MapButtons = props => {
-  const { handleClick, currentOptions, allTables } = props;
+  const { handleClick, currentOptions, currentColumns, allTables } = props;
   const propsAvailable = allTables.length ? allTables : currentOptions;
 
   return (
@@ -13,7 +13,7 @@ const MapButtons = props => {
             type="button"
             className="btn btn-light"
             key={column}
-            onClick={() => handleClick(column)}
+            onClick={() => handleClick(column, currentColumns)}
           >
             {column}
           </button>
@@ -35,13 +35,15 @@ const MapButtons = props => {
 MapButtons.defaultProps = {
   handleClick: () => {},
   allTables: [],
-  currentOptions: []
+  currentOptions: [],
+  currentColumns: []
 };
 
 MapButtons.propTypes = {
   handleClick: PropTypes.func,
   allTables: PropTypes.arrayOf(PropTypes.string),
-  currentOptions: PropTypes.arrayOf(PropTypes.string)
+  currentOptions: PropTypes.arrayOf(PropTypes.string),
+  currentColumns: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default MapButtons;

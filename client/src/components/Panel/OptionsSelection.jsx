@@ -3,63 +3,45 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import MapButtons from "./IterableContent/MapButtons";
-import { addOrRemove } from "../../utils";
 import {
   setCurrentOptions,
   fetchCurrentOptions,
-  fetchTable
+  setCurrentColumns
 } from "../../store";
 
 // when a table is selected, display the search options as buttons
 class OptionsSelection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: []
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
   componentWillReceiveProps(nextProps) {
-    const { fetchCurrentOptions, setCurrentOptions, allOptions } = this.props;
+    const {
+      fetchCurrentOptions,
+      setCurrentOptions,
+      allOptions,
+      setCurrentColumns,
+      currentColumns
+    } = this.props;
     const { currentTable } = nextProps;
 
     if (currentTable !== this.props.currentTable) {
       fetchCurrentOptions(currentTable, allOptions);
 
       // if the table is changed, clear the currentOptions
-      if (this.state.selected.length) {
-        this.setState({ selected: [] });
+      if (currentColumns.length) {
+        setCurrentColumns([]);
         setCurrentOptions([]);
       }
     }
   }
 
-  handleClick(type) {
-    const copyOfSelected = this.state.selected.slice();
-
-    this.setState({ selected: addOrRemove(copyOfSelected, type) });
-  }
-
   render() {
-    const { currentOptions, fetchTable, currentTable } = this.props;
-    const { selected } = this.state;
-    console.log(this.state.selected); // <------(DELETE)---<<<
+    const { currentOptions, setCurrentColumns, currentColumns } = this.props;
 
     return (
       <div className="d-flex flex-column justify-content-center">
         <MapButtons
-          handleClick={this.handleClick}
+          handleClick={setCurrentColumns}
           currentOptions={currentOptions}
+          currentColumns={currentColumns}
         />
-        <br />
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => fetchTable(currentTable, selected)}
-        >
-          Go!
-        </button>
       </div>
     );
   }
@@ -70,7 +52,8 @@ OptionsSelection.defaultProps = {
   allOptions: {},
   setCurrentOptions: [],
   fetchCurrentOptions: () => {},
-  fetchTable: {}
+  currentColumns: [],
+  setCurrentColumns: () => {}
 };
 
 OptionsSelection.propTypes = {
@@ -79,13 +62,15 @@ OptionsSelection.propTypes = {
   allOptions: PropTypes.objectOf(PropTypes.array),
   setCurrentOptions: PropTypes.func,
   fetchCurrentOptions: PropTypes.func,
-  fetchTable: PropTypes.func
+  currentColumns: PropTypes.arrayOf(PropTypes.string),
+  setCurrentColumns: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   currentTable: state.currentTable,
   currentOptions: state.currentOptions,
-  allOptions: state.allOptions
+  allOptions: state.allOptions,
+  currentColumns: state.currentColumns
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -93,8 +78,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setCurrentOptions(currentOptions)),
   fetchCurrentOptions: (nextTable, nextOptions, removeTableUtil) =>
     dispatch(fetchCurrentOptions(nextTable, nextOptions, removeTableUtil)),
-  fetchTable: (currentTable, selected) =>
-    dispatch(fetchTable(currentTable, selected))
+  setCurrentColumns: (column, currentColumns) =>
+    dispatch(setCurrentColumns(column, currentColumns))
 });
 
 export default connect(

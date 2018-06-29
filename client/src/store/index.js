@@ -9,6 +9,7 @@ import currentTable from "./currentTable";
 import allOptions from "./allOptions";
 import currentOptions from "./currentOptions";
 import filterOptions from "./filterOptions";
+import currentColumns from "./currentColumns";
 
 const reducer = combineReducers({
   table,
@@ -16,7 +17,8 @@ const reducer = combineReducers({
   currentTable,
   allOptions,
   currentOptions,
-  filterOptions
+  filterOptions,
+  currentColumns
 });
 
 const middleware = composeWithDevTools(
@@ -32,6 +34,7 @@ export * from "./currentTable";
 export * from "./allOptions";
 export * from "./currentOptions";
 export * from "./filterOptions";
+export * from "./currentColumns";
 
 // server api route
 export const SERVER = "http://localhost:3001";
