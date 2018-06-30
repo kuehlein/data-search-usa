@@ -26,7 +26,7 @@ class OptionsSelection extends Component {
 
       // if the table is changed, clear the currentOptions
       if (currentColumns.length) {
-        setCurrentColumns([]);
+        setCurrentColumns([], currentColumns);
         setCurrentOptions([]);
       }
     }
@@ -63,7 +63,7 @@ OptionsSelection.propTypes = {
   setCurrentOptions: PropTypes.func,
   fetchCurrentOptions: PropTypes.func,
   currentColumns: PropTypes.arrayOf(PropTypes.string),
-  setCurrentColumns: PropTypes.func
+  setCurrentColumns: PropTypes.any
 };
 
 const mapStateToProps = state => ({

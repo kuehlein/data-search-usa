@@ -30,6 +30,8 @@ export const addOrRemove = (arr, column) => {
   const copyOfArr = arr.slice();
   const length = copyOfArr.length;
 
+  if (Array.isArray(column)) return column;
+
   removeFromArray(copyOfArr, column);
   if (copyOfArr.length === length) copyOfArr.push(column);
 

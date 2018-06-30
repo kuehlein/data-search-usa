@@ -45,7 +45,7 @@ class FilterDisplay extends Component {
         ? where
         : fields(otherTables, currentOptions, sumlevel, year);
 
-    console.log("state", this.state.filters);
+    console.log("filters", this.state.filters);
 
     return (
       <div className="d-flex flex-column justify-content-center">

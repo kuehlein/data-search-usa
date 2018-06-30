@@ -15,6 +15,8 @@ import { fetchTable } from "../../store";
 const Panel = props => {
   const { fetchTable, currentTable, currentColumns } = props;
 
+  console.log("panel", currentColumns);
+
   return (
     <div
       className="jumbotron btn-group container-fluid flex-column pt-4"
