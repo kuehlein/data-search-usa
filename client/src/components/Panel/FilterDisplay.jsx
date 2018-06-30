@@ -16,14 +16,11 @@ class FilterDisplay extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { currentTable } = this.props;
-
-    // does not update when props are recieved
-    if (currentTable !== nextProps.currentTable) {
-      // if the table is changed, clear the currentOptions
-      if (this.state.filters.length) {
-        this.setState({ filters: [] });
-      }
+    if (
+      this.props.currentTable !== nextProps.currentTable &&
+      this.state.filters.length
+    ) {
+      this.setState({ filters: [] });
     }
   }
 
@@ -38,18 +35,26 @@ class FilterDisplay extends Component {
   }
 
   render() {
-    const { currentOptions, filterOptions, fields, where } = this.props;
+    const {
+      currentOptions,
+      currentTable,
+      filterOptions,
+      fields,
+      where
+    } = this.props;
     const { otherTables, sumlevel, year } = filterOptions;
     const propsAvailable =
       typeof fields !== "function"
         ? where
         : fields(otherTables, currentOptions, sumlevel, year);
 
-    console.log("filters", this.state.filters);
-
     return (
       <div className="d-flex flex-column justify-content-center">
-        <MapFields handleChange={this.handleChange} template={propsAvailable} />
+        <MapFields
+          handleChange={this.handleChange}
+          template={propsAvailable}
+          currentTable={currentTable}
+        />
       </div>
     );
   }
@@ -77,6 +82,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(FilterDisplay);
-
-// clear them on change
-// set up search with filters
