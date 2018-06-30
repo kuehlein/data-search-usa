@@ -62,7 +62,12 @@ export default connect(
 )(Panel);
 
 /*
-// set up requests with filters
-// make "filter another column" button
-    // can multiple columns be filtered at once?
+ * set up requests with filters
+ *    -create store state for currentFilterOptions
+ *    -wire state into go button
+ *    -adjust route accordingly
+ *
+ * make "filter another column" button
+ *    -can multiple columns be filtered at once?
+ *
 */
