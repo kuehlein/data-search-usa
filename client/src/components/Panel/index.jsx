@@ -15,8 +15,6 @@ import { fetchTable } from "../../store";
 const Panel = props => {
   const { fetchTable, currentTable, currentColumns } = props;
 
-  console.log("panel", currentColumns);
-
   return (
     <div
       className="jumbotron btn-group container-fluid flex-column pt-4"
@@ -55,10 +53,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTable: () => dispatch(fetchTable())
+  fetchTable: (table, columns) => dispatch(fetchTable(table, columns))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Panel);
+
+/*
+// set up requests with filters
+// make "filter another column" button
+    // can multiple columns be filtered at once?
+*/
