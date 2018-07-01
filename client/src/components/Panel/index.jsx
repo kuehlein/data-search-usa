@@ -25,13 +25,19 @@ class Panel extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentTable !== nextProps.currentTable) {
+      this.setState({
+        columns: [""],
+        filterNum: 0
+      });
+    }
+  }
+
   handleClick(canClick) {
     if (!canClick) {
       this.setState({ filterNum: ++this.state.filterNum });
     }
-    /*
-     * clear on table change
-     */
   }
 
   handleChange(event) {
