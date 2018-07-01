@@ -5,23 +5,15 @@ import ChooseColumn from "../PanelToggles/ChooseColumn";
 import FilterNewColumn from "../PanelToggles/FilterNewColumn";
 import FilterDisplay from "./FilterDisplay";
 
+import { proliferateFields } from "../../../utils";
 import { where } from "../IterableContent/fieldTemplate";
 
-const jsxTemplate = (currentColumns, handleChange, columns) => [
-  <div>
+const jsxTemplate = (currentColumns, handleChange, columns) => i => (
+  <div key={i}>
     <ChooseColumn currentColumns={currentColumns} handleChange={handleChange} />
     <FilterDisplay where={where} column={columns[0]} />
   </div>
-];
-
-const proliferateFields = (num, template) => {
-  const arr = [];
-
-  for (let i = 0; i < num; i++) {
-    arr.push(template);
-  }
-  return arr;
-};
+);
 
 const ManageFilters = props => {
   const {
@@ -32,11 +24,18 @@ const ManageFilters = props => {
     filterNum
   } = props;
   const template = jsxTemplate(currentColumns, handleChange, columns);
+  const shouldDisable = () => {
+    if (!currentColumns[0]) return true;
+    return currentColumns.length === filterNum;
+  };
 
   return (
     <div>
       {proliferateFields(filterNum, template).map(set => set)}
-      <FilterNewColumn handleClick={handleClick} />
+      <FilterNewColumn
+        handleClick={handleClick}
+        shouldDisable={shouldDisable()}
+      />
     </div>
   );
 };

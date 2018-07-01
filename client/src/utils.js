@@ -86,3 +86,13 @@ export const removeEmptyField = (state, column, name) => {
 
   return Object.assign({}, state, { [column]: newObj });
 };
+
+// iterate a jsx template
+export const proliferateFields = (num, template) => {
+  const arr = [];
+
+  for (let i = 0; i < num; i++) {
+    arr.push(template(i));
+  }
+  return arr;
+};

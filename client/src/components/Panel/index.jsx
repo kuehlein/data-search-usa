@@ -25,8 +25,13 @@ class Panel extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleClick() {
-    this.setState({ filterNum: ++this.state.filterNum });
+  handleClick(canClick) {
+    if (!canClick) {
+      this.setState({ filterNum: ++this.state.filterNum });
+    }
+    /*
+     * clear on table change
+     */
   }
 
   handleChange(event) {
@@ -42,6 +47,8 @@ class Panel extends Component {
       currentFilterOptions,
       whereStatements
     } = this.props;
+
+    console.log("state", this.state);
 
     return (
       <div
