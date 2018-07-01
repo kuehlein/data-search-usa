@@ -29,11 +29,9 @@ const Panel = props => {
       <TableSelection />
       <FilterDisplay fields={fields} />
       <OptionsSelection />
-
       {/* choose a column to filter? */}
-      <FilterDisplay where={where} />
+      <FilterDisplay where={where} /> {/* temp for test */}
       {/* add another? */}
-
       <GoButton
         fetchTable={fetchTable}
         currentTable={currentTable}

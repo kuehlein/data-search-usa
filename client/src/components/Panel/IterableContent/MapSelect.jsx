@@ -24,8 +24,6 @@ class MapFields extends Component {
       currentFilterOptions
     } = this.props;
 
-    // still a loop here
-
     if (
       this.props.currentTable !== nextProps.currentTable &&
       currentFilterOptions.length
@@ -39,7 +37,7 @@ class MapFields extends Component {
     const { setCurrentFilterOptions, newWhereStatement } = this.props;
 
     if (column) {
-      // newWhereStatement(column, field, event.target.value);
+      newWhereStatement(column, field, event.target.value);
     } else {
       setCurrentFilterOptions(field, event.target.value);
     }
@@ -63,8 +61,8 @@ class MapFields extends Component {
               type="text"
               name={field.name}
               title={field.description}
-              // value={whereStatements[field.column][field.name]}
-              // onChange={e => this.handleChange(e, field.name, field.column)}
+              // value={whereStatements["avg_age"][field.name]}
+              onChange={e => this.handleChange(e, field.name, "avg_age")}
             />
           )}
         </label>

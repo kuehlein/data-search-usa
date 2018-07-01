@@ -1,3 +1,5 @@
+import { removeEmptyField } from "../utils";
+
 /*
  * whereStatements are the currently selected
  * table query where statements that are submitted when
@@ -5,19 +7,6 @@
  *
  * these statements correlate with a corresponding column.
  */
-
-/*
- * STATE TEMPLATE
- */
-const stateTemplate = {
-  columnName: "",
-  greaterThan: "",
-  lessThan: "",
-  startsWith: "",
-  endsWith: "",
-  numNotEqualTo: "",
-  textNotEqualTo: ""
-};
 
 /*
  * ACTION TYPES
@@ -42,11 +31,21 @@ export const clearWhereStatements = () => ({
  * REDUCER
  */
 export default (state = {}, action) => {
+  let copy;
+
   switch (action.type) {
     case NEW_WHERE_STATEMENT:
-      return Object.assign({}, state, {
-        [action.column]: { [action.name]: action.value }
-      });
+      if (!action.value) {
+        return removeEmptyField(state, action.column, action.name);
+      }
+      copy = Object.assign({}, state);
+
+      if (copy[action.column]) {
+        copy[action.column][action.name] = action.value;
+      } else {
+        copy[action.column] = { [action.name]: action.value };
+      }
+      return copy;
 
     case CLEAR_WHERE_STATEMENTS:
       return {};

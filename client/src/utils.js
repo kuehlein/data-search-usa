@@ -72,3 +72,17 @@ export const addOrUpdate = (state, value) => {
 
   return copyOfState.concat(value);
 };
+
+// remove empty field from state of whereStatments
+export const removeEmptyField = (state, column, name) => {
+  const keys = Object.keys(state[column]);
+  const newObj = {};
+
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i] !== name) {
+      newObj[keys[i]] = state[column[keys[i]]];
+    }
+  }
+
+  return Object.assign({}, state, { column: "" });
+};

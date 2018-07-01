@@ -8,10 +8,9 @@ import MapFields from "./IterableContent/MapFields";
 const FilterDisplay = props => {
   const { currentOptions, filterOptions, fields, where } = props;
   const { otherTables, sumlevel, year } = filterOptions;
-  const propsAvailable =
-    typeof fields === "function"
-      ? fields(otherTables, currentOptions, sumlevel, year)
-      : where;
+  const propsAvailable = where.length
+    ? where
+    : fields(otherTables, currentOptions, sumlevel, year);
 
   return (
     <div className="d-flex flex-column justify-content-center">
