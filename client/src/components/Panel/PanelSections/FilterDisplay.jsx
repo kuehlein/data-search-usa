@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import MapFields from "./IterableContent/MapFields";
+import MapFields from "../IterableContent/MapFields";
 
 // filter options for a table query
 const FilterDisplay = props => {
-  const { currentOptions, filterOptions, fields, where } = props;
+  const { currentOptions, filterOptions, fields, where, column } = props;
   const { otherTables, sumlevel, year } = filterOptions;
   const propsAvailable = where.length
     ? where
@@ -14,7 +14,7 @@ const FilterDisplay = props => {
 
   return (
     <div className="d-flex flex-column justify-content-center">
-      <MapFields template={propsAvailable} />
+      <MapFields template={propsAvailable} column={column} />
     </div>
   );
 };
@@ -22,14 +22,16 @@ FilterDisplay.defaultProps = {
   currentOptions: [],
   filterOptions: {},
   fields: () => {},
-  where: []
+  where: [],
+  column: ""
 };
 
 FilterDisplay.propTypes = {
   currentOptions: PropTypes.arrayOf(PropTypes.string),
   filterOptions: PropTypes.objectOf(PropTypes.any),
   fields: PropTypes.any,
-  where: PropTypes.arrayOf(PropTypes.object)
+  where: PropTypes.arrayOf(PropTypes.object),
+  column: PropTypes.string
 };
 
 const mapStateToProps = state => ({

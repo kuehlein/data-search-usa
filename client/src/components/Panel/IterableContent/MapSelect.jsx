@@ -44,7 +44,7 @@ class MapFields extends Component {
   }
 
   render() {
-    const { field, currentFilterOptions, whereStatements } = this.props;
+    const { field, currentFilterOptions, whereStatements, column } = this.props;
 
     return (
       <div>
@@ -61,8 +61,8 @@ class MapFields extends Component {
               type="text"
               name={field.name}
               title={field.description}
-              // value={whereStatements["avg_age"][field.name]}
-              onChange={e => this.handleChange(e, field.name, "avg_age")}
+              // value={whereStatements[column][field.name]}
+              onChange={e => this.handleChange(e, field.name, column)}
             />
           )}
         </label>
@@ -78,7 +78,8 @@ MapFields.defaultProps = {
   setCurrentFilterOptions: () => {},
   clearCurrentFilterOptions: () => {},
   newWhereStatement: () => {},
-  clearWhereStatements: () => {}
+  clearWhereStatements: () => {},
+  column: ""
 };
 
 MapFields.propTypes = {
@@ -89,7 +90,8 @@ MapFields.propTypes = {
   setCurrentFilterOptions: PropTypes.func,
   clearCurrentFilterOptions: PropTypes.func,
   newWhereStatement: PropTypes.func,
-  clearWhereStatements: PropTypes.func
+  clearWhereStatements: PropTypes.func,
+  column: PropTypes.string
 };
 
 const mapStateToProps = state => ({

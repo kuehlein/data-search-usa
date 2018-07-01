@@ -1,47 +1,76 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./Panel.css";
 
-import TableSelection from "./TableSelection";
-import OptionsSelection from "./OptionsSelection";
-import FilterDisplay from "./FilterDisplay";
-import GoButton from "./GoButton";
+import TableSelection from "./PanelSections/TableSelection";
+import OptionsSelection from "./PanelSections/OptionsSelection";
+import FilterDisplay from "./PanelSections/FilterDisplay";
+import ManageFilters from "./PanelSections/ManageFilters";
 
-import { fields, where } from "./IterableContent/fieldTemplate";
+import GoButton from "./PanelToggles/GoButton";
+
+import { fields } from "./IterableContent/fieldTemplate";
 import { fetchTable } from "../../store";
 
 // the presentaional component for the control panel
-const Panel = props => {
-  const {
-    fetchTable,
-    currentTable,
-    currentColumns,
-    currentFilterOptions,
-    whereStatements
-  } = props;
+class Panel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      columns: [""],
+      filterNum: 0
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-  return (
-    <div
-      className="jumbotron btn-group container-fluid flex-column pt-4"
-      role="group"
-    >
-      <TableSelection />
-      <FilterDisplay fields={fields} />
-      <OptionsSelection />
-      {/* choose a column to filter? */}
-      <FilterDisplay where={where} /> {/* temp for test */}
-      {/* add another? */}
-      <GoButton
-        fetchTable={fetchTable}
-        currentTable={currentTable}
-        currentColumns={currentColumns}
-        currentFilterOptions={currentFilterOptions}
-        whereStatements={whereStatements}
-      />
-    </div>
-  );
-};
+  handleClick() {
+    this.setState({ filterNum: ++this.state.filterNum });
+  }
+
+  handleChange(event) {
+    const { columns } = this.state;
+    this.setState({ columns: columns.concat(event.target.value) });
+  }
+
+  render() {
+    const {
+      fetchTable,
+      currentTable,
+      currentColumns,
+      currentFilterOptions,
+      whereStatements
+    } = this.props;
+
+    return (
+      <div
+        className="jumbotron btn-group container-fluid flex-column pt-4"
+        role="group"
+      >
+        <TableSelection />
+        <FilterDisplay fields={fields} />
+        <OptionsSelection />
+
+        <ManageFilters
+          handleClick={this.handleClick}
+          handleChange={this.handleChange}
+          currentColumns={currentColumns}
+          columns={this.state.columns}
+          filterNum={this.state.filterNum}
+        />
+
+        <GoButton
+          fetchTable={fetchTable}
+          currentTable={currentTable}
+          currentColumns={currentColumns}
+          currentFilterOptions={currentFilterOptions}
+          whereStatements={whereStatements}
+        />
+      </div>
+    );
+  }
+}
 Panel.defaultProps = {
   fetchTable: () => {},
   currentTable: "",
