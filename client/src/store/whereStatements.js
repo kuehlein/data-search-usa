@@ -7,7 +7,7 @@
  */
 
 /*
- * INITIAL STATE
+ * STATE TEMPLATE
  */
 const stateTemplate = {
   columnName: "",
@@ -28,9 +28,11 @@ const CLEAR_WHERE_STATEMENTS = "CLEAR_WHERE_STATEMENT";
 /*
  * ACTION CREATORS
  */
-export const newWhereStatement = statements => ({
+export const newWhereStatement = (column, name, value) => ({
   type: NEW_WHERE_STATEMENT,
-  statements
+  column,
+  name,
+  value
 });
 export const clearWhereStatements = () => ({
   type: CLEAR_WHERE_STATEMENTS
@@ -39,13 +41,15 @@ export const clearWhereStatements = () => ({
 /*
  * REDUCER
  */
-export default (state = [], action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case NEW_WHERE_STATEMENT:
-      return state.concat(action.statements);
+      return Object.assign({}, state, {
+        [action.column]: { [action.name]: action.value }
+      });
 
     case CLEAR_WHERE_STATEMENTS:
-      return [];
+      return {};
 
     default:
       return state;

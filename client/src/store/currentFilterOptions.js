@@ -10,7 +10,7 @@
 const initialState = {
   force: "",
   limit: "",
-  order: [],
+  order: "",
   sumlevel: "",
   year: ""
 };
@@ -19,13 +19,18 @@ const initialState = {
  * ACTION TYPES
  */
 const CURRENT_FILTER_OPTIONS = "CURRENT_FILTER_OPTIONS";
+const CLEAR_FILTER_OPTIONS = "CLEAR_FILTER_OPTIONS";
 
 /*
  * ACTION CREATORS
  */
-export const setCurrentFilterOptions = filters => ({
+export const setCurrentFilterOptions = (filter, value) => ({
   type: CURRENT_FILTER_OPTIONS,
-  filters
+  filter,
+  value
+});
+export const clearCurrentFilterOptions = () => ({
+  type: CURRENT_FILTER_OPTIONS
 });
 
 /*
@@ -34,7 +39,10 @@ export const setCurrentFilterOptions = filters => ({
 export default (state = initialState, action) => {
   switch (action.type) {
     case CURRENT_FILTER_OPTIONS:
-      return action.filters;
+      return Object.assign({}, state, { [action.filter]: action.value });
+
+    case CLEAR_FILTER_OPTIONS:
+      return initialState;
 
     default:
       return state;

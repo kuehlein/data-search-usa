@@ -4,33 +4,25 @@ import MapSelect from "./MapSelect";
 
 // map out filter fields
 const MapFields = props => {
-  const { handleChange, template, currentTable } = props;
+  const { template } = props;
 
   return (
     <div>
       {template &&
-        template.map(field => (
-          <div key={field.name}>
-            <MapSelect
-              field={field}
-              handleChange={handleChange}
-              currentTable={currentTable}
-            />
+        template.map((field, i) => (
+          <div key={i}>
+            <MapSelect field={field} />
           </div>
         ))}
     </div>
   );
 };
 MapFields.defaultProps = {
-  handleChange: () => {},
-  template: [{}],
-  currentTable: ""
+  template: [{}]
 };
 
 MapFields.propTypes = {
-  handleChange: PropTypes.func,
-  template: PropTypes.arrayOf(PropTypes.object),
-  currentTable: PropTypes.string
+  template: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default MapFields;

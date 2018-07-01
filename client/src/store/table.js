@@ -24,9 +24,18 @@ export const setTable = table => ({
 /*
  * THUNK CREATORS
  */
-export const fetchTable = (currentTable, currentColumns) => dispatch =>
+export const fetchTable = (
+  currentTable,
+  currentColumns,
+  currentFilterOptions,
+  whereStatements
+) => dispatch =>
   axios
-    .get(`/api/datausa/${currentTable}/${currentColumns.join(",")}`)
+    .get(
+      `/api/datausa/${currentTable}/${currentColumns.join(
+        ","
+      )}/${currentFilterOptions.join(",")}/${whereStatements.join(",")}`
+    )
     .then(res => dispatch(setTable(res.data)))
     .catch(err => console.log(err));
 

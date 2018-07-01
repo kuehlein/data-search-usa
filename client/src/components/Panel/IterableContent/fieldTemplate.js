@@ -25,23 +25,23 @@ export const fields = (otherTables, currentOptions, sumlevel, year) => [
   {
     name: "Level",
     type: "sumlevel",
-    field: checkIfEmpty(sumlevel), // required
+    field: checkIfEmpty(sumlevel),
     description:
       "This restricts the data fetched to only display the specified levels." // If more than one 'show' attribute is specified, sumlevel must be a comma-separated list with a value for each attribute.
   },
   {
-    name: "Year", // only show if applicable
+    name: "Year",
     type: "year",
     field: checkIfEmpty(year),
     description: "Filters the returned data to the given year."
   }
 ];
 
-// // for each selected column
+// for each selected column
 export const where = [
   {
     name: "Greater Than",
-    type: ":>", // check that greater than and less than dont conflict
+    type: ":>",
     description: "Search for values greater than the input value."
   },
   {

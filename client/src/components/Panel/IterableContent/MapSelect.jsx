@@ -1,33 +1,52 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
 import FieldSelect from "./FieldSelect";
+import {
+  setCurrentFilterOptions,
+  clearCurrentFilterOptions,
+  newWhereStatement,
+  clearWhereStatements
+} from "../../../store";
 
 // flesh out the appropriate options for filtering
 class MapFields extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: ""
-    };
-    this.handleFields = this.handleFields.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentTable !== nextProps.currentTable) {
-      this.setState({ value: "" });
+    const {
+      clearCurrentFilterOptions,
+      clearWhereStatements,
+      currentFilterOptions
+    } = this.props;
+
+    // still a loop here
+
+    if (
+      this.props.currentTable !== nextProps.currentTable &&
+      currentFilterOptions.length
+    ) {
+      clearCurrentFilterOptions();
+      clearWhereStatements();
     }
   }
 
-  handleFields(event, field) {
-    this.setState({ value: event.target.value });
+  handleChange(event, field, column) {
+    const { setCurrentFilterOptions, newWhereStatement } = this.props;
 
-    if (field) {
-      this.props.handleChange(event, field.type);
+    if (column) {
+      // newWhereStatement(column, field, event.target.value);
+    } else {
+      setCurrentFilterOptions(field, event.target.value);
     }
   }
 
   render() {
-    const { field } = this.props;
+    const { field, currentFilterOptions, whereStatements } = this.props;
 
     return (
       <div>
@@ -36,16 +55,16 @@ class MapFields extends Component {
           {Array.isArray(field.field) ? (
             <FieldSelect
               field={field}
-              handleChange={this.handleFields}
-              value={this.state.value}
+              handleChange={this.handleChange}
+              value={currentFilterOptions[field.type]}
             />
           ) : (
             <input
               type="text"
               name={field.name}
               title={field.description}
-              value={this.state.value}
-              onChange={e => this.handleFields(e)}
+              // value={whereStatements[field.column][field.name]}
+              // onChange={e => this.handleChange(e, field.name, field.column)}
             />
           )}
         </label>
@@ -55,14 +74,42 @@ class MapFields extends Component {
 }
 MapFields.defaultProps = {
   field: [],
-  handleChange: () => {},
-  currentTable: ""
+  currentTable: "",
+  currentFilterOptions: {},
+  whereStatements: {},
+  setCurrentFilterOptions: () => {},
+  clearCurrentFilterOptions: () => {},
+  newWhereStatement: () => {},
+  clearWhereStatements: () => {}
 };
 
 MapFields.propTypes = {
   field: PropTypes.any,
-  handleChange: PropTypes.func,
-  currentTable: PropTypes.string
+  currentTable: PropTypes.string,
+  currentFilterOptions: PropTypes.objectOf(PropTypes.any),
+  whereStatements: PropTypes.objectOf(PropTypes.object),
+  setCurrentFilterOptions: PropTypes.func,
+  clearCurrentFilterOptions: PropTypes.func,
+  newWhereStatement: PropTypes.func,
+  clearWhereStatements: PropTypes.func
 };
 
-export default MapFields;
+const mapStateToProps = state => ({
+  currentTable: state.currentTable,
+  currentFilterOptions: state.currentFilterOptions,
+  whereStatements: state.whereStatements
+});
+
+const mapDispatchToProps = dispatch => ({
+  setCurrentFilterOptions: (filter, value) =>
+    dispatch(setCurrentFilterOptions(filter, value)),
+  clearCurrentFilterOptions: () => dispatch(clearCurrentFilterOptions()),
+  newWhereStatement: (column, name, value) =>
+    dispatch(newWhereStatement(column, name, value)),
+  clearWhereStatements: () => dispatch(clearWhereStatements())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MapFields);

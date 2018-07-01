@@ -13,7 +13,13 @@ import { fetchTable } from "../../store";
 
 // the presentaional component for the control panel
 const Panel = props => {
-  const { fetchTable, currentTable, currentColumns } = props;
+  const {
+    fetchTable,
+    currentTable,
+    currentColumns,
+    currentFilterOptions,
+    whereStatements
+  } = props;
 
   return (
     <div
@@ -23,14 +29,17 @@ const Panel = props => {
       <TableSelection />
       <FilterDisplay fields={fields} />
       <OptionsSelection />
-      <FilterDisplay where={where} />
 
+      {/* choose a column to filter? */}
+      <FilterDisplay where={where} />
       {/* add another? */}
 
       <GoButton
         fetchTable={fetchTable}
         currentTable={currentTable}
         currentColumns={currentColumns}
+        currentFilterOptions={currentFilterOptions}
+        whereStatements={whereStatements}
       />
     </div>
   );
@@ -38,18 +47,24 @@ const Panel = props => {
 Panel.defaultProps = {
   fetchTable: () => {},
   currentTable: "",
-  currentColumns: []
+  currentColumns: [],
+  currentFilterOptions: {},
+  whereStatements: {}
 };
 
 Panel.propTypes = {
   fetchTable: PropTypes.func,
   currentTable: PropTypes.string,
-  currentColumns: PropTypes.arrayOf(PropTypes.string)
+  currentColumns: PropTypes.arrayOf(PropTypes.string),
+  currentFilterOptions: PropTypes.objectOf(PropTypes.any),
+  whereStatements: PropTypes.objectOf(PropTypes.object)
 };
 
 const mapStateToProps = state => ({
   currentTable: state.currentTable,
-  currentColumns: state.currentColumns
+  currentColumns: state.currentColumns,
+  currentFilterOptions: state.currentFilterOptions,
+  whereStatements: state.whereStatements
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -63,8 +78,7 @@ export default connect(
 
 /*
  * set up requests with filters
- *    -create store state for currentFilterOptions
- *    -wire state into go button
+ *    -allow state to be updated
  *    -adjust route accordingly
  *
  * make "filter another column" button
