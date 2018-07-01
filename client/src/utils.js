@@ -80,9 +80,9 @@ export const removeEmptyField = (state, column, name) => {
 
   for (let i = 0; i < keys.length; i++) {
     if (keys[i] !== name) {
-      newObj[keys[i]] = state[column[keys[i]]];
+      newObj[keys[i]] = state[column][keys[i]];
     }
   }
 
-  return Object.assign({}, state, { column: "" });
+  return Object.assign({}, state, { [column]: newObj });
 };
