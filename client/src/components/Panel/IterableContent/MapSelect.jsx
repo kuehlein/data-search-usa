@@ -15,6 +15,12 @@ class MapSelect extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentTable !== nextProps.currentTable) {
+      this.setState({ value: "" });
+    }
+  }
+
   handleChange(event, field, column) {
     const { setCurrentFilterOptions, newWhereStatement } = this.props;
 
@@ -66,7 +72,8 @@ MapSelect.defaultProps = {
   setCurrentFilterOptions: () => {},
   newWhereStatement: () => {},
   column: "",
-  currentOptions: []
+  currentOptions: [],
+  currentTable: ""
 };
 
 MapSelect.propTypes = {
@@ -75,12 +82,14 @@ MapSelect.propTypes = {
   setCurrentFilterOptions: PropTypes.func,
   newWhereStatement: PropTypes.func,
   column: PropTypes.string,
-  currentOptions: PropTypes.arrayOf(PropTypes.string)
+  currentOptions: PropTypes.arrayOf(PropTypes.string),
+  currentTable: PropTypes.string
 };
 
 const mapStateToProps = state => ({
   currentFilterOptions: state.currentFilterOptions,
-  currentOptions: state.currentOptions
+  currentOptions: state.currentOptions,
+  currentTable: state.currentTable
 });
 
 const mapDispatchToProps = dispatch => ({
