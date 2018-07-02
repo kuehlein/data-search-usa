@@ -19,6 +19,7 @@ const initialState = {
  * ACTION TYPES
  */
 const SET_FILTER_OPTIONS = "SET_FILTER_OPTIONS";
+const CLEAR_FILTER_OPTIONS = "CLEAR_FILTER_OPTIONS";
 
 /*
  * ACTION CREATORS
@@ -26,6 +27,9 @@ const SET_FILTER_OPTIONS = "SET_FILTER_OPTIONS";
 export const setFilterOptions = options => ({
   type: SET_FILTER_OPTIONS,
   options
+});
+export const clearFilterOptions = () => ({
+  type: SET_FILTER_OPTIONS
 });
 
 /*
@@ -35,6 +39,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case SET_FILTER_OPTIONS:
       return action.options;
+
+    case CLEAR_FILTER_OPTIONS:
+      return initialState;
 
     default:
       return state;

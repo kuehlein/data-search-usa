@@ -28,7 +28,11 @@ class MapSelect extends Component {
   }
 
   render() {
-    const { field, currentFilterOptions, column } = this.props;
+    const { field, currentFilterOptions, column, currentOptions } = this.props;
+    const stateName = field.field ? field.type : field.name;
+    const disable =
+      !currentOptions.length ||
+      currentOptions[0] === "THIS TABLE IS CURRENTLY UNAVAILABLE";
 
     return (
       <div>
@@ -39,6 +43,7 @@ class MapSelect extends Component {
               field={field}
               handleChange={this.handleChange}
               value={currentFilterOptions[field.type]}
+              disable={disable}
             />
           ) : (
             <input
@@ -46,7 +51,8 @@ class MapSelect extends Component {
               name={field.name}
               title={field.description}
               value={this.state.value}
-              onChange={e => this.handleChange(e, field.name, column)}
+              onChange={e => this.handleChange(e, stateName, column)}
+              disabled={disable}
             />
           )}
         </label>
@@ -59,7 +65,8 @@ MapSelect.defaultProps = {
   currentFilterOptions: {},
   setCurrentFilterOptions: () => {},
   newWhereStatement: () => {},
-  column: ""
+  column: "",
+  currentOptions: []
 };
 
 MapSelect.propTypes = {
@@ -67,11 +74,13 @@ MapSelect.propTypes = {
   currentFilterOptions: PropTypes.objectOf(PropTypes.any),
   setCurrentFilterOptions: PropTypes.func,
   newWhereStatement: PropTypes.func,
-  column: PropTypes.string
+  column: PropTypes.string,
+  currentOptions: PropTypes.arrayOf(PropTypes.string)
 };
 
 const mapStateToProps = state => ({
-  currentFilterOptions: state.currentFilterOptions
+  currentFilterOptions: state.currentFilterOptions,
+  currentOptions: state.currentOptions
 });
 
 const mapDispatchToProps = dispatch => ({

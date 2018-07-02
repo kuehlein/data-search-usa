@@ -4,13 +4,17 @@ import PropTypes from "prop-types";
 
 import MapFields from "../IterableContent/MapFields";
 
-import { newWhereColumn } from "../../../store";
+import { newWhereColumn, clearFilterOptions } from "../../../store";
 
 // filter options for a table query
 class FilterDisplay extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.column !== nextProps.column) {
-      newWhereColumn(nextProps.column);
+      this.props.newWhereColumn(nextProps.column);
+    }
+
+    if (nextProps.currentOptions === "THIS TABLE IS CURRENTLY UNAVAILABLE") {
+      this.props.clearFilterOptions();
     }
   }
 
@@ -34,7 +38,8 @@ FilterDisplay.defaultProps = {
   fields: () => {},
   where: [],
   column: "",
-  newWhereColumn: () => {}
+  newWhereColumn: () => {},
+  clearFilterOptions: () => {}
 };
 
 FilterDisplay.propTypes = {
@@ -43,7 +48,8 @@ FilterDisplay.propTypes = {
   fields: PropTypes.any,
   where: PropTypes.arrayOf(PropTypes.object),
   column: PropTypes.string,
-  newWhereColumn: PropTypes.func
+  newWhereColumn: PropTypes.func,
+  clearFilterOptions: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -52,7 +58,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  newWhereColumn: column => dispatch(newWhereColumn(column))
+  newWhereColumn: column => dispatch(newWhereColumn(column)),
+  clearFilterOptions: () => dispatch(clearFilterOptions())
 });
 
 export default connect(
