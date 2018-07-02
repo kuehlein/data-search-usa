@@ -11,7 +11,7 @@ import { where } from "../IterableContent/fieldTemplate";
 const jsxTemplate = (currentColumns, handleChange, columns) => i => (
   <div key={i}>
     <ChooseColumn currentColumns={currentColumns} handleChange={handleChange} />
-    <FilterDisplay where={where} column={columns[0]} />
+    <FilterDisplay where={where} column={columns[i]} />
   </div>
 );
 
@@ -35,6 +35,7 @@ const ManageFilters = props => {
       <FilterNewColumn
         handleClick={handleClick}
         shouldDisable={shouldDisable()}
+        filterNum={filterNum}
       />
     </div>
   );

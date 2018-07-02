@@ -11,12 +11,17 @@ import { removeEmptyField } from "../utils";
 /*
  * ACTION TYPES
  */
+const NEW_WHERE_COLUMN = "NEW_WHERE_COLUMN";
 const NEW_WHERE_STATEMENT = "NEW_WHERE_STATEMENT";
 const CLEAR_WHERE_STATEMENTS = "CLEAR_WHERE_STATEMENT";
 
 /*
  * ACTION CREATORS
  */
+export const newWhereColumn = column => ({
+  type: NEW_WHERE_COLUMN,
+  column
+});
 export const newWhereStatement = (column, name, value) => ({
   type: NEW_WHERE_STATEMENT,
   column,
@@ -34,6 +39,9 @@ export default (state = {}, action) => {
   let copy;
 
   switch (action.type) {
+    case NEW_WHERE_COLUMN:
+      return Object.assign({}, state, { [action.column]: {} });
+
     case NEW_WHERE_STATEMENT:
       if (!action.value) {
         return removeEmptyField(state, action.column, action.name);

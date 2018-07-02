@@ -11,7 +11,9 @@ import ManageFilters from "./PanelSections/ManageFilters";
 import GoButton from "./PanelToggles/GoButton";
 
 import { fields } from "./IterableContent/fieldTemplate";
+
 import { fetchTable } from "../../store";
+import { filterStateArr } from "../../utils";
 
 // the presentaional component for the control panel
 class Panel extends Component {
@@ -35,14 +37,24 @@ class Panel extends Component {
   }
 
   handleClick(canClick) {
+    let numCopy = this.state.filterNum;
+
     if (!canClick) {
-      this.setState({ filterNum: ++this.state.filterNum });
+      this.setState({ filterNum: ++numCopy });
     }
   }
 
-  handleChange(event) {
-    const { columns } = this.state;
-    this.setState({ columns: columns.concat(event.target.value) });
+  handleChange(event, currentValue) {
+    const { columns, filterNum } = this.state;
+    const { value } = event.target;
+    const newColumns = filterStateArr(columns, value, currentValue);
+
+    this.setState({ columns: newColumns });
+
+    if (columns.length > newColumns.length) {
+      let numCopy = filterNum;
+      this.setState({ filterNum: --numCopy });
+    }
   }
 
   render() {
@@ -53,8 +65,6 @@ class Panel extends Component {
       currentFilterOptions,
       whereStatements
     } = this.props;
-
-    console.log("state", this.state);
 
     return (
       <div
@@ -115,13 +125,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Panel);
-
-/*
- * set up requests with filters
- *    -allow state to be updated
- *    -adjust route accordingly
- *
- * make "filter another column" button
- *    -can multiple columns be filtered at once?
- *
-*/

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // generate a field to select a column to filter
 const FilterNewColumn = props => {
-  const { handleClick, shouldDisable } = props;
+  const { handleClick, shouldDisable, filterNum } = props;
   const disable = shouldDisable ? "disabled" : "";
 
   return (
@@ -12,19 +12,21 @@ const FilterNewColumn = props => {
         className={`btn btn-warning ${disable}`}
         onClick={() => handleClick(shouldDisable)}
       >
-        Filter Another Column?
+        {filterNum ? "Filter Another Column?" : "Filter Column?"}
       </button>
     </label>
   );
 };
 FilterNewColumn.defaultProps = {
   handleClick: () => {},
-  shouldDisable: false
+  shouldDisable: false,
+  filterNum: 0
 };
 
 FilterNewColumn.propTypes = {
   handleClick: PropTypes.func,
-  shouldDisable: PropTypes.bool
+  shouldDisable: PropTypes.bool,
+  filterNum: PropTypes.number
 };
 
 export default FilterNewColumn;
