@@ -12,7 +12,11 @@ import GoButton from "./PanelToggles/GoButton";
 
 import { fields } from "./IterableContent/fieldTemplate";
 
-import { fetchTable } from "../../store";
+import {
+  fetchTable,
+  clearCurrentFilterOptions,
+  clearWhereStatements
+} from "../../store";
 import { filterStateArr } from "../../utils";
 
 // the presentaional component for the control panel
@@ -33,6 +37,8 @@ class Panel extends Component {
         columns: [""],
         filterNum: 0
       });
+      this.props.clearCurrentFilterOptions();
+      this.props.clearWhereStatements();
     }
   }
 
@@ -99,7 +105,9 @@ Panel.defaultProps = {
   currentTable: "",
   currentColumns: [],
   currentFilterOptions: {},
-  whereStatements: {}
+  whereStatements: {},
+  clearCurrentFilterOptions: () => {},
+  clearWhereStatements: () => {}
 };
 
 Panel.propTypes = {
@@ -107,7 +115,9 @@ Panel.propTypes = {
   currentTable: PropTypes.string,
   currentColumns: PropTypes.arrayOf(PropTypes.string),
   currentFilterOptions: PropTypes.objectOf(PropTypes.any),
-  whereStatements: PropTypes.objectOf(PropTypes.object)
+  whereStatements: PropTypes.objectOf(PropTypes.object),
+  clearCurrentFilterOptions: PropTypes.func,
+  clearWhereStatements: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -118,7 +128,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTable: (table, columns) => dispatch(fetchTable(table, columns))
+  fetchTable: (table, columns, filters, statements) =>
+    dispatch(fetchTable(table, columns, filters, statements)),
+  clearCurrentFilterOptions: () => dispatch(clearCurrentFilterOptions()),
+  clearWhereStatements: () => dispatch(clearWhereStatements())
 });
 
 export default connect(

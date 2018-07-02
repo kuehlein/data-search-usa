@@ -42,8 +42,8 @@ router.get("/:table", (req, res) => {
 });
 
 // GET - datausa tables using selected fields
-router.get("/:table/:fields", (req, res) => {
-  const { table, fields } = req.params;
+router.get("/:table/:fields/:filters/:where", (req, res) => {
+  const { table, fields, filters, where } = req.params;
   const options = {
     uri: `http://api.datausa.io/api/?show=${table}&required=${fields}`,
     simple: false,

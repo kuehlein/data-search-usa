@@ -3,37 +3,16 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import FieldSelect from "./FieldSelect";
-import {
-  setCurrentFilterOptions,
-  clearCurrentFilterOptions,
-  newWhereStatement,
-  clearWhereStatements
-} from "../../../store";
+import { setCurrentFilterOptions, newWhereStatement } from "../../../store";
 
 // flesh out the appropriate options for filtering
-class MapFields extends Component {
+class MapSelect extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: ""
     };
     this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {
-      clearCurrentFilterOptions,
-      clearWhereStatements,
-      currentFilterOptions
-    } = this.props;
-
-    if (
-      this.props.currentTable !== nextProps.currentTable &&
-      currentFilterOptions.length
-    ) {
-      clearCurrentFilterOptions();
-      clearWhereStatements();
-    }
   }
 
   handleChange(event, field, column) {
@@ -75,43 +54,34 @@ class MapFields extends Component {
     );
   }
 }
-MapFields.defaultProps = {
+MapSelect.defaultProps = {
   field: [],
-  currentTable: "",
   currentFilterOptions: {},
   setCurrentFilterOptions: () => {},
-  clearCurrentFilterOptions: () => {},
   newWhereStatement: () => {},
-  clearWhereStatements: () => {},
   column: ""
 };
 
-MapFields.propTypes = {
+MapSelect.propTypes = {
   field: PropTypes.any,
-  currentTable: PropTypes.string,
   currentFilterOptions: PropTypes.objectOf(PropTypes.any),
   setCurrentFilterOptions: PropTypes.func,
-  clearCurrentFilterOptions: PropTypes.func,
   newWhereStatement: PropTypes.func,
-  clearWhereStatements: PropTypes.func,
   column: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  currentTable: state.currentTable,
   currentFilterOptions: state.currentFilterOptions
 });
 
 const mapDispatchToProps = dispatch => ({
   setCurrentFilterOptions: (filter, value) =>
     dispatch(setCurrentFilterOptions(filter, value)),
-  clearCurrentFilterOptions: () => dispatch(clearCurrentFilterOptions()),
   newWhereStatement: (column, name, value) =>
-    dispatch(newWhereStatement(column, name, value)),
-  clearWhereStatements: () => dispatch(clearWhereStatements())
+    dispatch(newWhereStatement(column, name, value))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MapFields);
+)(MapSelect);

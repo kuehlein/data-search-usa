@@ -30,7 +30,7 @@ export const setCurrentFilterOptions = (filter, value) => ({
   value
 });
 export const clearCurrentFilterOptions = () => ({
-  type: CURRENT_FILTER_OPTIONS
+  type: CLEAR_FILTER_OPTIONS
 });
 
 /*

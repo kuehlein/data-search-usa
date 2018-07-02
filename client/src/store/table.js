@@ -32,9 +32,7 @@ export const fetchTable = (
 ) => dispatch =>
   axios
     .get(
-      `/api/datausa/${currentTable}/${currentColumns.join(
-        ","
-      )}/${currentFilterOptions.join(",")}/${whereStatements.join(",")}`
+      `/api/datausa/${currentTable}/${currentColumns.toString()}/${currentFilterOptions.toString()}/${whereStatements.toString()}`
     )
     .then(res => dispatch(setTable(res.data)))
     .catch(err => console.log(err));
