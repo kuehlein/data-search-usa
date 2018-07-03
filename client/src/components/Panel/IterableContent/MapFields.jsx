@@ -4,14 +4,14 @@ import MapSelect from "./MapSelect";
 
 // map out filter fields
 const MapFields = props => {
-  const { template, column } = props;
+  const { template, column, disable } = props;
 
   return (
     <div>
       {template &&
         template.map((field, i) => (
           <div key={i}>
-            <MapSelect field={field} column={column} />
+            <MapSelect field={field} column={column} disable={disable} />
           </div>
         ))}
     </div>
@@ -19,12 +19,14 @@ const MapFields = props => {
 };
 MapFields.defaultProps = {
   template: [{}],
-  column: ""
+  column: "",
+  disable: true
 };
 
 MapFields.propTypes = {
   template: PropTypes.arrayOf(PropTypes.object),
-  column: PropTypes.string
+  column: PropTypes.string,
+  disable: PropTypes.bool
 };
 
 export default MapFields;

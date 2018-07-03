@@ -19,7 +19,14 @@ class FilterDisplay extends Component {
   }
 
   render() {
-    const { currentOptions, filterOptions, fields, where, column } = this.props;
+    const {
+      currentOptions,
+      filterOptions,
+      fields,
+      where,
+      column,
+      value
+    } = this.props;
     const { otherTables, sumlevel, year } = filterOptions;
     const propsAvailable = where.length
       ? where
@@ -27,7 +34,11 @@ class FilterDisplay extends Component {
 
     return (
       <div className="d-flex flex-column justify-content-center">
-        <MapFields template={propsAvailable} column={column} />
+        <MapFields
+          template={propsAvailable}
+          column={column}
+          disable={!value} // + .length
+        />
       </div>
     );
   }
@@ -39,7 +50,8 @@ FilterDisplay.defaultProps = {
   where: [],
   column: "",
   newWhereColumn: () => {},
-  clearFilterOptions: () => {}
+  clearFilterOptions: () => {},
+  value: ""
 };
 
 FilterDisplay.propTypes = {
@@ -49,7 +61,8 @@ FilterDisplay.propTypes = {
   where: PropTypes.arrayOf(PropTypes.object),
   column: PropTypes.string,
   newWhereColumn: PropTypes.func,
-  clearFilterOptions: PropTypes.func
+  clearFilterOptions: PropTypes.func,
+  value: PropTypes.string
 };
 
 const mapStateToProps = state => ({

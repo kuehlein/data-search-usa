@@ -36,9 +36,10 @@ class MapSelect extends Component {
   render() {
     const { field, currentFilterOptions, column, currentOptions } = this.props;
     const stateName = field.field ? field.type : field.name;
-    const disable =
+    let disable =
       !currentOptions.length ||
       currentOptions[0] === "THIS TABLE IS CURRENTLY UNAVAILABLE";
+    disable = !field.field && this.props.disable ? true : disable;
 
     return (
       <div>
@@ -56,7 +57,7 @@ class MapSelect extends Component {
               type="text"
               name={field.name}
               title={field.description}
-              value={this.state.value}
+              value={disable ? "" : this.state.value}
               onChange={e => this.handleChange(e, stateName, column)}
               disabled={disable}
             />
@@ -73,7 +74,8 @@ MapSelect.defaultProps = {
   newWhereStatement: () => {},
   column: "",
   currentOptions: [],
-  currentTable: ""
+  currentTable: "",
+  disable: true
 };
 
 MapSelect.propTypes = {
@@ -83,7 +85,8 @@ MapSelect.propTypes = {
   newWhereStatement: PropTypes.func,
   column: PropTypes.string,
   currentOptions: PropTypes.arrayOf(PropTypes.string),
-  currentTable: PropTypes.string
+  currentTable: PropTypes.string,
+  disable: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
