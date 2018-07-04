@@ -2,10 +2,8 @@ import { removeEmptyField } from "../utils";
 
 /*
  * whereStatements are the currently selected
- * table query where statements that are submitted when
- * the user hits "Go!" and requests a table.
- *
- * these statements correlate with a corresponding column.
+ * filters for a column of the currently
+ * selected table.
  */
 
 /*

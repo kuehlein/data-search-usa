@@ -13,10 +13,7 @@ const TableSelect = props => {
         <select
           className="form-control"
           id="sel1"
-          onChange={e => {
-            console.log("hi", e.target.value);
-            handleChange(e);
-          }}
+          onChange={e => handleChange(e)}
         >
           <option />
           <MapOptions allTables={allTables} />

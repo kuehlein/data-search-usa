@@ -3,29 +3,17 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import OptionsSelect from "./OptionsSelect";
-import {
-  setCurrentOptions,
-  fetchCurrentOptions,
-  setCurrentColumns
-} from "../../../store";
+import { fetchCurrentOptions, setCurrentColumns } from "../../../store";
 
 // when a table is selected, display the search options as buttons
 class TableFilters extends Component {
   componentWillReceiveProps(nextProps) {
-    const {
-      fetchCurrentOptions,
-      setCurrentOptions,
-      allOptions,
-      setCurrentColumns
-    } = this.props;
+    const { fetchCurrentOptions, allOptions, setCurrentColumns } = this.props;
 
+    // if tables change, clear selected columns, and set new options
     if (this.props.currentTable !== nextProps.currentTable) {
-      // retrieve options for next table
-      fetchCurrentOptions(nextProps.currentTable, allOptions);
-
-      // if the table is changed, clear the currentOptions
       setCurrentColumns([]);
-      setCurrentOptions([]);
+      fetchCurrentOptions(nextProps.currentTable, allOptions);
     }
   }
 
@@ -46,7 +34,6 @@ TableFilters.defaultProps = {
   currentTable: "",
   currentOptions: [],
   allOptions: {},
-  setCurrentOptions: [],
   fetchCurrentOptions: () => {},
   setCurrentColumns: () => {}
 };
@@ -55,7 +42,6 @@ TableFilters.propTypes = {
   currentTable: PropTypes.string,
   currentOptions: PropTypes.arrayOf(PropTypes.string),
   allOptions: PropTypes.objectOf(PropTypes.array),
-  setCurrentOptions: PropTypes.func,
   fetchCurrentOptions: PropTypes.func,
   setCurrentColumns: PropTypes.func
 };
@@ -67,8 +53,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentOptions: currentOptions =>
-    dispatch(setCurrentOptions(currentOptions)),
   fetchCurrentOptions: (nextTable, nextOptions, removeTableUtil) =>
     dispatch(fetchCurrentOptions(nextTable, nextOptions, removeTableUtil)),
   setCurrentColumns: (column, currentColumns) =>

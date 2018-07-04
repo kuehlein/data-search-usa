@@ -1,68 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import MapFields from "../IterableContent/MapFields";
+import MapFields from "./MapFields";
 
-import { newWhereColumn, clearFilterOptions } from "../../../store";
+import fields from "./filterFieldTemplate";
 
 // filter options for querying a table
-class FilterTable extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (this.props.column !== nextProps.column) {
-      this.props.newWhereColumn(nextProps.column);
-    }
+const FilterTable = props => {
+  const { currentOptions, filterOptions } = props;
+  const { otherTables, sumlevel, year } = filterOptions;
+  const template = fields(otherTables, currentOptions, sumlevel, year);
 
-    if (nextProps.currentOptions === "THIS TABLE IS CURRENTLY UNAVAILABLE") {
-      this.props.clearFilterOptions();
-    }
-  }
-
-  render() {
-    const {
-      currentOptions,
-      filterOptions,
-      fields,
-      where,
-      column,
-      value
-    } = this.props;
-    const { otherTables, sumlevel, year } = filterOptions;
-    const propsAvailable = where.length
-      ? where
-      : fields(otherTables, currentOptions, sumlevel, year);
-
-    return (
-      <div className="d-flex flex-column justify-content-center">
-        <MapFields
-          template={propsAvailable}
-          column={column}
-          disable={!value} // + .length
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="d-flex flex-column justify-content-center">
+      <MapFields template={template} />
+    </div>
+  );
+};
 FilterTable.defaultProps = {
-  currentOptions: [],
-  filterOptions: {},
-  fields: () => {},
-  where: [],
-  column: "",
-  newWhereColumn: () => {},
-  clearFilterOptions: () => {},
-  value: ""
+  currentOptions: [""],
+  filterOptions: {}
 };
 
 FilterTable.propTypes = {
   currentOptions: PropTypes.arrayOf(PropTypes.string),
-  filterOptions: PropTypes.objectOf(PropTypes.any),
-  fields: PropTypes.any,
-  where: PropTypes.arrayOf(PropTypes.object),
-  column: PropTypes.string,
-  newWhereColumn: PropTypes.func,
-  clearFilterOptions: PropTypes.func,
-  value: PropTypes.string
+  filterOptions: PropTypes.objectOf(PropTypes.any)
 };
 
 const mapStateToProps = state => ({
@@ -70,12 +33,4 @@ const mapStateToProps = state => ({
   filterOptions: state.filterOptions
 });
 
-const mapDispatchToProps = dispatch => ({
-  newWhereColumn: column => dispatch(newWhereColumn(column)),
-  clearFilterOptions: () => dispatch(clearFilterOptions())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FilterTable);
+export default connect(mapStateToProps)(FilterTable);

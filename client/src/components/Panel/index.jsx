@@ -14,8 +14,6 @@ import ChooseColumns from "./ChooseColumns";
 
 // import GoButton from "./PanelToggles/GoButton";
 
-// import { fields } from "./IterableContent/fieldTemplate";
-
 import {
   fetchTable,
   clearCurrentFilterOptions,
@@ -86,7 +84,6 @@ class Panel extends Component {
         <ChooseColumns />
         {/* <FilterColumns /> */}
         {/* <GoButton /> */}
-
         {/* <TableSelection />
         <FilterDisplay fields={fields} />
         <OptionsSelection />
