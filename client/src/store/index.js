@@ -8,13 +8,21 @@ import allTables from "./allTables";
 import currentTable from "./currentTable";
 import allOptions from "./allOptions";
 import currentOptions from "./currentOptions";
+import filterOptions from "./filterOptions";
+import currentColumns from "./currentColumns";
+import currentFilterOptions from "./currentFilterOptions";
+import whereStatements from "./whereStatements";
 
 const reducer = combineReducers({
   table,
   allTables,
   currentTable,
   allOptions,
-  currentOptions
+  currentOptions,
+  filterOptions,
+  currentColumns,
+  currentFilterOptions,
+  whereStatements
 });
 
 const middleware = composeWithDevTools(
@@ -29,6 +37,10 @@ export * from "./allTables";
 export * from "./currentTable";
 export * from "./allOptions";
 export * from "./currentOptions";
+export * from "./filterOptions";
+export * from "./currentColumns";
+export * from "./currentFilterOptions";
+export * from "./whereStatements";
 
 // server api route
 export const SERVER = "http://localhost:3001";
