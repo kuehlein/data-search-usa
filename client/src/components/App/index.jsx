@@ -5,7 +5,7 @@ import { Panel, Map, Navbar } from "../index";
 
 const App = () => (
   <div>
-    <Navbar />
+    {/* <Navbar /> */}
     <Panel />
     <Map />
   </div>

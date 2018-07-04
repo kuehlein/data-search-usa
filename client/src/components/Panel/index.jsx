@@ -3,14 +3,18 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./Panel.css";
 
-import TableSelection from "./PanelSections/TableSelection";
-import OptionsSelection from "./PanelSections/OptionsSelection";
-import FilterDisplay from "./PanelSections/FilterDisplay";
-import ManageFilters from "./PanelSections/ManageFilters";
+import ChooseTable from "./ChooseTable";
+import FilterTable from "./FilterTable";
+import ChooseColumns from "./ChooseColumns";
 
-import GoButton from "./PanelToggles/GoButton";
+// import TableSelection from "./PanelSections/TableSelection";
+// import OptionsSelection from "./PanelSections/OptionsSelection";
+// import FilterDisplay from "./PanelSections/FilterDisplay";
+// import ManageFilters from "./PanelSections/ManageFilters";
 
-import { fields } from "./IterableContent/fieldTemplate";
+// import GoButton from "./PanelToggles/GoButton";
+
+// import { fields } from "./IterableContent/fieldTemplate";
 
 import {
   fetchTable,
@@ -77,7 +81,13 @@ class Panel extends Component {
         className="jumbotron btn-group container-fluid flex-column pt-4"
         role="group"
       >
-        <TableSelection />
+        <ChooseTable />
+        <FilterTable />
+        <ChooseColumns />
+        {/* <FilterColumns /> */}
+        {/* <GoButton /> */}
+
+        {/* <TableSelection />
         <FilterDisplay fields={fields} />
         <OptionsSelection />
 
@@ -95,7 +105,7 @@ class Panel extends Component {
           currentColumns={currentColumns}
           currentFilterOptions={currentFilterOptions}
           whereStatements={whereStatements}
-        />
+        /> */}
       </div>
     );
   }
