@@ -2,14 +2,24 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import NewColumnFilterButton from "./Buttons/NewColumnFilterButton";
-import ColumnSelectionTemplate from "./ColumnSelectionTemplate";
+import ColumnSelectionTemplate from "./Templates/ColumnSelectionTemplate";
 
-import { proliferateFields } from "./utils";
+import { proliferateFields, compareArrays } from "./utils";
 
 class ColumnFilterFormat extends Component {
   constructor(props) {
     super(props);
     this.handleSelectChange = this.handleSelectChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const oldCol = Object.keys(this.props.columns);
+    const newCol = Object.keys(nextProps.columns);
+    const diff = compareArrays(oldCol, newCol);
+
+    if (newCol.length > oldCol.length) {
+      this.props.newWhereColumn(diff);
+    }
   }
 
   handleSelectChange(event, oldColumn) {
@@ -50,7 +60,8 @@ ColumnFilterFormat.defaultProps = {
   filterNum: 0,
   handleClick: () => {},
   handleChange: () => {},
-  clearColumn: () => {}
+  clearColumn: () => {},
+  newWhereColumn: () => {}
 };
 
 ColumnFilterFormat.propTypes = {
@@ -59,7 +70,8 @@ ColumnFilterFormat.propTypes = {
   filterNum: PropTypes.number,
   handleClick: PropTypes.func,
   handleChange: PropTypes.func,
-  clearColumn: PropTypes.func
+  clearColumn: PropTypes.func,
+  newWhereColumn: PropTypes.func
 };
 
 export default ColumnFilterFormat;

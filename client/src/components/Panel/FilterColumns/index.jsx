@@ -7,7 +7,8 @@ import ColumnFilterFormat from "./ColumnFilterFormat";
 import {
   clearCurrentFilterOptions,
   clearWhereStatements,
-  clearColumn
+  clearColumn,
+  newWhereColumn
 } from "../../../store";
 import { filterStateArr } from "./utils";
 
@@ -49,14 +50,17 @@ class FilterColumns extends Component {
 
     this.setState({ columns: newColumns });
 
-    if (columns.length > newColumns.length) {
-      let numCopy = filterNum;
-      this.setState({ filterNum: --numCopy });
-    }
+    // AUTO DELETE WHERESTATEMENT IF SET TO ""
+    // const oldColLen = Object.keys(columns).length;
+    // const newColLen = Object.keys(newColumns).length;
+    // if (oldColLen > newColLen) {
+    //   let numCopy = filterNum;
+    //   this.setState({ filterNum: --numCopy });
+    // }
   }
 
   render() {
-    const { currentColumns, clearColumn } = this.props;
+    const { currentColumns, clearColumn, newWhereColumn } = this.props;
     const { columns, filterNum } = this.state;
 
     return (
@@ -66,6 +70,7 @@ class FilterColumns extends Component {
           filterNum={filterNum}
           currentColumns={currentColumns}
           clearColumn={clearColumn}
+          newWhereColumn={newWhereColumn}
           handleClick={this.handleClick}
           handleChange={this.handleChange}
         />
@@ -78,7 +83,8 @@ FilterColumns.defaultProps = {
   currentColumns: [""],
   clearCurrentFilterOptions: () => {},
   clearWhereStatements: () => {},
-  clearColumn: () => {}
+  clearColumn: () => {},
+  newWhereColumn: () => {}
 };
 
 FilterColumns.propTypes = {
@@ -86,7 +92,8 @@ FilterColumns.propTypes = {
   currentColumns: PropTypes.arrayOf(PropTypes.string),
   clearCurrentFilterOptions: PropTypes.func,
   clearWhereStatements: PropTypes.func,
-  clearColumn: PropTypes.func
+  clearColumn: PropTypes.func,
+  newWhereColumn: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -98,7 +105,9 @@ const mapDispatchToProps = dispatch => ({
   clearCurrentFilterOptions: () => dispatch(clearCurrentFilterOptions()),
   clearWhereStatements: () => dispatch(clearWhereStatements()),
   clearColumn: (oldColumn, newColumn) =>
-    dispatch(clearColumn(oldColumn, newColumn))
+    dispatch(clearColumn(oldColumn, newColumn)),
+
+  newWhereColumn: column => dispatch(newWhereColumn(column))
 });
 
 export default connect(

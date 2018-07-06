@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { newWhereColumn, newWhereStatement } from "../../../store";
+import { newWhereStatement } from "../../../../store";
 
 // flesh out the appropriate options for filtering
 class MapInput extends Component {
@@ -15,10 +15,6 @@ class MapInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.column !== nextProps.column) {
-      this.props.newWhereColumn(nextProps.column);
-    }
-
     if (this.props.currentTable !== nextProps.currentTable) {
       this.setState({ value: "" });
     }
@@ -56,7 +52,6 @@ MapInput.defaultProps = {
   column: "",
   currentTable: "",
   disable: true,
-  newWhereColumn: () => {},
   newWhereStatement: () => {}
 };
 
@@ -65,7 +60,6 @@ MapInput.propTypes = {
   column: PropTypes.string,
   currentTable: PropTypes.string,
   disable: PropTypes.bool,
-  newWhereColumn: PropTypes.func,
   newWhereStatement: PropTypes.func
 };
 
@@ -74,7 +68,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  newWhereColumn: column => dispatch(newWhereColumn(column)),
   newWhereStatement: (column, name, value) =>
     dispatch(newWhereStatement(column, name, value))
 });

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import MapFields from "../MapFields";
+import MapFields from "../Iterables/MapFields";
 
-import { where } from "../filterColumnTemplate";
+import { where } from "../Templates/filterColumnTemplate";
 import { newWhereColumn } from "../../../../store";
 
 // filter options for a column query

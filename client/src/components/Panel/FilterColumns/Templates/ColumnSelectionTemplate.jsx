@@ -1,15 +1,15 @@
 import React from "react";
-import ChooseColumn from "./ChooseColumn";
+import ChooseColumn from "../Buttons/ChooseColumn";
 import where from "./filterColumnTemplate";
-import MapFields from "./MapFields";
+import MapFields from "../Iterables/MapFields";
 
 // template for column filter iteration
 const ColumnSelectionTemplate = (
   currentColumns,
   handleSelectChange,
   columns
-) => key => (
-  <div key={key}>
+) => (key, i) => (
+  <div key={i}>
     <ChooseColumn
       currentColumns={currentColumns}
       handleSelectChange={handleSelectChange}

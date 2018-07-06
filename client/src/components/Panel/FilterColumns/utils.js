@@ -19,7 +19,22 @@ export const proliferateFields = (num, template, columns) => {
   const arr = [];
 
   for (let i = 0; i < num; i++) {
-    arr.push(template(keys[i]));
+    arr.push(template(keys[i], i));
   }
   return arr;
+};
+
+export const compareArrays = (oldColumns, newColumns) => {
+  Array.prototype.diff = function(key) {
+    return this.filter(function(i) {
+      return key.indexOf(i) < 0;
+    });
+  };
+
+  const bigger =
+    oldColumns.length > newColumns.length ? oldColumns : newColumns;
+  const smaller =
+    oldColumns.length < newColumns.length ? oldColumns : newColumns;
+
+  return bigger.diff(smaller)[0];
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MapInput from "./MapInput";
+import InputFilter from "./InputFilter";
 
 // map out filter fields
 const MapFields = props => {
@@ -11,7 +11,7 @@ const MapFields = props => {
       {template &&
         template.map((field, i) => (
           <div key={i}>
-            <MapInput field={field} column={column} disable={disable} />
+            <InputFilter field={field} column={column} disable={disable} />
           </div>
         ))}
     </div>
