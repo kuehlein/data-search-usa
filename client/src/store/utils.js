@@ -15,15 +15,6 @@ const removeFromArray = (arr, item) => {
   return arr;
 };
 
-// remove current table from all tables
-// if the table is unavailable from datausa
-export const removeMissingTable = (currentTable, allTables) => {
-  const copyOfAllTables = allTables.slice();
-
-  removeFromArray(copyOfAllTables, currentTable);
-  return copyOfAllTables.sort();
-};
-
 // check to see if a search option is selected on local state
 // if so, remove it, if not, add it
 export const addOrRemove = (arr, column) => {
@@ -36,6 +27,15 @@ export const addOrRemove = (arr, column) => {
   if (copyOfArr.length === length) copyOfArr.push(column);
 
   return copyOfArr;
+};
+
+// remove current table from all tables
+// if the table is unavailable from datausa
+export const removeMissingTable = (currentTable, allTables) => {
+  const copyOfAllTables = allTables.slice();
+
+  removeFromArray(copyOfAllTables, currentTable);
+  return copyOfAllTables.sort();
 };
 
 // finds the different sumLevels for a certain attribute
@@ -52,27 +52,6 @@ export const findLevels = allTables => {
   return levels;
 };
 
-// checks if there are any option for a select element before mapping
-export const checkIfEmpty = arr => (arr.length ? arr : []);
-
-// checks state for a value, adds or updates it accordingly
-export const addOrUpdate = (state, value) => {
-  const copyOfState = state.slice();
-
-  if (value.value === "") {
-    return copyOfState;
-  }
-
-  for (let i = 0; i < state.length; i++) {
-    if (state[i].type === value.type) {
-      copyOfState[i] = value;
-      return copyOfState;
-    }
-  }
-
-  return copyOfState.concat(value);
-};
-
 // remove empty field from state of whereStatments
 export const removeEmptyField = (state, column, name) => {
   const keys = Object.keys(state[column]);
@@ -87,22 +66,17 @@ export const removeEmptyField = (state, column, name) => {
   return Object.assign({}, state, { [column]: newObj });
 };
 
-// iterate a jsx template
-export const proliferateFields = (num, template) => {
-  const arr = [];
+// when another column is selected in place of the current one
+// remove old column and replace it
+export const removeColumn = (state, column) => {
+  const keys = Object.keys(state);
+  const newObj = {};
 
-  for (let i = 0; i < num; i++) {
-    arr.push(template(i));
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i] !== column) {
+      newObj[keys[i]] = state[keys[i]];
+    }
   }
-  return arr;
-};
 
-// manages state of columns in Panels/index
-export const filterStateArr = (arr, val, currentVal) => {
-  if (!val) {
-    const copy = arr.filter(elem => elem !== currentVal);
-    return copy.length ? copy : [""];
-  }
-  if (!arr[0]) return [val];
-  return arr.concat(val);
+  return newObj;
 };

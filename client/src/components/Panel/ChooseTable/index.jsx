@@ -2,37 +2,44 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import MapButtons from "../IterableContent/MapButtons";
-import { setCurrentTable, fetchPanelInitial } from "../../../store";
+import { fetchPanelInitial, setCurrentTable } from "../../../store";
+import TableSelect from "./TableSelect";
 
 // Request available tables from the api and display the options as buttons
-class TableSelection extends Component {
+class ChooseTable extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  /*
+   * fetches the attributes and all variables for all attributes for the user to request
+   *   -sets: allTables, allOptions
+   */
   componentDidMount() {
     this.props.fetchPanelInitial();
   }
 
-  handleClick(type) {
-    this.props.setCurrentTable(type);
+  // sets the attribute that the user selects
+  handleChange(event) {
+    this.props.setCurrentTable(event.target.value);
   }
 
   render() {
     const { allTables } = this.props;
 
-    return <MapButtons handleClick={this.handleClick} allTables={allTables} />;
+    return (
+      <TableSelect handleChange={this.handleChange} allTables={allTables} />
+    );
   }
 }
-TableSelection.defaultProps = {
+ChooseTable.defaultProps = {
   setCurrentTable: "",
   allTables: [],
   fetchPanelInitial: () => {}
 };
 
-TableSelection.propTypes = {
+ChooseTable.propTypes = {
   setCurrentTable: PropTypes.func,
   allTables: PropTypes.arrayOf(PropTypes.string),
   fetchPanelInitial: PropTypes.func
@@ -50,4 +57,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TableSelection);
+)(ChooseTable);

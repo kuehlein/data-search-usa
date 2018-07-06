@@ -2,80 +2,57 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import MapButtons from "../IterableContent/MapButtons";
-import {
-  setCurrentOptions,
-  fetchCurrentOptions,
-  setCurrentColumns
-} from "../../../store";
+import OptionsSelect from "./OptionsSelect";
+import { fetchCurrentOptions, setCurrentColumns } from "../../../store";
 
 // when a table is selected, display the search options as buttons
-class OptionsSelection extends Component {
+class TableFilters extends Component {
   componentWillReceiveProps(nextProps) {
-    const {
-      fetchCurrentOptions,
-      setCurrentOptions,
-      allOptions,
-      setCurrentColumns,
-      currentColumns
-    } = this.props;
-    const { currentTable } = nextProps;
+    const { fetchCurrentOptions, allOptions, setCurrentColumns } = this.props;
 
-    if (currentTable !== this.props.currentTable) {
-      fetchCurrentOptions(currentTable, allOptions);
-
-      // if the table is changed, clear the currentOptions
-      if (currentColumns.length) {
-        setCurrentColumns([], currentColumns);
-        setCurrentOptions([]);
-      }
+    // if tables change, clear selected columns, and set new options
+    if (this.props.currentTable !== nextProps.currentTable) {
+      setCurrentColumns([]);
+      fetchCurrentOptions(nextProps.currentTable, allOptions);
     }
   }
 
   render() {
-    const { currentOptions, setCurrentColumns, currentColumns } = this.props;
+    const { currentOptions, setCurrentColumns } = this.props;
 
     return (
       <div className="d-flex flex-column justify-content-center">
-        <MapButtons
+        <OptionsSelect
           handleClick={setCurrentColumns}
           currentOptions={currentOptions}
-          currentColumns={currentColumns}
         />
       </div>
     );
   }
 }
-OptionsSelection.defaultProps = {
+TableFilters.defaultProps = {
   currentTable: "",
   currentOptions: [],
   allOptions: {},
-  setCurrentOptions: [],
   fetchCurrentOptions: () => {},
-  currentColumns: [],
   setCurrentColumns: () => {}
 };
 
-OptionsSelection.propTypes = {
+TableFilters.propTypes = {
   currentTable: PropTypes.string,
   currentOptions: PropTypes.arrayOf(PropTypes.string),
   allOptions: PropTypes.objectOf(PropTypes.array),
-  setCurrentOptions: PropTypes.func,
   fetchCurrentOptions: PropTypes.func,
-  currentColumns: PropTypes.arrayOf(PropTypes.string),
-  setCurrentColumns: PropTypes.any
+  setCurrentColumns: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   currentTable: state.currentTable,
   currentOptions: state.currentOptions,
-  allOptions: state.allOptions,
-  currentColumns: state.currentColumns
+  allOptions: state.allOptions
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentOptions: currentOptions =>
-    dispatch(setCurrentOptions(currentOptions)),
   fetchCurrentOptions: (nextTable, nextOptions, removeTableUtil) =>
     dispatch(fetchCurrentOptions(nextTable, nextOptions, removeTableUtil)),
   setCurrentColumns: (column, currentColumns) =>
@@ -85,4 +62,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(OptionsSelection);
+)(TableFilters);

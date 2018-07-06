@@ -1,11 +1,9 @@
-import { removeEmptyField } from "../utils";
+import { removeEmptyField, removeColumn } from "./utils";
 
 /*
  * whereStatements are the currently selected
- * table query where statements that are submitted when
- * the user hits "Go!" and requests a table.
- *
- * these statements correlate with a corresponding column.
+ * filters for a column of the currently
+ * selected table.
  */
 
 /*
@@ -13,6 +11,7 @@ import { removeEmptyField } from "../utils";
  */
 const NEW_WHERE_COLUMN = "NEW_WHERE_COLUMN";
 const NEW_WHERE_STATEMENT = "NEW_WHERE_STATEMENT";
+const CLEAR_COLUMN = "CLEAR_COLUMN";
 const CLEAR_WHERE_STATEMENTS = "CLEAR_WHERE_STATEMENT";
 
 /*
@@ -27,6 +26,11 @@ export const newWhereStatement = (column, name, value) => ({
   column,
   name,
   value
+});
+export const clearColumn = (oldColumn, newColumn) => ({
+  type: CLEAR_COLUMN,
+  oldColumn,
+  newColumn
 });
 export const clearWhereStatements = () => ({
   type: CLEAR_WHERE_STATEMENTS
@@ -54,6 +58,12 @@ export default (state = {}, action) => {
         copy[action.column] = { [action.name]: action.value };
       }
       return copy;
+
+    case CLEAR_COLUMN:
+      copy = action.oldColumn ? removeColumn(state, action.oldColumn) : state;
+      return action.newColumn
+        ? Object.assign({}, copy, { [action.newColumn]: {} })
+        : copy;
 
     case CLEAR_WHERE_STATEMENTS:
       return {};

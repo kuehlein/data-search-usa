@@ -29,7 +29,7 @@ export const setFilterOptions = options => ({
   options
 });
 export const clearFilterOptions = () => ({
-  type: SET_FILTER_OPTIONS
+  type: CLEAR_FILTER_OPTIONS
 });
 
 /*

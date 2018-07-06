@@ -10,7 +10,7 @@ const ChooseColumn = props => {
   return (
     <label htmlFor={LABEL_TEXT}>
       {LABEL_TEXT}
-      <select value={value} onChange={e => handleSelectChange(e)}>
+      <select value={value} onChange={e => handleSelectChange(e, value)}>
         <option />
         {currentColumns.map((column, i) => (
           <option key={i} value={column}>
