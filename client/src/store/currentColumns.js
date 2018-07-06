@@ -24,7 +24,11 @@ export const setCurrentColumns = currentColumns => ({
 export default (state = [], action) => {
   switch (action.type) {
     case SET_CURRENT_COLUMNS:
-      return addOrRemove(state, action.currentColumns);
+      return addOrRemove(state, action.currentColumns).sort((a, b) => {
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+      });
 
     default:
       return state;

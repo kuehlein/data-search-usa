@@ -7,7 +7,7 @@ import ColumnFilterFormat from "./ColumnFilterFormat";
 import {
   clearCurrentFilterOptions,
   clearWhereStatements,
-  clearColumn,
+  updateColumn,
   newWhereColumn
 } from "../../../store";
 import { filterStateArr } from "./utils";
@@ -44,23 +44,15 @@ class FilterColumns extends Component {
   }
 
   handleChange(event, currentValue) {
-    const { columns, filterNum } = this.state;
+    const { columns } = this.state;
     const { value } = event.target;
     const newColumns = filterStateArr(columns, value, currentValue);
 
     this.setState({ columns: newColumns });
-
-    // AUTO DELETE WHERESTATEMENT IF SET TO ""
-    // const oldColLen = Object.keys(columns).length;
-    // const newColLen = Object.keys(newColumns).length;
-    // if (oldColLen > newColLen) {
-    //   let numCopy = filterNum;
-    //   this.setState({ filterNum: --numCopy });
-    // }
   }
 
   render() {
-    const { currentColumns, clearColumn, newWhereColumn } = this.props;
+    const { currentColumns, updateColumn, newWhereColumn } = this.props;
     const { columns, filterNum } = this.state;
 
     return (
@@ -69,7 +61,7 @@ class FilterColumns extends Component {
           columns={columns}
           filterNum={filterNum}
           currentColumns={currentColumns}
-          clearColumn={clearColumn}
+          updateColumn={updateColumn}
           newWhereColumn={newWhereColumn}
           handleClick={this.handleClick}
           handleChange={this.handleChange}
@@ -83,7 +75,7 @@ FilterColumns.defaultProps = {
   currentColumns: [""],
   clearCurrentFilterOptions: () => {},
   clearWhereStatements: () => {},
-  clearColumn: () => {},
+  updateColumn: () => {},
   newWhereColumn: () => {}
 };
 
@@ -92,7 +84,7 @@ FilterColumns.propTypes = {
   currentColumns: PropTypes.arrayOf(PropTypes.string),
   clearCurrentFilterOptions: PropTypes.func,
   clearWhereStatements: PropTypes.func,
-  clearColumn: PropTypes.func,
+  updateColumn: PropTypes.func,
   newWhereColumn: PropTypes.func
 };
 
@@ -104,8 +96,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   clearCurrentFilterOptions: () => dispatch(clearCurrentFilterOptions()),
   clearWhereStatements: () => dispatch(clearWhereStatements()),
-  clearColumn: (oldColumn, newColumn) =>
-    dispatch(clearColumn(oldColumn, newColumn)),
+  updateColumn: (oldColumn, newColumn) =>
+    dispatch(updateColumn(oldColumn, newColumn)),
 
   newWhereColumn: column => dispatch(newWhereColumn(column))
 });

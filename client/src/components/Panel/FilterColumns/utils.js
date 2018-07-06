@@ -1,16 +1,16 @@
 // manages state of columns in Panels/index
 export const filterStateArr = (obj, val, currentVal) => {
   const keys = Object.keys(obj);
+  const copy = { [val]: val };
 
-  if (!val) {
-    const copy = {};
-    keys.forEach(elem => {
-      if (elem !== currentVal) copy[elem] = elem;
-    });
-    return Object.keys(copy).length ? copy : {};
+  if (!keys.length) {
+    return { [val]: val };
   }
-  if (!keys[0]) return { [val]: val };
-  return Object.assign(obj, { [val]: val });
+
+  keys.forEach(elem => {
+    if (elem !== currentVal) copy[elem] = elem;
+  });
+  return Object.keys(copy).length ? copy : {};
 };
 
 // iterate a jsx template
@@ -25,16 +25,15 @@ export const proliferateFields = (num, template, columns) => {
 };
 
 export const compareArrays = (oldColumns, newColumns) => {
-  Array.prototype.diff = function(key) {
-    return this.filter(function(i) {
-      return key.indexOf(i) < 0;
-    });
-  };
-
   const bigger =
     oldColumns.length > newColumns.length ? oldColumns : newColumns;
   const smaller =
     oldColumns.length < newColumns.length ? oldColumns : newColumns;
+  bigger.diff = function(key) {
+    return this.filter(function(i) {
+      return key.indexOf(i) < 0;
+    });
+  };
 
   return bigger.diff(smaller)[0];
 };

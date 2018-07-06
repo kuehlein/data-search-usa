@@ -11,7 +11,7 @@ import { removeEmptyField, removeColumn } from "./utils";
  */
 const NEW_WHERE_COLUMN = "NEW_WHERE_COLUMN";
 const NEW_WHERE_STATEMENT = "NEW_WHERE_STATEMENT";
-const CLEAR_COLUMN = "CLEAR_COLUMN";
+const UPDATE_COLUMN = "UPDATE_COLUMN";
 const CLEAR_WHERE_STATEMENTS = "CLEAR_WHERE_STATEMENT";
 
 /*
@@ -27,8 +27,8 @@ export const newWhereStatement = (column, name, value) => ({
   name,
   value
 });
-export const clearColumn = (oldColumn, newColumn) => ({
-  type: CLEAR_COLUMN,
+export const updateColumn = (oldColumn, newColumn) => ({
+  type: UPDATE_COLUMN,
   oldColumn,
   newColumn
 });
@@ -59,7 +59,7 @@ export default (state = {}, action) => {
       }
       return copy;
 
-    case CLEAR_COLUMN:
+    case UPDATE_COLUMN:
       copy = action.oldColumn ? removeColumn(state, action.oldColumn) : state;
       return action.newColumn
         ? Object.assign({}, copy, { [action.newColumn]: {} })

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const LABEL_TEXT = "Select a column to filter:";
+const LABEL_TEXT = "Select a column to filter: ";
 
 // generate a field to select a column to filter
 const ChooseColumn = props => {

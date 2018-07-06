@@ -23,12 +23,10 @@ class ColumnFilterFormat extends Component {
   }
 
   handleSelectChange(event, oldColumn) {
-    const { handleChange, clearColumn } = this.props;
+    const { handleChange, updateColumn } = this.props;
 
     handleChange(event, oldColumn);
-    if (oldColumn) {
-      clearColumn(oldColumn, event.target.value);
-    }
+    updateColumn(oldColumn, event.target.value);
   }
 
   render() {
@@ -60,7 +58,7 @@ ColumnFilterFormat.defaultProps = {
   filterNum: 0,
   handleClick: () => {},
   handleChange: () => {},
-  clearColumn: () => {},
+  updateColumn: () => {},
   newWhereColumn: () => {}
 };
 
@@ -70,7 +68,7 @@ ColumnFilterFormat.propTypes = {
   filterNum: PropTypes.number,
   handleClick: PropTypes.func,
   handleChange: PropTypes.func,
-  clearColumn: PropTypes.func,
+  updateColumn: PropTypes.func,
   newWhereColumn: PropTypes.func
 };
 

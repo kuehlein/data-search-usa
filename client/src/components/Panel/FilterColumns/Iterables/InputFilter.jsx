@@ -15,7 +15,7 @@ class MapInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentTable !== nextProps.currentTable) {
+    if (this.props.column !== nextProps.column) {
       this.setState({ value: "" });
     }
   }
@@ -50,7 +50,6 @@ class MapInput extends Component {
 MapInput.defaultProps = {
   field: [],
   column: "",
-  currentTable: "",
   disable: true,
   newWhereStatement: () => {}
 };
@@ -58,14 +57,9 @@ MapInput.defaultProps = {
 MapInput.propTypes = {
   field: PropTypes.any,
   column: PropTypes.string,
-  currentTable: PropTypes.string,
   disable: PropTypes.bool,
   newWhereStatement: PropTypes.func
 };
-
-const mapStateToProps = state => ({
-  currentTable: state.currentTable
-});
 
 const mapDispatchToProps = dispatch => ({
   newWhereStatement: (column, name, value) =>
@@ -73,6 +67,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(MapInput);
