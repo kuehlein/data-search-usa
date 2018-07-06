@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import MapFields from "./MapFields";
 
-import fields from "./filterFieldTemplate";
+import fields from "./filterTableTemplate";
 
 // filter options for querying a table
 const FilterTable = props => {

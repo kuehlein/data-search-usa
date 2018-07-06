@@ -6,7 +6,7 @@ import SelectField from "./SelectField";
 import { setCurrentFilterOptions } from "../../../store";
 
 // map out filter fields
-class FilterFields extends Component {
+class TableFilterDisplay extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,14 +58,14 @@ class FilterFields extends Component {
     );
   }
 }
-FilterFields.defaultProps = {
+TableFilterDisplay.defaultProps = {
   field: {},
   setCurrentFilterOptions: () => {},
   currentFilterOptions: {},
   currentTable: ""
 };
 
-FilterFields.propTypes = {
+TableFilterDisplay.propTypes = {
   field: PropTypes.objectOf(PropTypes.any),
   setCurrentFilterOptions: PropTypes.func,
   currentFilterOptions: PropTypes.objectOf(PropTypes.string),
@@ -85,4 +85,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FilterFields);
+)(TableFilterDisplay);

@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "./";
 import { setAllTables } from "./allTables";
 import { setFilterOptions } from "./filterOptions";
-import { removeMissingTable, findLevels } from "../utils";
+import { removeMissingTable, findLevels } from "./utils";
 
 /*
  * currentOptions are the options that are currently

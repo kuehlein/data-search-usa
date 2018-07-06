@@ -1,4 +1,4 @@
-import { addOrRemove } from "../utils";
+import { addOrRemove } from "./utils";
 
 /*
  * currentColumns are the columns that are selected

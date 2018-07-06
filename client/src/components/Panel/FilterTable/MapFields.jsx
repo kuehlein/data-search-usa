@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FilterFields from "./FilterFields";
+import TableFilterDisplay from "./TableFilterDisplay";
 
 // map out filter fields
 const MapFields = props => {
@@ -9,7 +9,9 @@ const MapFields = props => {
   return (
     <div>
       {template &&
-        template.map((field, i) => <FilterFields key={i} field={field} />)}
+        template.map((field, i) => (
+          <TableFilterDisplay key={i} field={field} />
+        ))}
     </div>
   );
 };

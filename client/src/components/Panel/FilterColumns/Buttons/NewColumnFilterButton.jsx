@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // generate a field to select a column to filter
-const FilterNewColumn = props => {
+const NewColumnFilterButton = props => {
   const { handleClick, shouldDisable, filterNum } = props;
   const disable = shouldDisable ? "disabled" : "";
 
@@ -17,16 +17,16 @@ const FilterNewColumn = props => {
     </label>
   );
 };
-FilterNewColumn.defaultProps = {
+NewColumnFilterButton.defaultProps = {
   handleClick: () => {},
   shouldDisable: false,
   filterNum: 0
 };
 
-FilterNewColumn.propTypes = {
+NewColumnFilterButton.propTypes = {
   handleClick: PropTypes.func,
   shouldDisable: PropTypes.bool,
   filterNum: PropTypes.number
 };
 
-export default FilterNewColumn;
+export default NewColumnFilterButton;
