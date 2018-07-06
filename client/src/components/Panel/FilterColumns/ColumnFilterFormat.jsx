@@ -18,7 +18,6 @@ class ColumnFilterFormat extends Component {
     handleChange(event, oldColumn);
     if (oldColumn) {
       clearColumn(oldColumn, event.target.value);
-      // clear input fields (in state)
     }
   }
 
@@ -35,7 +34,7 @@ class ColumnFilterFormat extends Component {
 
     return (
       <div>
-        {proliferateFields(filterNum, template).map(set => set)}
+        {proliferateFields(filterNum, template, columns)}
         <NewColumnFilterButton
           handleClick={handleClick}
           shouldDisable={shouldDisable}
@@ -47,7 +46,7 @@ class ColumnFilterFormat extends Component {
 }
 ColumnFilterFormat.defaultProps = {
   currentColumns: [],
-  columns: [],
+  columns: {},
   filterNum: 0,
   handleClick: () => {},
   handleChange: () => {},
@@ -56,7 +55,7 @@ ColumnFilterFormat.defaultProps = {
 
 ColumnFilterFormat.propTypes = {
   currentColumns: PropTypes.arrayOf(PropTypes.string),
-  columns: PropTypes.arrayOf(PropTypes.string),
+  columns: PropTypes.objectOf(PropTypes.string),
   filterNum: PropTypes.number,
   handleClick: PropTypes.func,
   handleChange: PropTypes.func,

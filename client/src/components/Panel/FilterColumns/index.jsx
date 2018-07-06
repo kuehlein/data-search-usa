@@ -16,7 +16,7 @@ class FilterColumns extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      columns: [""],
+      columns: {},
       filterNum: 0
     };
     this.handleClick = this.handleClick.bind(this);
@@ -26,7 +26,7 @@ class FilterColumns extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.currentTable !== nextProps.currentTable) {
       this.setState({
-        columns: [""],
+        columns: {},
         filterNum: 0
       });
       this.props.clearCurrentFilterOptions();

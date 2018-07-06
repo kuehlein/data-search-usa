@@ -8,14 +8,14 @@ const ColumnSelectionTemplate = (
   currentColumns,
   handleSelectChange,
   columns
-) => i => (
-  <div key={i}>
+) => key => (
+  <div key={key}>
     <ChooseColumn
       currentColumns={currentColumns}
       handleSelectChange={handleSelectChange}
-      value={columns[i]}
+      value={columns[key]}
     />
-    <MapFields template={where} column={columns[i]} disable={!columns[i]} />
+    <MapFields template={where} column={columns[key]} disable={!columns[key]} />
   </div>
 );
 

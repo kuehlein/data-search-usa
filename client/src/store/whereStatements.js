@@ -61,7 +61,9 @@ export default (state = {}, action) => {
 
     case CLEAR_COLUMN:
       copy = action.oldColumn ? removeColumn(state, action.oldColumn) : state;
-      return Object.assign({}, copy, { [action.newColumn]: {} });
+      return action.newColumn
+        ? Object.assign({}, copy, { [action.newColumn]: {} })
+        : copy;
 
     case CLEAR_WHERE_STATEMENTS:
       return {};
