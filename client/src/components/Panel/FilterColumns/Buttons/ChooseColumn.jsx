@@ -5,12 +5,12 @@ const LABEL_TEXT = "Select a column to filter: ";
 
 // generate a field to select a column to filter
 const ChooseColumn = props => {
-  const { currentColumns, handleSelectChange, value } = props;
+  const { currentColumns, handleChange, value } = props;
 
   return (
     <label htmlFor={LABEL_TEXT}>
       {LABEL_TEXT}
-      <select value={value} onChange={e => handleSelectChange(e, value)}>
+      <select value={value} onChange={e => handleChange(e, value)}>
         <option />
         {currentColumns.map((column, i) => (
           <option key={i} value={column}>
@@ -23,14 +23,16 @@ const ChooseColumn = props => {
 };
 ChooseColumn.defaultProps = {
   currentColumns: [],
-  handleSelectChange: () => {},
+  handleChange: () => {},
   value: ""
 };
 
 ChooseColumn.propTypes = {
   currentColumns: PropTypes.arrayOf(PropTypes.string),
-  handleSelectChange: PropTypes.func,
+  handleChange: PropTypes.func,
   value: PropTypes.string
 };
 
 export default ChooseColumn;
+
+// compare currentColumns against columns

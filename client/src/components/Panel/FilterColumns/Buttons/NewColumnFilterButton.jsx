@@ -3,30 +3,28 @@ import PropTypes from "prop-types";
 
 // generate a field to select a column to filter
 const NewColumnFilterButton = props => {
-  const { handleClick, shouldDisable, filterNum } = props;
-  const disable = shouldDisable ? "disabled" : "";
+  const { handleClick, shouldDisable } = props;
 
   return (
     <label htmlFor="Filter Another Column?">
       <button
-        className={`btn btn-warning ${disable}`}
-        onClick={() => handleClick(shouldDisable)}
+        className="btn btn-warning"
+        onClick={() => handleClick()}
+        disabled={shouldDisable}
       >
-        {filterNum ? "Filter Another Column?" : "Filter Column?"}
+        Filter Column?
       </button>
     </label>
   );
 };
 NewColumnFilterButton.defaultProps = {
   handleClick: () => {},
-  shouldDisable: false,
-  filterNum: 0
+  shouldDisable: true
 };
 
 NewColumnFilterButton.propTypes = {
   handleClick: PropTypes.func,
-  shouldDisable: PropTypes.bool,
-  filterNum: PropTypes.number
+  shouldDisable: PropTypes.bool
 };
 
 export default NewColumnFilterButton;

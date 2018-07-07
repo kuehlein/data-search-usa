@@ -2,19 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import InputFilter from "./InputFilter";
 
+import where from "../Templates/whereStatementTemplate";
+
 // map out filter fields
 const MapFields = props => {
-  const { template, column, filterNum, disable } = props;
+  const { column, disable, handleInputChange } = props;
 
   return (
     <div>
-      {template &&
-        template.map((field, i) => (
+      {where &&
+        where.map((field, i) => (
           <div key={i}>
             <InputFilter
               field={field}
               column={column}
-              filterNum={filterNum}
+              handleInputChange={handleInputChange}
               disable={disable}
             />
           </div>
@@ -23,17 +25,15 @@ const MapFields = props => {
   );
 };
 MapFields.defaultProps = {
-  template: [{}],
-  column: "",
-  filterNum: 0,
-  disable: true
+  column: {},
+  disable: true,
+  handleInputChange: () => {}
 };
 
 MapFields.propTypes = {
-  template: PropTypes.arrayOf(PropTypes.object),
-  column: PropTypes.string,
-  filterNum: PropTypes.number,
-  disable: PropTypes.bool
+  column: PropTypes.objectOf(PropTypes.any),
+  disable: PropTypes.bool,
+  handleInputChange: PropTypes.func
 };
 
 export default MapFields;

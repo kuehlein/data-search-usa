@@ -1,78 +1,41 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import PropTypes from "prop-types";
 
-import { newWhereStatement } from "../../../../store";
-
 // flesh out the appropriate options for filtering
-class MapInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const MapInput = props => {
+  const { field, column, shouldDisable, handleInputChange } = props;
+  const value = column.filters ? column.filters[field.name] : "";
 
-  componentWillReceiveProps(nextProps) {
-    // clears all fields when one new one selected
-    if (
-      this.props.column !== nextProps.column &&
-      this.props.filterNum !== nextProps.filterNum
-    ) {
-      this.setState({ value: "" });
-    }
-  }
+  console.log("column", column);
 
-  handleChange(event, field, column) {
-    const { newWhereStatement } = this.props;
-
-    this.setState({ value: event.target.value });
-    newWhereStatement(column, field, event.target.value);
-  }
-
-  render() {
-    const { field, column, disable } = this.props;
-
-    return (
-      <div>
-        <label htmlFor={field.name}>
-          {field.name}
-          <input
-            type="text"
-            name={field.name}
-            title={field.description}
-            value={disable ? "" : this.state.value}
-            onChange={e => this.handleChange(e, field.name, column)}
-            disabled={disable}
-          />
-        </label>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <label htmlFor={field.name}>
+        {field.name}
+        <input
+          type="text"
+          name={field.name}
+          title={field.description}
+          value={value}
+          onChange={e => handleInputChange(e, field.name, column)}
+          disabled={shouldDisable}
+        />
+      </label>
+    </div>
+  );
+};
 MapInput.defaultProps = {
   field: [],
-  column: "",
-  filterNum: 0,
-  disable: true,
-  newWhereStatement: () => {}
+  column: {},
+  shouldDisable: true,
+  handleInputChange: () => {}
 };
 
 MapInput.propTypes = {
   field: PropTypes.any,
-  column: PropTypes.string,
-  filterNum: PropTypes.number,
-  disable: PropTypes.bool,
-  newWhereStatement: PropTypes.func
+  column: PropTypes.objectOf(PropTypes.any),
+  shouldDisable: PropTypes.bool,
+  handleInputChange: PropTypes.func
 };
 
-const mapDispatchToProps = dispatch => ({
-  newWhereStatement: (column, name, value) =>
-    dispatch(newWhereStatement(column, name, value))
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(MapInput);
+export default MapInput;

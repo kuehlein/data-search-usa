@@ -53,30 +53,80 @@ export const findLevels = allTables => {
 };
 
 // remove empty field from state of whereStatments
-export const removeEmptyField = (state, column, name) => {
-  const keys = Object.keys(state[column]);
-  const newObj = {};
+// export const removeEmptyField = (state, column, name) => {
+//   const keys = Object.keys(state[column]);
+//   const newObj = {};
 
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] !== name) {
-      newObj[keys[i]] = state[column][keys[i]];
-    }
-  }
+//   for (let i = 0; i < keys.length; i++) {
+//     if (keys[i] !== name) {
+//       newObj[keys[i]] = state[column][keys[i]];
+//     }
+//   }
 
-  return Object.assign({}, state, { [column]: newObj });
-};
+//   return Object.assign({}, state, { [column]: newObj });
+// };
 
 // when another column is selected in place of the current one
 // remove old column and replace it
-export const removeColumn = (state, column) => {
-  const keys = Object.keys(state);
-  const newObj = {};
+// export const removeColumn = (state, column) => {
+//   const keys = Object.keys(state);
+//   const newObj = {};
 
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] !== column) {
-      newObj[keys[i]] = state[keys[i]];
-    }
+//   for (let i = 0; i < keys.length; i++) {
+//     if (keys[i] !== column) {
+//       newObj[keys[i]] = state[keys[i]];
+//     }
+//   }
+
+//   return newObj;
+// };
+
+// template for columns in state of whereStatements
+export const columnTemplate = {
+  name: "",
+  filters: {
+    "Greater Than": "",
+    "Less Than": "",
+    "Starts With": "",
+    "Ends With": "",
+    "Number Not Equal To": "",
+    "Text Not Equal To": ""
   }
+};
 
-  return newObj;
+const checkStateForColumn = (state, column) => {
+  for (let i = 0; i < state.length; i++) {
+    if (state[i].name === column) return i;
+  }
+  return -1;
+};
+
+const updateState = (state, event, field) => {
+  const newState = Object.assign({}, state);
+  newState.filters[field.name] = event.target.value;
+
+  return newState;
+};
+
+const replaceColumn = (state, obj, index) => {
+  state[index] = obj;
+
+  return state;
+};
+
+// build new state for whereStatements
+export const buildNewState = (state, event, field, column) => {
+  const columnIndex = checkStateForColumn(state, column);
+  const newState = updateState(state[columnIndex], event, field);
+
+  return replaceColumn(state.slice(), newState, columnIndex);
+};
+
+// find and update a column in state
+export const updateColumnInState = (state, oldColumn, newColumn) => {
+  const columnIndex = checkStateForColumn(state, oldColumn);
+
+  state[columnIndex] = Object.assign({}, columnTemplate, { name: newColumn });
+
+  return state;
 };
