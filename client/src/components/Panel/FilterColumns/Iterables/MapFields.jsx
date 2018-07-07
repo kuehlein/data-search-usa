@@ -4,14 +4,19 @@ import InputFilter from "./InputFilter";
 
 // map out filter fields
 const MapFields = props => {
-  const { template, column, disable } = props;
+  const { template, column, filterNum, disable } = props;
 
   return (
     <div>
       {template &&
         template.map((field, i) => (
           <div key={i}>
-            <InputFilter field={field} column={column} disable={disable} />
+            <InputFilter
+              field={field}
+              column={column}
+              filterNum={filterNum}
+              disable={disable}
+            />
           </div>
         ))}
     </div>
@@ -20,12 +25,14 @@ const MapFields = props => {
 MapFields.defaultProps = {
   template: [{}],
   column: "",
+  filterNum: 0,
   disable: true
 };
 
 MapFields.propTypes = {
   template: PropTypes.arrayOf(PropTypes.object),
   column: PropTypes.string,
+  filterNum: PropTypes.number,
   disable: PropTypes.bool
 };
 

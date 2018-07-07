@@ -7,7 +7,8 @@ import MapFields from "../Iterables/MapFields";
 const ColumnSelectionTemplate = (
   currentColumns,
   handleSelectChange,
-  columns
+  columns,
+  filterNum
 ) => (key, i) => (
   <div key={i}>
     <ChooseColumn
@@ -15,7 +16,12 @@ const ColumnSelectionTemplate = (
       handleSelectChange={handleSelectChange}
       value={columns[key]}
     />
-    <MapFields template={where} column={columns[key]} disable={!columns[key]} />
+    <MapFields
+      template={where}
+      column={columns[key]}
+      filterNum={filterNum}
+      disable={!columns[key]}
+    />
   </div>
 );
 

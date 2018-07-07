@@ -15,7 +15,11 @@ class MapInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.column !== nextProps.column) {
+    // clears all fields when one new one selected
+    if (
+      this.props.column !== nextProps.column &&
+      this.props.filterNum !== nextProps.filterNum
+    ) {
       this.setState({ value: "" });
     }
   }
@@ -50,6 +54,7 @@ class MapInput extends Component {
 MapInput.defaultProps = {
   field: [],
   column: "",
+  filterNum: 0,
   disable: true,
   newWhereStatement: () => {}
 };
@@ -57,6 +62,7 @@ MapInput.defaultProps = {
 MapInput.propTypes = {
   field: PropTypes.any,
   column: PropTypes.string,
+  filterNum: PropTypes.number,
   disable: PropTypes.bool,
   newWhereStatement: PropTypes.func
 };

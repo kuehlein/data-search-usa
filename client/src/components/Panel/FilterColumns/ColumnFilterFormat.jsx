@@ -34,7 +34,8 @@ class ColumnFilterFormat extends Component {
     const template = ColumnSelectionTemplate(
       currentColumns,
       this.handleSelectChange,
-      columns
+      columns,
+      filterNum
     );
     const shouldDisable = !currentColumns[0]
       ? true
