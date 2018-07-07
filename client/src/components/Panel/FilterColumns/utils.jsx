@@ -6,7 +6,7 @@ const mapFilterTemplate = (Template, currentFilters, addOne) => {
   const len = addOne > 0 ? currentFilters.length + 1 : currentFilters.length;
 
   for (let i = 0; i < len; i++) {
-    allFields.push(<Template key={i} column={currentFilters[i] || ""} />);
+    allFields.push(<Template key={i} column={currentFilters[i]} i={i} />);
   }
   return allFields;
 };

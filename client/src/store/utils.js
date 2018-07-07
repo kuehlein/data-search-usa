@@ -52,35 +52,6 @@ export const findLevels = allTables => {
   return levels;
 };
 
-// remove empty field from state of whereStatments
-// export const removeEmptyField = (state, column, name) => {
-//   const keys = Object.keys(state[column]);
-//   const newObj = {};
-
-//   for (let i = 0; i < keys.length; i++) {
-//     if (keys[i] !== name) {
-//       newObj[keys[i]] = state[column][keys[i]];
-//     }
-//   }
-
-//   return Object.assign({}, state, { [column]: newObj });
-// };
-
-// when another column is selected in place of the current one
-// remove old column and replace it
-// export const removeColumn = (state, column) => {
-//   const keys = Object.keys(state);
-//   const newObj = {};
-
-//   for (let i = 0; i < keys.length; i++) {
-//     if (keys[i] !== column) {
-//       newObj[keys[i]] = state[keys[i]];
-//     }
-//   }
-
-//   return newObj;
-// };
-
 // template for columns in state of whereStatements
 export const columnTemplate = {
   name: "",
@@ -125,8 +96,13 @@ export const buildNewState = (state, event, field, column) => {
 // find and update a column in state
 export const updateColumnInState = (state, oldColumn, newColumn) => {
   const columnIndex = checkStateForColumn(state, oldColumn);
+  const newObj = Object.assign({}, columnTemplate, { name: newColumn });
 
-  state[columnIndex] = Object.assign({}, columnTemplate, { name: newColumn });
+  if (state[columnIndex]) {
+    state[columnIndex] = newObj;
+  } else {
+    state.push(newObj);
+  }
 
   return state;
 };

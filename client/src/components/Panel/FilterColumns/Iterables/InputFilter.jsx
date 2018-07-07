@@ -6,8 +6,6 @@ const MapInput = props => {
   const { field, column, shouldDisable, handleInputChange } = props;
   const value = column.filters ? column.filters[field.name] : "";
 
-  console.log("column", column);
-
   return (
     <div>
       <label htmlFor={field.name}>

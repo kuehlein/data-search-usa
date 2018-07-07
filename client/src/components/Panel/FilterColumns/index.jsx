@@ -14,8 +14,10 @@ class FilterColumns extends Component {
   }
 
   handleClick() {
+    let filterCopy = this.state.newFilter;
+
     if (this.state.newFilter === 0) {
-      this.setState({ newFilter: ++this.state.newFilter });
+      this.setState({ newFilter: ++filterCopy });
     }
   }
 

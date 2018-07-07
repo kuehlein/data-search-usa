@@ -44,6 +44,7 @@ class ColumnSelectionTemplate extends Component {
     } = this.props;
     const template = ColumnFilterTemplate(
       currentColumns,
+      whereStatements,
       handleClick,
       this.handleChange,
       this.handleInputChange,
