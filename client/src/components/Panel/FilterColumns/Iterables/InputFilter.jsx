@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // flesh out the appropriate options for filtering
-const MapInput = props => {
+const InputFilter = props => {
   const { field, column, value, shouldDisable, handleInputChange } = props;
   const inputValue = value.filters ? value.filters[field.name] : "";
 
@@ -22,7 +22,7 @@ const MapInput = props => {
     </div>
   );
 };
-MapInput.defaultProps = {
+InputFilter.defaultProps = {
   field: [],
   column: {},
   value: {},
@@ -30,7 +30,7 @@ MapInput.defaultProps = {
   handleInputChange: () => {}
 };
 
-MapInput.propTypes = {
+InputFilter.propTypes = {
   field: PropTypes.any,
   column: PropTypes.objectOf(PropTypes.any),
   value: PropTypes.objectOf(PropTypes.any),
@@ -38,4 +38,4 @@ MapInput.propTypes = {
   handleInputChange: PropTypes.func
 };
 
-export default MapInput;
+export default InputFilter;

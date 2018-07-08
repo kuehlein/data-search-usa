@@ -42,16 +42,17 @@ class ColumnSelectionTemplate extends Component {
       handleClick,
       newFilter
     } = this.props;
-    const template = ColumnFilterTemplate(
+
+    return mapFilterTemplate(
+      ColumnFilterTemplate,
+      whereStatements,
+      newFilter,
       currentColumns,
       whereStatements,
       handleClick,
       this.handleChange,
-      this.handleInputChange,
-      newFilter
+      this.handleInputChange
     );
-
-    return mapFilterTemplate(template, whereStatements, newFilter);
   }
 }
 ColumnSelectionTemplate.defaultProps = {
