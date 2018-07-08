@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 /*
  * this is a utility file containing helper functions for
  * store/allOptions ButtonDisplay/OptionsSelection.jsx
@@ -67,16 +69,15 @@ export const columnTemplate = {
 
 const checkStateForColumn = (state, column) => {
   for (let i = 0; i < state.length; i++) {
-    if (state[i].name === column) return i;
+    if (state[i].name === column.name) return i;
   }
   return -1;
 };
 
 const updateState = (state, event, field) => {
-  const newState = Object.assign({}, state);
-  newState.filters[field.name] = event.target.value;
+  state.filters[field] = event;
 
-  return newState;
+  return state;
 };
 
 const replaceColumn = (state, obj, index) => {
@@ -87,18 +88,21 @@ const replaceColumn = (state, obj, index) => {
 
 // build new state for whereStatements
 export const buildNewState = (state, event, field, column) => {
+  console.log("state", state, "\nevent", event, "\nfield", field);
+
   const columnIndex = checkStateForColumn(state, column);
   const newState = updateState(state[columnIndex], event, field);
 
-  return replaceColumn(state.slice(), newState, columnIndex);
+  return replaceColumn(state, newState, columnIndex);
 };
 
 // find and update a column in state
 export const updateColumnInState = (state, oldColumn, newColumn) => {
   const columnIndex = checkStateForColumn(state, oldColumn);
-  const newObj = Object.assign({}, columnTemplate, { name: newColumn });
+  let newObj = _.cloneDeep(columnTemplate);
+  newObj.name = newColumn;
 
-  if (state[columnIndex]) {
+  if (state[columnIndex] > -1) {
     state[columnIndex] = newObj;
   } else {
     state.push(newObj);

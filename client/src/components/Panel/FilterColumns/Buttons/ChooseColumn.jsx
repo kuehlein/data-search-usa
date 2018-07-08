@@ -7,8 +7,6 @@ const LABEL_TEXT = "Select a column to filter: ";
 const ChooseColumn = props => {
   const { currentColumns, handleChange, value } = props;
 
-  console.log("value", value);
-
   return (
     <label htmlFor={LABEL_TEXT}>
       {LABEL_TEXT}

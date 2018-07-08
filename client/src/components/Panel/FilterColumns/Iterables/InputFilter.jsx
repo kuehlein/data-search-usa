@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 // flesh out the appropriate options for filtering
 const MapInput = props => {
-  const { field, column, shouldDisable, handleInputChange } = props;
-  const value = column.filters ? column.filters[field.name] : "";
+  const { field, column, value, shouldDisable, handleInputChange } = props;
+  const inputValue = value.filters ? value.filters[field.name] : "";
 
   return (
     <div>
@@ -14,9 +14,9 @@ const MapInput = props => {
           type="text"
           name={field.name}
           title={field.description}
-          value={value}
+          value={inputValue}
           onChange={e => handleInputChange(e, field.name, column)}
-          disabled={shouldDisable}
+          // disabled={shouldDisable}
         />
       </label>
     </div>
@@ -25,6 +25,7 @@ const MapInput = props => {
 MapInput.defaultProps = {
   field: [],
   column: {},
+  value: {},
   shouldDisable: true,
   handleInputChange: () => {}
 };
@@ -32,6 +33,7 @@ MapInput.defaultProps = {
 MapInput.propTypes = {
   field: PropTypes.any,
   column: PropTypes.objectOf(PropTypes.any),
+  value: PropTypes.objectOf(PropTypes.any),
   shouldDisable: PropTypes.bool,
   handleInputChange: PropTypes.func
 };

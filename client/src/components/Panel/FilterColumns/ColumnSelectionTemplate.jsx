@@ -79,6 +79,7 @@ ColumnSelectionTemplate.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  currentTable: state.currentTable,
   whereStatements: state.whereStatements,
   currentColumns: state.currentColumns
 });

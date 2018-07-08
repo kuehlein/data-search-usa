@@ -6,7 +6,7 @@ import where from "../Templates/whereStatementTemplate";
 
 // map out filter fields
 const MapFields = props => {
-  const { column, disable, handleInputChange } = props;
+  const { column, value, disable, handleInputChange } = props;
 
   return (
     <div>
@@ -16,6 +16,7 @@ const MapFields = props => {
             <InputFilter
               field={field}
               column={column}
+              value={value}
               handleInputChange={handleInputChange}
               disable={disable}
             />
@@ -26,12 +27,14 @@ const MapFields = props => {
 };
 MapFields.defaultProps = {
   column: {},
+  value: {},
   disable: true,
   handleInputChange: () => {}
 };
 
 MapFields.propTypes = {
   column: PropTypes.objectOf(PropTypes.any),
+  value: PropTypes.objectOf(PropTypes.any),
   disable: PropTypes.bool,
   handleInputChange: PropTypes.func
 };

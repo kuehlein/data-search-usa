@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { columnTemplate, buildNewState, updateColumnInState } from "./utils";
 
 /*
@@ -44,11 +45,17 @@ export default (state = [], action) => {
 
   switch (action.type) {
     case NEW_WHERE_COLUMN:
-      copy = Object.assign({}, columnTemplate, { name: action.column });
+      copy = _.cloneDeep(columnTemplate);
+      copy.name = action.column;
       return state.slice.push(copy);
 
     case NEW_WHERE_STATEMENT:
-      return buildNewState(state, action.value, action.name, action.column);
+      return buildNewState(
+        state.slice(),
+        action.value,
+        action.name,
+        action.column
+      );
 
     case UPDATE_COLUMN:
       return updateColumnInState(

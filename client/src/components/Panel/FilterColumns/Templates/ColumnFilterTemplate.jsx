@@ -25,6 +25,7 @@ const ColumnFilterTemplate = (
       />
       <MapFields
         column={column}
+        value={whereStatements[i]}
         disable={!!newFilter}
         handleInputChange={handleInputChange}
       />
