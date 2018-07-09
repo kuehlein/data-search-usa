@@ -88,8 +88,6 @@ const replaceColumn = (state, obj, index) => {
 
 // build new state for whereStatements
 export const buildNewState = (state, event, field, column) => {
-  console.log("state", state, "\nevent", event, "\nfield", field);
-
   const columnIndex = checkStateForColumn(state, column);
   const newState = updateState(state[columnIndex], event, field);
 

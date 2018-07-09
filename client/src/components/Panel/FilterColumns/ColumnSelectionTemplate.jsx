@@ -39,44 +39,51 @@ class ColumnSelectionTemplate extends Component {
     const {
       currentColumns,
       whereStatements,
-      handleClick,
-      newFilter
+      clicked,
+      handleColumnValue,
+      handleNewFilterColumn,
+      shouldDisable
     } = this.props;
 
     return mapFilterTemplate(
       ColumnFilterTemplate,
       whereStatements,
-      newFilter,
+      clicked,
+      shouldDisable,
       currentColumns,
-      whereStatements,
-      handleClick,
       this.handleChange,
-      this.handleInputChange
+      this.handleInputChange,
+      handleColumnValue,
+      handleNewFilterColumn
     );
   }
 }
 ColumnSelectionTemplate.defaultProps = {
-  newFilter: -1,
-  handleClick: () => {},
+  clicked: false,
+  handleColumnValue: () => {},
+  handleNewFilterColumn: () => {},
   whereStatements: [{}],
   currentTable: "",
   currentColumns: [""],
   newWhereStatement: () => {},
   clearCurrentFilterOptions: () => {},
   clearWhereStatements: () => {},
-  updateColumn: () => {}
+  updateColumn: () => {},
+  shouldDisable: true
 };
 
 ColumnSelectionTemplate.propTypes = {
-  newFilter: PropTypes.number,
-  handleClick: PropTypes.func,
+  clicked: PropTypes.bool,
+  handleColumnValue: PropTypes.func,
+  handleNewFilterColumn: PropTypes.func,
   whereStatements: PropTypes.arrayOf(PropTypes.object),
   currentTable: PropTypes.string,
   currentColumns: PropTypes.arrayOf(PropTypes.string),
   newWhereStatement: PropTypes.func,
   clearCurrentFilterOptions: PropTypes.func,
   clearWhereStatements: PropTypes.func,
-  updateColumn: PropTypes.func
+  updateColumn: PropTypes.func,
+  shouldDisable: PropTypes.bool
 };
 
 const mapStateToProps = state => ({

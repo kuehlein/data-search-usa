@@ -3,29 +3,34 @@ import React from "react";
 // iterate over the column filter template
 const mapFilterTemplate = (
   Template,
-  currentFilters,
-  newFilter,
-  currentColumns,
   whereStatements,
-  handleClick,
+  clicked,
+  shouldDisable,
+  currentColumns,
   handleChange,
-  handleInputChange
+  handleInputChange,
+  handleColumnValue,
+  handleNewFilterColumn
 ) => {
   const allFields = [];
-  const len = newFilter > 0 ? currentFilters.length + 1 : currentFilters.length;
+  const len = clicked ? whereStatements.length + 1 : whereStatements.length;
 
   for (let i = 0; i < len; i++) {
+    const lastVal =
+      i === len - 1 && shouldDisable ? handleColumnValue : () => {};
+
     allFields.push(
       <Template
         key={i}
-        column={currentFilters[i]}
+        column={whereStatements[i]}
         i={i}
-        newFilter={newFilter}
         currentColumns={currentColumns}
         whereStatements={whereStatements}
-        handleClick={handleClick}
         handleChange={handleChange}
         handleInputChange={handleInputChange}
+        handleColumnValue={lastVal}
+        emptySet={!clicked}
+        handleNewFilterColumn={handleNewFilterColumn}
       />
     );
   }

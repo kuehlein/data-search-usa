@@ -33,29 +33,32 @@ export const setCurrentOptions = options => ({
  * allOptions to find the corresponding options and filterOptions.
  * if an error is returned, remove the table from allTables.
  */
-export const fetchCurrentOptions = (nextTable, allOptions) => dispatch =>
-  axios
-    .get(`/api/datausa/${nextTable}`)
-    .then(res => {
-      if (res.data.error) {
-        const { currentTable, allTables } = store.getState();
-        const copyOfAllTables = removeMissingTable(currentTable, allTables);
+export const fetchCurrentOptions = (nextTable, allOptions) => dispatch => {
+  if (nextTable) {
+    axios
+      .get(`/api/datausa/${nextTable}`)
+      .then(res => {
+        if (res.data.error) {
+          const { currentTable, allTables } = store.getState();
+          const copyOfAllTables = removeMissingTable(currentTable, allTables);
 
-        dispatch(setCurrentOptions(["THIS TABLE IS CURRENTLY UNAVAILABLE"]));
-        dispatch(setAllTables(copyOfAllTables));
-      } else {
-        const filterOptions = {
-          tableName: res.data.source.table,
-          otherTables: res.data.logic.map(set => set.table),
-          sumlevel: findLevels(res.data.source.supported_levels),
-          year: res.data.source.supported_levels.year || []
-        };
+          dispatch(setCurrentOptions(["THIS TABLE IS CURRENTLY UNAVAILABLE"]));
+          dispatch(setAllTables(copyOfAllTables));
+        } else {
+          const filterOptions = {
+            tableName: res.data.source.table,
+            otherTables: res.data.logic.map(set => set.table),
+            sumlevel: findLevels(res.data.source.supported_levels),
+            year: res.data.source.supported_levels.year || []
+          };
 
-        dispatch(setCurrentOptions(allOptions[res.data.source.table].sort()));
-        dispatch(setFilterOptions(filterOptions));
-      }
-    })
-    .catch(err => console.log(err));
+          dispatch(setCurrentOptions(allOptions[res.data.source.table].sort()));
+          dispatch(setFilterOptions(filterOptions));
+        }
+      })
+      .catch(err => console.log(err));
+  }
+};
 
 /*
  * REDUCER
@@ -69,15 +72,3 @@ export default (state = [], action) => {
       return state;
   }
 };
-
-/*
- * filterOptions
- *
- * otherTables: [] <--- logic[?].supported_levels (loop)
- * level: [] <--------- source.supported_levels
- * year: [] <---------- in supported levels
- */
-
-// create filterOptions
-// setFilterOption within fetchCurrentOptions
-// implement filterDisplay

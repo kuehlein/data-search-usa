@@ -18,11 +18,12 @@ class TableFilters extends Component {
   }
 
   render() {
-    const { currentOptions, setCurrentColumns } = this.props;
+    const { handleClickFilter, currentOptions, setCurrentColumns } = this.props;
 
     return (
       <div className="d-flex flex-column justify-content-center">
         <OptionsSelect
+          handleClickFilter={handleClickFilter}
           handleClick={setCurrentColumns}
           currentOptions={currentOptions}
         />
@@ -31,6 +32,7 @@ class TableFilters extends Component {
   }
 }
 TableFilters.defaultProps = {
+  handleClickFilter: () => {},
   currentTable: "",
   currentOptions: [],
   allOptions: {},
@@ -39,6 +41,7 @@ TableFilters.defaultProps = {
 };
 
 TableFilters.propTypes = {
+  handleClickFilter: PropTypes.func,
   currentTable: PropTypes.string,
   currentOptions: PropTypes.arrayOf(PropTypes.string),
   allOptions: PropTypes.objectOf(PropTypes.array),

@@ -3,16 +3,20 @@ import PropTypes from "prop-types";
 
 // fill the select element with column options
 const MapOptions = props => {
-  const { handleClick, currentOptions } = props;
+  const { handleClickFilter, handleClick, currentOptions } = props;
 
   return (
     currentOptions &&
     currentOptions.map(column => (
       <button
+        key={column}
         type="button"
         className="btn btn-light"
-        key={column}
-        onClick={() => handleClick(column)}
+        value="column"
+        onClick={e => {
+          handleClickFilter(e);
+          handleClick(column);
+        }}
       >
         {column}
       </button>
@@ -20,11 +24,13 @@ const MapOptions = props => {
   );
 };
 MapOptions.defaultProps = {
+  handleClickFilter: () => {},
   handleClick: () => {},
   currentOptions: []
 };
 
 MapOptions.propTypes = {
+  handleClickFilter: PropTypes.func,
   handleClick: PropTypes.func,
   currentOptions: PropTypes.arrayOf(PropTypes.string)
 };

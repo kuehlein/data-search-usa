@@ -4,9 +4,9 @@ import InputFilter from "./InputFilter";
 
 import where from "../Templates/whereStatementTemplate";
 
-// map out filter fields
+// iterate fields to filter columns
 const MapFields = props => {
-  const { column, value, disable, handleInputChange } = props;
+  const { column, value, columnSelected, handleInputChange } = props;
 
   return (
     <div>
@@ -18,7 +18,7 @@ const MapFields = props => {
               column={column}
               value={value}
               handleInputChange={handleInputChange}
-              disable={disable}
+              shouldDisable={!columnSelected}
             />
           </div>
         ))}
@@ -28,14 +28,14 @@ const MapFields = props => {
 MapFields.defaultProps = {
   column: {},
   value: {},
-  disable: true,
+  columnSelected: false,
   handleInputChange: () => {}
 };
 
 MapFields.propTypes = {
   column: PropTypes.objectOf(PropTypes.any),
   value: PropTypes.objectOf(PropTypes.any),
-  disable: PropTypes.bool,
+  columnSelected: PropTypes.bool,
   handleInputChange: PropTypes.func
 };
 

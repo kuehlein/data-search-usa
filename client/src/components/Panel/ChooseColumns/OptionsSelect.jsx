@@ -4,20 +4,26 @@ import MapButtons from "./MapButtons";
 
 // container for buttons to choose column options
 const OptionsSelect = props => {
-  const { handleClick, currentOptions } = props;
+  const { handleClickFilter, handleClick, currentOptions } = props;
 
   return (
     <div className="d-flex justify-content-center flex-wrap">
-      <MapButtons handleClick={handleClick} currentOptions={currentOptions} />
+      <MapButtons
+        handleClickFilter={handleClickFilter}
+        handleClick={handleClick}
+        currentOptions={currentOptions}
+      />
     </div>
   );
 };
 OptionsSelect.defaultProps = {
+  handleClickFilter: () => {},
   handleClick: () => {},
   currentOptions: []
 };
 
 OptionsSelect.propTypes = {
+  handleClickFilter: PropTypes.func,
   handleClick: PropTypes.func,
   currentOptions: PropTypes.arrayOf(PropTypes.string)
 };

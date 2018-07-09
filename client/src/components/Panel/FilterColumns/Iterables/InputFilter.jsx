@@ -16,7 +16,7 @@ const InputFilter = props => {
           title={field.description}
           value={inputValue}
           onChange={e => handleInputChange(e, field.name, column)}
-          // disabled={shouldDisable}
+          disabled={shouldDisable}
         />
       </label>
     </div>
