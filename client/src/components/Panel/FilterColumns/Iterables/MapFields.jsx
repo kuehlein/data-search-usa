@@ -6,7 +6,7 @@ import where from "../Templates/whereStatementTemplate";
 
 // iterate fields to filter columns
 const MapFields = props => {
-  const { column, value, columnSelected, handleInputChange } = props;
+  const { value, handleInputChange } = props;
 
   return (
     <div>
@@ -15,10 +15,8 @@ const MapFields = props => {
           <div key={i}>
             <InputFilter
               field={field}
-              column={column}
               value={value}
               handleInputChange={handleInputChange}
-              shouldDisable={!columnSelected}
             />
           </div>
         ))}
@@ -26,16 +24,12 @@ const MapFields = props => {
   );
 };
 MapFields.defaultProps = {
-  column: {},
   value: {},
-  columnSelected: false,
   handleInputChange: () => {}
 };
 
 MapFields.propTypes = {
-  column: PropTypes.objectOf(PropTypes.any),
   value: PropTypes.objectOf(PropTypes.any),
-  columnSelected: PropTypes.bool,
   handleInputChange: PropTypes.func
 };
 

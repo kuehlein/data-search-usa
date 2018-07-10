@@ -5,7 +5,12 @@ const LABEL_TEXT = "Select a column to filter: ";
 
 // generate a field to select a column to filter
 const ChooseColumn = props => {
-  const { handleColumnSelection, currentColumns, handleChange, value } = props;
+  const {
+    chooseVisibilityFilterField,
+    currentColumns,
+    handleChange,
+    value
+  } = props;
 
   return (
     <label htmlFor={LABEL_TEXT}>
@@ -13,8 +18,8 @@ const ChooseColumn = props => {
       <select
         value={value}
         onChange={e => {
-          handleColumnSelection(e);
-          handleChange(e, value);
+          chooseVisibilityFilterField(!e.target.value);
+          handleChange(value, e.target.value);
         }}
       >
         <option />
@@ -28,16 +33,16 @@ const ChooseColumn = props => {
   );
 };
 ChooseColumn.defaultProps = {
+  chooseVisibilityFilterField: () => {},
   currentColumns: [],
   handleChange: () => {},
-  handleColumnSelection: () => {},
   value: ""
 };
 
 ChooseColumn.propTypes = {
+  chooseVisibilityFilterField: PropTypes.func,
   currentColumns: PropTypes.arrayOf(PropTypes.string),
   handleChange: PropTypes.func,
-  handleColumnSelection: PropTypes.func,
   value: PropTypes.string
 };
 

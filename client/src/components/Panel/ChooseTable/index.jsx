@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { fetchPanelInitial, setCurrentTable } from "../../../store";
+import {
+  fetchPanelInitial,
+  setCurrentTable,
+  chooseVisibilityFilterTable,
+  clearCurrentOptions
+} from "../../../store";
 import TableSelect from "./TableSelect";
 
 // Request available tables from the api and display the options as buttons
@@ -22,7 +27,16 @@ class ChooseTable extends Component {
 
   // sets the attribute that the user selects
   handleChange(event) {
-    this.props.setCurrentTable(event.target.value);
+    const {
+      setCurrentTable,
+      clearCurrentOptions,
+      chooseVisibilityFilterTable
+    } = this.props;
+    const { value } = event.target;
+
+    setCurrentTable(value);
+    clearCurrentOptions();
+    chooseVisibilityFilterTable(!!value);
   }
 
   render() {
@@ -36,13 +50,17 @@ class ChooseTable extends Component {
 ChooseTable.defaultProps = {
   setCurrentTable: "",
   allTables: [],
-  fetchPanelInitial: () => {}
+  fetchPanelInitial: () => {},
+  chooseVisibilityFilterTable: () => {},
+  clearCurrentOptions: () => {}
 };
 
 ChooseTable.propTypes = {
   setCurrentTable: PropTypes.func,
   allTables: PropTypes.arrayOf(PropTypes.string),
-  fetchPanelInitial: PropTypes.func
+  fetchPanelInitial: PropTypes.func,
+  chooseVisibilityFilterTable: PropTypes.func,
+  clearCurrentOptions: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -51,7 +69,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentTable: currentTable => dispatch(setCurrentTable(currentTable)),
-  fetchPanelInitial: () => dispatch(fetchPanelInitial())
+  fetchPanelInitial: () => dispatch(fetchPanelInitial()),
+  chooseVisibilityFilterTable: visibility =>
+    dispatch(chooseVisibilityFilterTable(visibility)),
+  clearCurrentOptions: () => dispatch(clearCurrentOptions())
 });
 
 export default connect(

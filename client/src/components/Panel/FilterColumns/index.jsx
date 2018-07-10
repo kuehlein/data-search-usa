@@ -1,53 +1,120 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import NewColumnFilterButton from "./Buttons/NewColumnFilterButton";
-import ColumnSelectionTemplate from "./ColumnSelectionTemplate";
+import ColumnFilterTemplate from "./Templates/ColumnFilterTemplate";
+import MapTemplate from "./Iterables/MapTemplate";
+
+import {
+  chooseVisibilityFilterColumnButton,
+  chooseVisibilityFilterField,
+  newWhereStatement,
+  updateColumn
+} from "../../../store";
 
 class FilterColumns extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      clicked: false
-    };
-    this.handleNewFilterColumn = this.handleNewFilterColumn.bind(this);
+    this.state = {};
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleNewFilterColumn(type) {
-    if (type === "filter") {
-      this.setState({ clicked: true });
-    } else {
-      this.setState({ clicked: false });
+  componentWillReceiveProps(nextProps) {
+    const {
+      chooseVisibilityFilterColumnButton,
+      currentColumns,
+      whereStatements
+    } = nextProps;
+    const shouldHide = currentColumns.length !== whereStatements.length;
+
+    if (
+      this.props.currentColumns !== nextProps.currentColumns ||
+      this.props.whereStatements !== nextProps.whereStatements
+    ) {
+      chooseVisibilityFilterColumnButton(shouldHide);
     }
   }
 
+  handleClick() {
+    const {
+      chooseVisibilityFilterField,
+      chooseVisibilityFilterColumnButton
+    } = this.props;
+
+    chooseVisibilityFilterField(true);
+    chooseVisibilityFilterColumnButton(false);
+  }
+
   render() {
-    const { shouldDisable, handleColumnValue } = this.props;
+    const {
+      visibility,
+      currentColumns,
+      chooseVisibilityFilterField,
+      newWhereStatement,
+      updateColumn
+    } = this.props;
 
     return (
       <div>
-        <ColumnSelectionTemplate
-          handleColumnValue={handleColumnValue}
-          handleNewFilterColumn={this.handleNewFilterColumn}
-          clicked={this.state.clicked}
-          shouldDisable={shouldDisable}
+        <MapTemplate
+          handleChange={updateColumn}
+          handleInputChange={newWhereStatement}
         />
-        <NewColumnFilterButton
-          shouldDisable={shouldDisable}
-          handleNewFilterColumn={this.handleNewFilterColumn}
-        />
+        {visibility.filterField && (
+          <ColumnFilterTemplate
+            value={{}}
+            currentColumns={currentColumns}
+            chooseVisibilityFilterField={chooseVisibilityFilterField}
+            handleChange={updateColumn}
+            handleInputChange={newWhereStatement}
+          />
+        )}
+        {visibility.filterColumnButton && (
+          <NewColumnFilterButton handleClick={this.handleClick} />
+        )}
       </div>
     );
   }
 }
 FilterColumns.defaultProps = {
-  shouldDisable: true,
-  handleColumnValue: () => {}
+  visibility: {},
+  currentColumns: [""],
+  whereStatements: [{}],
+  chooseVisibilityFilterColumnButton: () => {},
+  chooseVisibilityFilterField: () => {},
+  newWhereStatement: () => {},
+  updateColumn: () => {}
 };
 
 FilterColumns.propTypes = {
-  shouldDisable: PropTypes.bool,
-  handleColumnValue: PropTypes.func
+  visibility: PropTypes.objectOf(PropTypes.bool),
+  currentColumns: PropTypes.arrayOf(PropTypes.string),
+  whereStatements: PropTypes.arrayOf(PropTypes.object),
+  chooseVisibilityFilterColumnButton: PropTypes.func,
+  chooseVisibilityFilterField: PropTypes.func,
+  newWhereStatement: PropTypes.func,
+  updateColumn: PropTypes.func
 };
 
-export default FilterColumns;
+const mapStateToProps = state => ({
+  visibility: state.visibility,
+  currentColumns: state.currentColumns,
+  whereStatements: state.whereStatements
+});
+
+const mapDispatchToProps = dispatch => ({
+  chooseVisibilityFilterColumnButton: visibility =>
+    dispatch(chooseVisibilityFilterColumnButton(visibility)),
+  chooseVisibilityFilterField: visibility =>
+    dispatch(chooseVisibilityFilterField(visibility)),
+  newWhereStatement: (column, name, value) =>
+    dispatch(newWhereStatement(column, name, value)),
+  updateColumn: (oldColumn, newColumn) =>
+    dispatch(updateColumn(oldColumn, newColumn))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FilterColumns);

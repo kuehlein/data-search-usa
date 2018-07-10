@@ -1,11 +1,11 @@
 import axios from "axios";
-import store from "./";
-import { setAllTables } from "./allTables";
-import { setFilterOptions } from "./filterOptions";
-import { removeMissingTable, findLevels } from "./utils";
+import store from "../";
+import { setAllTables } from "../allData/allTables";
+import { setFilterOptions } from "../currentlyAvailable/filterOptions";
+import { removeMissingTable, findLevels } from "../utils";
 
 /*
- * currentOptions are the options that are currently
+ * currentOptions are the columns that are currently
  * available for querying the currnetTable
  *
  * these options were pulled from allOptions using currentTable
@@ -15,6 +15,7 @@ import { removeMissingTable, findLevels } from "./utils";
  * ACTION TYPES
  */
 const SET_CURRENT_OPTIONS = "SET_CURRENT_OPTIONS";
+const CLEAR_CURRENT_OPTIONS = "CLEAR_CURRENT_OPTIONS";
 
 /*
  * ACTION CREATORS
@@ -22,6 +23,9 @@ const SET_CURRENT_OPTIONS = "SET_CURRENT_OPTIONS";
 export const setCurrentOptions = options => ({
   type: SET_CURRENT_OPTIONS,
   options
+});
+export const clearCurrentOptions = () => ({
+  type: CLEAR_CURRENT_OPTIONS
 });
 
 /*
@@ -67,6 +71,9 @@ export default (state = [], action) => {
   switch (action.type) {
     case SET_CURRENT_OPTIONS:
       return action.options;
+
+    case CLEAR_CURRENT_OPTIONS:
+      return [];
 
     default:
       return state;

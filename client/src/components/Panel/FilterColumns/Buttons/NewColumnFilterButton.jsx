@@ -2,32 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 
 // generate a field to select a column to filter
-const NewColumnFilterButton = props => {
-  const { shouldDisable, handleNewFilterColumn } = props;
-
-  return (
-    <label htmlFor="Filter Another Column?">
-      <button
-        className="btn btn-warning"
-        value="filter"
-        onClick={e => {
-          handleNewFilterColumn(e.target.value);
-        }}
-        disabled={shouldDisable}
-      >
-        Filter Column?
-      </button>
-    </label>
-  );
-};
+const NewColumnFilterButton = props => (
+  <label htmlFor="Filter Another Column?">
+    <button
+      className="btn btn-warning"
+      value="filter"
+      onClick={() => props.handleClick()}
+    >
+      Filter Column?
+    </button>
+  </label>
+);
 NewColumnFilterButton.defaultProps = {
-  shouldDisable: true,
-  handleNewFilterColumn: () => {}
+  handleClick: () => {}
 };
 
 NewColumnFilterButton.propTypes = {
-  shouldDisable: PropTypes.bool,
-  handleNewFilterColumn: PropTypes.func
+  handleClick: PropTypes.func
 };
 
 export default NewColumnFilterButton;

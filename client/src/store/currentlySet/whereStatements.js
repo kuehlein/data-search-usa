@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { columnTemplate, buildNewState, updateColumnInState } from "./utils";
+import { columnTemplate, buildNewState, updateColumnInState } from "../utils";
 
 /*
  * whereStatements are the currently selected
