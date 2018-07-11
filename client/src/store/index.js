@@ -4,14 +4,15 @@ import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import table from "./table";
-import allTables from "./allTables";
-import currentTable from "./currentTable";
-import allOptions from "./allOptions";
-import currentOptions from "./currentOptions";
-import filterOptions from "./filterOptions";
-import currentColumns from "./currentColumns";
-import currentFilterOptions from "./currentFilterOptions";
-import whereStatements from "./whereStatements";
+import allTables from "./allData/allTables";
+import currentTable from "./currentlySet/currentTable";
+import allOptions from "./allData/allOptions";
+import currentOptions from "./currentlyAvailable/currentOptions";
+import filterOptions from "./currentlyAvailable/filterOptions";
+import currentColumns from "./currentlySet/currentColumns";
+import currentFilterOptions from "./currentlySet/currentFilterOptions";
+import whereStatements from "./currentlySet/whereStatements";
+import visibility from "./currentlyAvailable/visibility";
 
 const reducer = combineReducers({
   table,
@@ -22,7 +23,8 @@ const reducer = combineReducers({
   filterOptions,
   currentColumns,
   currentFilterOptions,
-  whereStatements
+  whereStatements,
+  visibility
 });
 
 const middleware = composeWithDevTools(
@@ -33,14 +35,15 @@ const store = createStore(reducer, middleware);
 
 export default store;
 export * from "./table";
-export * from "./allTables";
-export * from "./currentTable";
-export * from "./allOptions";
-export * from "./currentOptions";
-export * from "./filterOptions";
-export * from "./currentColumns";
-export * from "./currentFilterOptions";
-export * from "./whereStatements";
+export * from "./allData/allTables";
+export * from "./currentlySet/currentTable";
+export * from "./allData/allOptions";
+export * from "./currentlyAvailable/currentOptions";
+export * from "./currentlyAvailable/filterOptions";
+export * from "./currentlySet/currentColumns";
+export * from "./currentlySet/currentFilterOptions";
+export * from "./currentlySet/whereStatements";
+export * from "./currentlyAvailable/visibility";
 
 // server api route
 export const SERVER = "http://localhost:3001";

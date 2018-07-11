@@ -22,39 +22,38 @@ class TableFilterDisplay extends Component {
   }
 
   handleChange(event, field) {
-    const { setCurrentFilterOptions } = this.props;
+    const { value } = event.target;
 
-    this.setState({ value: event.target.value });
-    setCurrentFilterOptions(field, event.target.value);
+    this.setState({ value });
+    this.props.setCurrentFilterOptions(field, value);
   }
 
   render() {
-    const { field, currentFilterOptions, currentTable } = this.props;
-    const disable = !currentTable;
+    const { field, currentFilterOptions, visibility } = this.props;
 
     return (
-      <div>
-        <label htmlFor={field.name}>
-          {field.name}
-          {Array.isArray(field.field) ? (
-            <SelectField
-              field={field}
-              handleChange={this.handleChange}
-              value={currentFilterOptions[field.type]}
-              disable={disable}
-            />
-          ) : (
-            <input
-              type="text"
-              name={field.name}
-              title={field.description}
-              value={disable ? "" : this.state.value}
-              onChange={e => this.handleChange(e, field.type)}
-              disabled={disable}
-            />
-          )}
-        </label>
-      </div>
+      visibility.filterTable && (
+        <div>
+          <label htmlFor={field.name}>
+            {field.name}
+            {Array.isArray(field.field) ? (
+              <SelectField
+                field={field}
+                handleChange={this.handleChange}
+                value={currentFilterOptions[field.type]}
+              />
+            ) : (
+              <input
+                type="text"
+                name={field.name}
+                title={field.description}
+                value={this.state.value}
+                onChange={e => this.handleChange(e, field.type)}
+              />
+            )}
+          </label>
+        </div>
+      )
     );
   }
 }
@@ -62,19 +61,22 @@ TableFilterDisplay.defaultProps = {
   field: {},
   setCurrentFilterOptions: () => {},
   currentFilterOptions: {},
-  currentTable: ""
+  currentTable: "",
+  visibility: {}
 };
 
 TableFilterDisplay.propTypes = {
   field: PropTypes.objectOf(PropTypes.any),
   setCurrentFilterOptions: PropTypes.func,
   currentFilterOptions: PropTypes.objectOf(PropTypes.string),
-  currentTable: PropTypes.string
+  currentTable: PropTypes.string,
+  visibility: PropTypes.objectOf(PropTypes.bool)
 };
 
 const mapStateToProps = state => ({
   currentFilterOptions: state.currentFilterOptions,
-  currentTable: state.currentTable
+  currentTable: state.currentTable,
+  visibility: state.visibility
 });
 
 const mapDispatchToProps = dispatch => ({

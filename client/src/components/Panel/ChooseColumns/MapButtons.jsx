@@ -9,9 +9,10 @@ const MapOptions = props => {
     currentOptions &&
     currentOptions.map(column => (
       <button
+        key={column}
         type="button"
         className="btn btn-light"
-        key={column}
+        value="column"
         onClick={() => handleClick(column)}
       >
         {column}

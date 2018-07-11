@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 /*
  * this is a utility file containing helper functions for
  * store/allOptions ButtonDisplay/OptionsSelection.jsx
@@ -52,31 +54,64 @@ export const findLevels = allTables => {
   return levels;
 };
 
-// remove empty field from state of whereStatments
-export const removeEmptyField = (state, column, name) => {
-  const keys = Object.keys(state[column]);
-  const newObj = {};
-
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] !== name) {
-      newObj[keys[i]] = state[column][keys[i]];
-    }
+// template for columns in state of whereStatements
+export const columnTemplate = {
+  name: "",
+  filters: {
+    "Greater Than": "",
+    "Less Than": "",
+    "Starts With": "",
+    "Ends With": "",
+    "Number Not Equal To": "",
+    "Text Not Equal To": ""
   }
-
-  return Object.assign({}, state, { [column]: newObj });
 };
 
-// when another column is selected in place of the current one
-// remove old column and replace it
-export const removeColumn = (state, column) => {
-  const keys = Object.keys(state);
-  const newObj = {};
+const checkStateForColumn = (state, column) => {
+  for (let i = 0; i < state.length; i++) {
+    if (state[i].name === column) return i;
+  }
+  return -1;
+};
 
-  for (let i = 0; i < keys.length; i++) {
-    if (keys[i] !== column) {
-      newObj[keys[i]] = state[keys[i]];
+const updateState = (state, event, field) => {
+  state.filters[field] = event;
+
+  return state;
+};
+
+const replaceColumn = (state, obj, index) => {
+  state[index] = obj;
+
+  return state;
+};
+
+const removeColumn = (state, index) =>
+  state.slice(0, index).concat(state.slice(index + 1));
+
+// build new state for whereStatements
+export const buildNewState = (state, event, field, column) => {
+  const columnIndex = checkStateForColumn(state, column);
+  const newState = updateState(state[columnIndex], event, field);
+
+  return replaceColumn(state, newState, columnIndex);
+};
+
+// find and update a column in state
+export const updateColumnInState = (state, oldColumn, newColumn) => {
+  const oldColumnIndex = checkStateForColumn(state, oldColumn);
+  const newColumnIndex = checkStateForColumn(state, newColumn);
+  const newObj = _.cloneDeep(columnTemplate);
+  newObj.name = newColumn;
+
+  if (oldColumnIndex > -1) {
+    if (newColumnIndex > -1 || !newColumn) {
+      return removeColumn(state, oldColumnIndex);
     }
+    state[oldColumnIndex] = newObj;
+  } else if (newColumnIndex < 0) {
+    state.push(newObj);
   }
 
-  return newObj;
+  return state;
 };

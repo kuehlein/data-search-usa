@@ -35,7 +35,7 @@ GoButton.defaultProps = {
   currentTable: "",
   currentColumns: [],
   currentFilterOptions: {},
-  whereStatements: {},
+  whereStatements: [{}],
   fetchTable: () => {}
 };
 
@@ -43,7 +43,7 @@ GoButton.propTypes = {
   currentTable: PropTypes.string,
   currentColumns: PropTypes.arrayOf(PropTypes.string),
   currentFilterOptions: PropTypes.objectOf(PropTypes.any),
-  whereStatements: PropTypes.objectOf(PropTypes.object),
+  whereStatements: PropTypes.arrayOf(PropTypes.object),
   fetchTable: PropTypes.func
 };
 

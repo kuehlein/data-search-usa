@@ -1,25 +1,33 @@
-// manages state of columns in Panels/index
-export const filterStateArr = (obj, val, currentVal) => {
-  const keys = Object.keys(obj);
+// // cross reference currentColumns with whereStatements
+// export const siftColumnArrays = (all, selected, key, value) => {
+//   const unused = [];
+//   // if (key) unused.push(key);
 
-  if (!val) {
-    const copy = {};
-    keys.forEach(elem => {
-      if (elem !== currentVal) copy[elem] = elem;
-    });
-    return Object.keys(copy).length ? copy : {};
-  }
-  if (!keys[0]) return { [val]: val };
-  return Object.assign(obj, { [val]: val });
-};
+//   for (let i = 0; i < all.length; i++) {
+//     let current;
 
-// iterate a jsx template
-export const proliferateFields = (num, template, columns) => {
-  const keys = Object.keys(columns);
-  const arr = [];
+//     for (let j = 0; j < selected.length; j++) {
+//       current = selected[j].name;
+//       // if (j === key) unused.push(current);
+//     }
 
-  for (let i = 0; i < num; i++) {
-    arr.push(template(keys[i]));
-  }
-  return arr;
-};
+//     if (all[i] !== current || all[i] === value) {
+//       unused.push(all[i]);
+//     }
+//   }
+
+//   return unused;
+// };
+
+// export const checkForColumn = (arr, oldVal, newVal) => {
+//   const newArr = arr.slice();
+
+//   for (let i = 0; i < newArr.length; i++) {
+//     if (newArr[i] === oldVal) {
+//       newArr[i] === newVal;
+//     }
+//   }
+
+//   newArr.push(newVal);
+//   return newArr;
+// };

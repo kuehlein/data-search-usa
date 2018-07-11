@@ -2,103 +2,122 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import ColumnFilterFormat from "./ColumnFilterFormat";
+import NewColumnFilterButton from "./Buttons/NewColumnFilterButton";
+import ColumnFilterTemplate from "./Templates/ColumnFilterTemplate";
+import MapTemplate from "./Iterables/MapTemplate";
 
 import {
-  clearCurrentFilterOptions,
-  clearWhereStatements,
-  clearColumn
+  chooseVisibilityFilterColumnButton,
+  chooseVisibilityFilterField,
+  newWhereStatement,
+  updateColumn
 } from "../../../store";
-import { filterStateArr } from "./utils";
 
-// component for managing state of number of columns being filtered
 class FilterColumns extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      columns: {},
-      filterNum: 0
-    };
+    this.state = {};
     this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.currentTable !== nextProps.currentTable) {
-      this.setState({
-        columns: {},
-        filterNum: 0
-      });
-      this.props.clearCurrentFilterOptions();
-      this.props.clearWhereStatements();
+    const {
+      chooseVisibilityFilterColumnButton,
+      currentColumns,
+      whereStatements
+    } = nextProps;
+    const shouldHide = currentColumns.length !== whereStatements.length;
+
+    if (
+      this.props.currentColumns !== nextProps.currentColumns ||
+      this.props.whereStatements !== nextProps.whereStatements
+    ) {
+      chooseVisibilityFilterColumnButton(shouldHide);
     }
   }
 
-  handleClick(canClick) {
-    let numCopy = this.state.filterNum;
+  handleClick() {
+    const {
+      chooseVisibilityFilterField,
+      chooseVisibilityFilterColumnButton
+    } = this.props;
 
-    if (!canClick) {
-      this.setState({ filterNum: ++numCopy });
-    }
-  }
-
-  handleChange(event, currentValue) {
-    const { columns, filterNum } = this.state;
-    const { value } = event.target;
-    const newColumns = filterStateArr(columns, value, currentValue);
-
-    this.setState({ columns: newColumns });
-
-    if (columns.length > newColumns.length) {
-      let numCopy = filterNum;
-      this.setState({ filterNum: --numCopy });
-    }
+    chooseVisibilityFilterField(true);
+    chooseVisibilityFilterColumnButton(false);
   }
 
   render() {
-    const { currentColumns, clearColumn } = this.props;
-    const { columns, filterNum } = this.state;
+    const {
+      visibility,
+      currentColumns,
+      whereStatements,
+      chooseVisibilityFilterField,
+      chooseVisibilityFilterColumnButton,
+      newWhereStatement,
+      updateColumn
+    } = this.props;
 
     return (
       <div>
-        <ColumnFilterFormat
-          columns={columns}
-          filterNum={filterNum}
-          currentColumns={currentColumns}
-          clearColumn={clearColumn}
-          handleClick={this.handleClick}
-          handleChange={this.handleChange}
+        <MapTemplate
+          handleChange={updateColumn}
+          handleInputChange={newWhereStatement}
         />
+        {visibility.filterField && (
+          <ColumnFilterTemplate
+            value={{}}
+            currentColumns={currentColumns}
+            whereStatements={whereStatements}
+            chooseVisibilityFilterField={chooseVisibilityFilterField}
+            chooseVisibilityFilterColumnButton={
+              chooseVisibilityFilterColumnButton
+            }
+            handleChange={updateColumn}
+            handleInputChange={newWhereStatement}
+          />
+        )}
+        {visibility.filterColumnButton && (
+          <NewColumnFilterButton handleClick={this.handleClick} />
+        )}
       </div>
     );
   }
 }
 FilterColumns.defaultProps = {
-  currentTable: "",
+  visibility: {},
   currentColumns: [""],
-  clearCurrentFilterOptions: () => {},
-  clearWhereStatements: () => {},
-  clearColumn: () => {}
+  whereStatements: [{}],
+  chooseVisibilityFilterColumnButton: () => {},
+  chooseVisibilityFilterField: () => {},
+  newWhereStatement: () => {},
+  updateColumn: () => {}
 };
 
 FilterColumns.propTypes = {
-  currentTable: PropTypes.string,
+  visibility: PropTypes.objectOf(PropTypes.bool),
   currentColumns: PropTypes.arrayOf(PropTypes.string),
-  clearCurrentFilterOptions: PropTypes.func,
-  clearWhereStatements: PropTypes.func,
-  clearColumn: PropTypes.func
+  whereStatements: PropTypes.arrayOf(PropTypes.object),
+  chooseVisibilityFilterColumnButton: PropTypes.func,
+  chooseVisibilityFilterField: PropTypes.func,
+  newWhereStatement: PropTypes.func,
+  updateColumn: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  currentTable: state.currentTable,
-  currentColumns: state.currentColumns
+  visibility: state.visibility,
+  currentColumns: state.currentColumns,
+  whereStatements: state.whereStatements
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearCurrentFilterOptions: () => dispatch(clearCurrentFilterOptions()),
-  clearWhereStatements: () => dispatch(clearWhereStatements()),
-  clearColumn: (oldColumn, newColumn) =>
-    dispatch(clearColumn(oldColumn, newColumn))
+  chooseVisibilityFilterColumnButton: visibility =>
+    dispatch(chooseVisibilityFilterColumnButton(visibility)),
+  chooseVisibilityFilterField: visibility =>
+    dispatch(chooseVisibilityFilterField(visibility)),
+  newWhereStatement: (column, name, value) =>
+    dispatch(newWhereStatement(column, name, value)),
+  updateColumn: (oldColumn, newColumn) =>
+    dispatch(updateColumn(oldColumn, newColumn))
 });
 
 export default connect(

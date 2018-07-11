@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 // create select elements and populate them with content from fieldTemplate
 const SelectField = props => {
-  const { field, handleChange, value, disable } = props;
+  const { field, handleChange, value } = props;
 
   return (
     <select
@@ -11,7 +11,6 @@ const SelectField = props => {
       title={field.description}
       value={value}
       onChange={e => handleChange(e, field.type)}
-      disabled={disable}
     >
       <option />
       {field.field.map((elem, i) => (
@@ -25,15 +24,13 @@ const SelectField = props => {
 SelectField.defaultProps = {
   field: [],
   handleChange: () => {},
-  value: "",
-  disable: true
+  value: ""
 };
 
 SelectField.propTypes = {
   field: PropTypes.any,
   handleChange: PropTypes.func,
-  value: PropTypes.string,
-  disable: PropTypes.bool
+  value: PropTypes.string
 };
 
 export default SelectField;
