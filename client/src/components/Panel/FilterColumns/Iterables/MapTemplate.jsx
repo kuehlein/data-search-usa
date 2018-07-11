@@ -31,6 +31,7 @@ class ColumnSelectionTemplate extends Component {
         key={i}
         value={statement}
         currentColumns={currentColumns}
+        whereStatements={whereStatements}
         handleChange={handleChange}
         handleInputChange={handleInputChange}
       />

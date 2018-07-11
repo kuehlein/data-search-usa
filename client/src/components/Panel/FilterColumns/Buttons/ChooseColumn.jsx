@@ -47,5 +47,3 @@ ChooseColumn.propTypes = {
 };
 
 export default ChooseColumn;
-
-// compare currentColumns against columns

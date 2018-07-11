@@ -50,7 +50,9 @@ class FilterColumns extends Component {
     const {
       visibility,
       currentColumns,
+      whereStatements,
       chooseVisibilityFilterField,
+      chooseVisibilityFilterColumnButton,
       newWhereStatement,
       updateColumn
     } = this.props;
@@ -65,7 +67,11 @@ class FilterColumns extends Component {
           <ColumnFilterTemplate
             value={{}}
             currentColumns={currentColumns}
+            whereStatements={whereStatements}
             chooseVisibilityFilterField={chooseVisibilityFilterField}
+            chooseVisibilityFilterColumnButton={
+              chooseVisibilityFilterColumnButton
+            }
             handleChange={updateColumn}
             handleInputChange={newWhereStatement}
           />

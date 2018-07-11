@@ -69,7 +69,7 @@ export const columnTemplate = {
 
 const checkStateForColumn = (state, column) => {
   for (let i = 0; i < state.length; i++) {
-    if (state[i].name === column.name) return i;
+    if (state[i].name === column) return i;
   }
   return -1;
 };
@@ -86,6 +86,9 @@ const replaceColumn = (state, obj, index) => {
   return state;
 };
 
+const removeColumn = (state, index) =>
+  state.slice(0, index).concat(state.slice(index + 1));
+
 // build new state for whereStatements
 export const buildNewState = (state, event, field, column) => {
   const columnIndex = checkStateForColumn(state, column);
@@ -96,13 +99,17 @@ export const buildNewState = (state, event, field, column) => {
 
 // find and update a column in state
 export const updateColumnInState = (state, oldColumn, newColumn) => {
-  const columnIndex = checkStateForColumn(state, oldColumn);
-  let newObj = _.cloneDeep(columnTemplate);
+  const oldColumnIndex = checkStateForColumn(state, oldColumn);
+  const newColumnIndex = checkStateForColumn(state, newColumn);
+  const newObj = _.cloneDeep(columnTemplate);
   newObj.name = newColumn;
 
-  if (state[columnIndex] > -1) {
-    state[columnIndex] = newObj;
-  } else {
+  if (oldColumnIndex > -1) {
+    if (newColumnIndex > -1 || !newColumn) {
+      return removeColumn(state, oldColumnIndex);
+    }
+    state[oldColumnIndex] = newObj;
+  } else if (newColumnIndex < 0) {
     state.push(newObj);
   }
 
