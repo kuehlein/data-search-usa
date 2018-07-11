@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { chooseVisibilityFilterColumnButton } from "../../../../store";
 
 class RemoveFilterButton extends Component {
   constructor(props) {

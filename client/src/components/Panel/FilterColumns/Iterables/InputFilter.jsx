@@ -14,7 +14,9 @@ const InputFilter = props => {
         name={field.name}
         title={field.description}
         value={inputValue}
-        onChange={e => handleInputChange(e, field.name, value)}
+        onChange={e =>
+          handleInputChange(value.name, field.name, e.target.value)
+        }
       />
     </label>
   );
