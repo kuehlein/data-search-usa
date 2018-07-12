@@ -6,6 +6,7 @@ import {
   fetchPanelInitial,
   setCurrentTable,
   chooseVisibilityFilterTable,
+  chooseVisibilityGoButton,
   clearCurrentOptions,
   hideAll
 } from "../../../store";
@@ -38,11 +39,16 @@ class ChooseTable extends Component {
 
   // sets the attribute that the user selects
   handleChange(event) {
-    const { setCurrentTable, clearCurrentOptions } = this.props;
+    const {
+      setCurrentTable,
+      clearCurrentOptions,
+      chooseVisibilityGoButton
+    } = this.props;
     const { value } = event.target;
 
     setCurrentTable(value);
     clearCurrentOptions();
+    chooseVisibilityGoButton(!!value);
   }
 
   render() {
@@ -60,6 +66,7 @@ ChooseTable.defaultProps = {
   setCurrentTable: () => {},
   fetchPanelInitial: () => {},
   chooseVisibilityFilterTable: () => {},
+  chooseVisibilityGoButton: () => {},
   clearCurrentOptions: () => {},
   hideAll: () => {}
 };
@@ -71,6 +78,7 @@ ChooseTable.propTypes = {
   setCurrentTable: PropTypes.func,
   fetchPanelInitial: PropTypes.func,
   chooseVisibilityFilterTable: PropTypes.func,
+  chooseVisibilityGoButton: PropTypes.func,
   clearCurrentOptions: PropTypes.func,
   hideAll: PropTypes.func
 };
@@ -86,6 +94,8 @@ const mapDispatchToProps = dispatch => ({
   fetchPanelInitial: () => dispatch(fetchPanelInitial()),
   chooseVisibilityFilterTable: visibility =>
     dispatch(chooseVisibilityFilterTable(visibility)),
+  chooseVisibilityGoButton: visibility =>
+    dispatch(chooseVisibilityGoButton(visibility)),
   clearCurrentOptions: () => dispatch(clearCurrentOptions()),
   hideAll: () => dispatch(hideAll())
 });

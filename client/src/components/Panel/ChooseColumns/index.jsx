@@ -3,15 +3,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import OptionsSelect from "./OptionsSelect";
-import SelectAll from "./SelectAll";
 
 import { findColumnInState } from "../utils";
 import {
   fetchCurrentOptions,
   setCurrentColumns,
   chooseVisibilityFilterColumnButton,
-  updateColumn,
-  setAllColumns
+  updateColumn
 } from "../../../store";
 
 // when a table is selected, display the search options as buttons
@@ -19,7 +17,6 @@ class TableFilters extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.handleSelectAll = this.handleSelectAll.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,16 +48,6 @@ class TableFilters extends Component {
     }
   }
 
-  handleSelectAll() {
-    const { currentColumns, currentOptions, setAllColumns } = this.props;
-
-    if (currentColumns.length === currentOptions.length) {
-      setAllColumns([]);
-    } else {
-      setAllColumns(currentOptions);
-    }
-  }
-
   render() {
     const { currentOptions } = this.props;
 
@@ -70,12 +57,6 @@ class TableFilters extends Component {
           handleClick={this.handleClick}
           currentOptions={currentOptions}
         />
-        {currentOptions[0] !== "THIS TABLE IS CURRENTLY UNAVAILABLE" && (
-          <SelectAll
-            handleSelectAll={this.handleSelectAll}
-            currentOptions={currentOptions}
-          />
-        )}
       </div>
     );
   }
@@ -89,8 +70,7 @@ TableFilters.defaultProps = {
   setCurrentColumns: () => {},
   chooseVisibilityFilterColumnButton: () => {},
   whereStatements: [{}],
-  updateColumn: () => {},
-  setAllColumns: () => {}
+  updateColumn: () => {}
 };
 
 TableFilters.propTypes = {
@@ -102,8 +82,7 @@ TableFilters.propTypes = {
   setCurrentColumns: PropTypes.func,
   chooseVisibilityFilterColumnButton: PropTypes.func,
   whereStatements: PropTypes.arrayOf(PropTypes.object),
-  updateColumn: PropTypes.func,
-  setAllColumns: PropTypes.func
+  updateColumn: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -122,8 +101,7 @@ const mapDispatchToProps = dispatch => ({
   chooseVisibilityFilterColumnButton: visibility =>
     dispatch(chooseVisibilityFilterColumnButton(visibility)),
   updateColumn: (oldColumn, newColumn) =>
-    dispatch(updateColumn(oldColumn, newColumn)),
-  setAllColumns: columns => dispatch(setAllColumns(columns))
+    dispatch(updateColumn(oldColumn, newColumn))
 });
 
 export default connect(

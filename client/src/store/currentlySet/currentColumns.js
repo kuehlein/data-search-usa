@@ -9,7 +9,6 @@ import { addOrRemove } from "../utils";
  * ACTION TYPES
  */
 const SET_CURRENT_COLUMNS = "SET_CURRENT_COLUMNS";
-const SET_ALL_COLUMNS = "SET_ALL_COLUMNS";
 
 /*
  * ACTION CREATORS
@@ -17,10 +16,6 @@ const SET_ALL_COLUMNS = "SET_ALL_COLUMNS";
 export const setCurrentColumns = column => ({
   type: SET_CURRENT_COLUMNS,
   column
-});
-export const setAllColumns = columns => ({
-  type: SET_ALL_COLUMNS,
-  columns
 });
 
 /*
@@ -34,9 +29,6 @@ export default (state = [], action) => {
         if (a > b) return 1;
         return 0;
       });
-
-    case SET_ALL_COLUMNS:
-      return action.columns;
 
     default:
       return state;

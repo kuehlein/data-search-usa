@@ -56,7 +56,7 @@ export const hideAll = () => ({
 export default (state = initialState, action) => {
   switch (action.type) {
     case CHOOSE_VISIBILITY_FILTER_TABLE:
-      return Object.assign({}, initialState, {
+      return Object.assign({}, state, {
         filterTable: action.visibility
       });
 
