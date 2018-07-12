@@ -118,3 +118,29 @@ export const updateColumnInState = (state, oldColumn, newColumn) => {
 
   return state;
 };
+
+// format currentFilterOptions for api request
+export const formatFilterOptions = obj => {
+  const keys = Object.keys(obj);
+  let request = "";
+
+  for (let i = 0; i < keys.length; i++) {
+    if (obj[keys[i]]) {
+      request += `&${keys[i]}=${obj[keys[i]]}`;
+    }
+  }
+  return request.length ? request : ":";
+};
+
+// format currentFilterOptions for api request
+export const formatFilterWhereStatements = obj => {
+  const keys = Object.keys(obj);
+  let request = "";
+
+  for (let i = 0; i < keys.length; i++) {
+    if (obj[keys[i]]) {
+      request += `&${keys[i]}=${obj[keys[i]]},`;
+    }
+  }
+  return request;
+};

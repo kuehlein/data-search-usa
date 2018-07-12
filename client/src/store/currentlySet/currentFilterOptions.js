@@ -8,9 +8,9 @@
  * INITIAL STATE
  */
 const initialState = {
-  force: "",
+  // NO ALT TABLES AVAILABLE
+  // force: "",
   limit: "",
-  order: "",
   sumlevel: "",
   year: ""
 };

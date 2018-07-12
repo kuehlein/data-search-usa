@@ -23,15 +23,15 @@ class DNDColumnOrder extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { currentColumns } = nextProps;
-
-    this.setState({ treeData: formatColumnsForTree(currentColumns) });
+    this.setState({ treeData: formatColumnsForTree(nextProps.currentColumns) });
   }
 
   handleChange(treeData) {
+    const reformattedData = formatColumnsForState(treeData);
+
     this.setState({ treeData });
 
-    this.props.changeOrderCurrentColumns(formatColumnsForState(treeData));
+    this.props.changeOrderCurrentColumns(reformattedData);
   }
 
   render() {
