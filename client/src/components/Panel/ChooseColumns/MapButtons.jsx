@@ -13,6 +13,7 @@ const MapOptions = props => {
         type="button"
         className="btn btn-light"
         value="column"
+        disabled={column === "THIS TABLE IS CURRENTLY UNAVAILABLE"}
         onClick={() => handleClick(column)}
       >
         {column}

@@ -1,12 +1,13 @@
 import { checkIfEmpty } from "../utils";
 
 const fields = (otherTables, currentOptions, sumlevel, year) => [
-  {
-    name: "Use Table",
-    type: "force",
-    field: checkIfEmpty(otherTables),
-    description: "Forces the use of a particular data table."
-  },
+  // ***NO OTHER TABLES CURRENTLY AVAILABLE***
+  // {
+  //   name: "Use Table",
+  //   type: "force",
+  //   field: checkIfEmpty(otherTables),
+  //   description: "Forces the use of a particular data table."
+  // },
   {
     name: "Limit Rows",
     type: "limit",

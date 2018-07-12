@@ -6,7 +6,8 @@ import {
   fetchPanelInitial,
   setCurrentTable,
   chooseVisibilityFilterTable,
-  clearCurrentOptions
+  clearCurrentOptions,
+  hideAll
 } from "../../../store";
 import TableSelect from "./TableSelect";
 
@@ -25,18 +26,23 @@ class ChooseTable extends Component {
     this.props.fetchPanelInitial();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { chooseVisibilityFilterTable, hideAll } = this.props;
+
+    if (nextProps.currentOptions[0] === "THIS TABLE IS CURRENTLY UNAVAILABLE") {
+      hideAll();
+    } else {
+      chooseVisibilityFilterTable(!!nextProps.currentTable);
+    }
+  }
+
   // sets the attribute that the user selects
   handleChange(event) {
-    const {
-      setCurrentTable,
-      clearCurrentOptions,
-      chooseVisibilityFilterTable
-    } = this.props;
+    const { setCurrentTable, clearCurrentOptions } = this.props;
     const { value } = event.target;
 
     setCurrentTable(value);
     clearCurrentOptions();
-    chooseVisibilityFilterTable(!!value);
   }
 
   render() {
@@ -48,23 +54,31 @@ class ChooseTable extends Component {
   }
 }
 ChooseTable.defaultProps = {
-  setCurrentTable: "",
   allTables: [],
+  currentOptions: [""],
+  currentTable: PropTypes.string,
+  setCurrentTable: () => {},
   fetchPanelInitial: () => {},
   chooseVisibilityFilterTable: () => {},
-  clearCurrentOptions: () => {}
+  clearCurrentOptions: () => {},
+  hideAll: () => {}
 };
 
 ChooseTable.propTypes = {
-  setCurrentTable: PropTypes.func,
   allTables: PropTypes.arrayOf(PropTypes.string),
+  currentOptions: PropTypes.arrayOf(PropTypes.string),
+  currentTable: PropTypes.string,
+  setCurrentTable: PropTypes.func,
   fetchPanelInitial: PropTypes.func,
   chooseVisibilityFilterTable: PropTypes.func,
-  clearCurrentOptions: PropTypes.func
+  clearCurrentOptions: PropTypes.func,
+  hideAll: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  allTables: state.allTables
+  allTables: state.allTables,
+  currentOptions: state.currentOptions,
+  currentTable: state.currentTable
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -72,7 +86,8 @@ const mapDispatchToProps = dispatch => ({
   fetchPanelInitial: () => dispatch(fetchPanelInitial()),
   chooseVisibilityFilterTable: visibility =>
     dispatch(chooseVisibilityFilterTable(visibility)),
-  clearCurrentOptions: () => dispatch(clearCurrentOptions())
+  clearCurrentOptions: () => dispatch(clearCurrentOptions()),
+  hideAll: () => dispatch(hideAll())
 });
 
 export default connect(

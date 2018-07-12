@@ -25,6 +25,7 @@ const CHOOSE_VISIBILITY_FILTER_FIELD = "CHOOSE_VISIBILITY_FILTER_FIELD";
 const CHOOSE_VISIBILITY_FILTER_COLUMN_BUTTON =
   "CHOOSE_VISIBILITY_FILTER_COLUMN_BUTTON";
 const CHOOSE_VISIBILITY_GO_BUTTON = "CHOOSE_VISIBILITY_GO_BUTTON";
+const HIDE_ALL = "HIDE_ALL";
 
 /*
  * ACTION CREATORS
@@ -44,6 +45,9 @@ export const chooseVisibilityFilterColumnButton = visibility => ({
 export const chooseVisibilityGoButton = visibility => ({
   type: CHOOSE_VISIBILITY_GO_BUTTON,
   visibility
+});
+export const hideAll = () => ({
+  type: HIDE_ALL
 });
 
 /*
@@ -66,6 +70,9 @@ export default (state = initialState, action) => {
 
     case CHOOSE_VISIBILITY_GO_BUTTON:
       return Object.assign({}, state, { goButton: action.visibility });
+
+    case HIDE_ALL:
+      return initialState;
 
     default:
       return state;

@@ -70,10 +70,12 @@ class TableFilters extends Component {
           handleClick={this.handleClick}
           currentOptions={currentOptions}
         />
-        <SelectAll
-          handleSelectAll={this.handleSelectAll}
-          currentOptions={currentOptions}
-        />
+        {currentOptions[0] !== "THIS TABLE IS CURRENTLY UNAVAILABLE" && (
+          <SelectAll
+            handleSelectAll={this.handleSelectAll}
+            currentOptions={currentOptions}
+          />
+        )}
       </div>
     );
   }
