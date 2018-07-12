@@ -8,28 +8,28 @@ import fields from "./filterTableTemplate";
 
 // filter options for querying a table
 const FilterTable = props => {
-  const { currentOptions, filterOptions } = props;
+  const { currentColumns, filterOptions } = props;
   const { otherTables, sumlevel, year } = filterOptions;
-  const template = fields(otherTables, currentOptions, sumlevel, year);
+  const template = fields(otherTables, currentColumns, sumlevel, year);
 
   return (
     <div className="d-flex flex-column justify-content-center">
-      <MapFields template={template} />
+      <MapFields template={template} currentColumns={currentColumns} />
     </div>
   );
 };
 FilterTable.defaultProps = {
-  currentOptions: [""],
+  currentColumns: [""],
   filterOptions: {}
 };
 
 FilterTable.propTypes = {
-  currentOptions: PropTypes.arrayOf(PropTypes.string),
+  currentColumns: PropTypes.arrayOf(PropTypes.string),
   filterOptions: PropTypes.objectOf(PropTypes.any)
 };
 
 const mapStateToProps = state => ({
-  currentOptions: state.currentOptions,
+  currentColumns: state.currentColumns,
   filterOptions: state.filterOptions
 });
 

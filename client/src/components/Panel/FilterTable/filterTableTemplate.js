@@ -1,6 +1,6 @@
 import { checkIfEmpty } from "../utils";
 
-const fields = (otherTables, currentOptions, sumlevel, year) => [
+const fields = (otherTables, currentColumns, sumlevel, year) => [
   // ***NO OTHER TABLES CURRENTLY AVAILABLE***
   // {
   //   name: "Use Table",
@@ -17,10 +17,7 @@ const fields = (otherTables, currentOptions, sumlevel, year) => [
   {
     name: "Order of Columns",
     type: "order",
-    field:
-      currentOptions[0] === "THIS TABLE IS CURRENTLY UNAVAILABLE"
-        ? checkIfEmpty([])
-        : checkIfEmpty(currentOptions),
+    field: "",
     description: "Column name to use for ordering the resulting data array."
   },
   {
@@ -28,7 +25,7 @@ const fields = (otherTables, currentOptions, sumlevel, year) => [
     type: "sumlevel",
     field: checkIfEmpty(sumlevel),
     description:
-      "This restricts the data fetched to only display the specified levels." // If more than one 'show' attribute is specified, sumlevel must be a comma-separated list with a value for each attribute.
+      "This restricts the data fetched to only display the specified levels."
   },
   {
     name: "Year",

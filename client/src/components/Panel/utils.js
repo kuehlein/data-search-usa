@@ -9,3 +9,23 @@ export const findColumnInState = (state, column) => {
   }
   return false;
 };
+
+// format currentColumns for DNDColumnOrder
+export const formatColumnsForTree = columns => {
+  const treeData = [];
+
+  for (let i = 0; i < columns.length; i++) {
+    treeData.push({ title: columns[i] });
+  }
+  return treeData;
+};
+
+// return treedata to state format
+export const formatColumnsForState = tree => {
+  const currentColumns = [];
+
+  for (let i = 0; i < tree.length; i++) {
+    currentColumns.push(tree[i].title);
+  }
+  return currentColumns;
+};

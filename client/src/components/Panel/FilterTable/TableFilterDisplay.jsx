@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import SelectField from "./SelectField";
 
-import { setCurrentFilterOptions } from "../../../store";
+import SelectField from "./SelectField";
+import ToggleDND from "./ToggleDND";
+
+import {
+  setCurrentFilterOptions,
+  changeOrderCurrentColumns
+} from "../../../store";
 
 // map out filter fields
 class TableFilterDisplay extends Component {
@@ -29,29 +34,43 @@ class TableFilterDisplay extends Component {
   }
 
   render() {
-    const { field, currentFilterOptions, visibility } = this.props;
+    const {
+      field,
+      currentFilterOptions,
+      visibility,
+      currentColumns,
+      changeOrderCurrentColumns
+    } = this.props;
 
     return (
       visibility.filterTable && (
         <div>
-          <label htmlFor={field.name}>
-            {field.name}
-            {Array.isArray(field.field) ? (
-              <SelectField
-                field={field}
-                handleChange={this.handleChange}
-                value={currentFilterOptions[field.type]}
-              />
-            ) : (
-              <input
-                type="text"
-                name={field.name}
-                title={field.description}
-                value={this.state.value}
-                onChange={e => this.handleChange(e, field.type)}
-              />
-            )}
-          </label>
+          {field.type !== "limit" ? (
+            <label htmlFor={field.name}>
+              {field.name}
+              {Array.isArray(field.field) ? (
+                <SelectField
+                  field={field}
+                  handleChange={this.handleChange}
+                  value={currentFilterOptions[field.type]}
+                />
+              ) : (
+                <input
+                  type="text"
+                  name={field.name}
+                  title={field.description}
+                  value={this.state.value}
+                  onChange={e => this.handleChange(e, field.type)}
+                />
+              )}
+            </label>
+          ) : (
+            <ToggleDND
+              field={field}
+              currentColumns={currentColumns}
+              changeOrderCurrentColumns={changeOrderCurrentColumns}
+            />
+          )}
         </div>
       )
     );
@@ -62,7 +81,9 @@ TableFilterDisplay.defaultProps = {
   setCurrentFilterOptions: () => {},
   currentFilterOptions: {},
   currentTable: "",
-  visibility: {}
+  visibility: {},
+  currentColumns: [""],
+  changeOrderCurrentColumns: () => {}
 };
 
 TableFilterDisplay.propTypes = {
@@ -70,7 +91,9 @@ TableFilterDisplay.propTypes = {
   setCurrentFilterOptions: PropTypes.func,
   currentFilterOptions: PropTypes.objectOf(PropTypes.string),
   currentTable: PropTypes.string,
-  visibility: PropTypes.objectOf(PropTypes.bool)
+  visibility: PropTypes.objectOf(PropTypes.bool),
+  currentColumns: PropTypes.arrayOf(PropTypes.string),
+  changeOrderCurrentColumns: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -81,7 +104,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCurrentFilterOptions: (filter, value) =>
-    dispatch(setCurrentFilterOptions(filter, value))
+    dispatch(setCurrentFilterOptions(filter, value)),
+  changeOrderCurrentColumns: columns =>
+    dispatch(changeOrderCurrentColumns(columns))
 });
 
 export default connect(
