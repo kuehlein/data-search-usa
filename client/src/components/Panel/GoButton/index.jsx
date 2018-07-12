@@ -11,24 +11,27 @@ const GoButton = props => {
     currentTable,
     currentColumns,
     currentFilterOptions,
-    whereStatements
+    whereStatements,
+    visibility
   } = props;
 
   return (
-    <button
-      type="button"
-      className="btn btn-primary"
-      onClick={() =>
-        fetchTable(
-          currentTable,
-          currentColumns,
-          currentFilterOptions,
-          whereStatements
-        )
-      }
-    >
-      Go!
-    </button>
+    visibility.goButton && (
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={() =>
+          fetchTable(
+            currentTable,
+            currentColumns,
+            currentFilterOptions,
+            whereStatements
+          )
+        }
+      >
+        Go!
+      </button>
+    )
   );
 };
 GoButton.defaultProps = {
@@ -36,7 +39,8 @@ GoButton.defaultProps = {
   currentColumns: [],
   currentFilterOptions: {},
   whereStatements: [{}],
-  fetchTable: () => {}
+  fetchTable: () => {},
+  visibility: {}
 };
 
 GoButton.propTypes = {
@@ -44,14 +48,16 @@ GoButton.propTypes = {
   currentColumns: PropTypes.arrayOf(PropTypes.string),
   currentFilterOptions: PropTypes.objectOf(PropTypes.any),
   whereStatements: PropTypes.arrayOf(PropTypes.object),
-  fetchTable: PropTypes.func
+  fetchTable: PropTypes.func,
+  visibility: PropTypes.objectOf(PropTypes.bool)
 };
 
 const mapStateToProps = state => ({
   currentTable: state.currentTable,
   currentColumns: state.currentColumns,
   currentFilterOptions: state.currentFilterOptions,
-  whereStatements: state.whereStatements
+  whereStatements: state.whereStatements,
+  visibility: state.visibility
 });
 
 const mapDispatchToProps = dispatch => ({

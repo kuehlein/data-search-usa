@@ -6,11 +6,12 @@ import _ from "lodash";
  */
 
 // searches an array for a value, and removes it
-const removeFromArray = (arr, item) => {
+const removeFromArray = (arr, item, index) => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === item) {
       arr[i] = arr[arr.length - 1];
       arr.pop();
+      index = i;
       return arr;
     }
   }
@@ -26,7 +27,9 @@ export const addOrRemove = (arr, column) => {
   if (Array.isArray(column)) return column;
 
   removeFromArray(copyOfArr, column);
-  if (copyOfArr.length === length) copyOfArr.push(column);
+  if (copyOfArr.length === length) {
+    copyOfArr.push(column);
+  }
 
   return copyOfArr;
 };

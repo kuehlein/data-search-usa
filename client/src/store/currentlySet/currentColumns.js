@@ -13,9 +13,9 @@ const SET_CURRENT_COLUMNS = "SET_CURRENT_COLUMNS";
 /*
  * ACTION CREATORS
  */
-export const setCurrentColumns = currentColumns => ({
+export const setCurrentColumns = column => ({
   type: SET_CURRENT_COLUMNS,
-  currentColumns
+  column
 });
 
 /*
@@ -24,7 +24,7 @@ export const setCurrentColumns = currentColumns => ({
 export default (state = [], action) => {
   switch (action.type) {
     case SET_CURRENT_COLUMNS:
-      return addOrRemove(state, action.currentColumns).sort((a, b) => {
+      return addOrRemove(state, action.column).sort((a, b) => {
         if (a < b) return -1;
         if (a > b) return 1;
         return 0;
