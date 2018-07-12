@@ -9,6 +9,7 @@ import { addOrRemove } from "../utils";
  * ACTION TYPES
  */
 const SET_CURRENT_COLUMNS = "SET_CURRENT_COLUMNS";
+const CHANGE_ORDER_CURRENT_COLUMNS = "CHANGE_ORDER_CURRENT_COLUMNS";
 
 /*
  * ACTION CREATORS
@@ -17,6 +18,10 @@ export const setCurrentColumns = column => ({
   type: SET_CURRENT_COLUMNS,
   column
 });
+export const changeOrderCurrentColumns = columns => ({
+  type: CHANGE_ORDER_CURRENT_COLUMNS,
+  columns
+});
 
 /*
  * REDUCER
@@ -24,11 +29,10 @@ export const setCurrentColumns = column => ({
 export default (state = [], action) => {
   switch (action.type) {
     case SET_CURRENT_COLUMNS:
-      return addOrRemove(state, action.column).sort((a, b) => {
-        if (a < b) return -1;
-        if (a > b) return 1;
-        return 0;
-      });
+      return addOrRemove(state, action.column);
+
+    case CHANGE_ORDER_CURRENT_COLUMNS:
+      return action.columns;
 
     default:
       return state;
