@@ -45,7 +45,7 @@ class TableFilterDisplay extends Component {
     return (
       visibility.filterTable && (
         <div>
-          {field.type !== "limit" ? (
+          {field.type !== "order" ? (
             <label htmlFor={field.name}>
               {field.name}
               {Array.isArray(field.field) ? (

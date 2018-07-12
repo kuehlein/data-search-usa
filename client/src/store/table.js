@@ -1,11 +1,12 @@
 import axios from "axios";
+import { formatFilterOptions, formatFilterWhereStatements } from "./utils";
 
 /*
  * table is the data retrieved from a
  * user determined request to datausa's api
  *
  * the tabled was retrieved from:
- * "http://api.datausa.io/api/?show=CURRENT_TABLE&required=COLUMN_1,COLUMN_2,...COLUMN_N"
+ * "http://api.datausa.io/api/?show=CURRENT_TABLE&required=COLUMN_1,COLUMN_2,...COLUMN_N&FILTERS_FOR_COLUMNS/TABLES"
  */
 
 /*
@@ -32,7 +33,10 @@ export const fetchTable = (
 ) => dispatch =>
   axios
     .get(
-      `/api/datausa/${currentTable}/${currentColumns.toString()}/${currentFilterOptions.toString()}/${whereStatements.toString()}`
+      `/api/datausa/${currentTable}/${currentColumns.toString() ||
+        ":"}/${formatFilterOptions(
+        currentFilterOptions
+      )}/${formatFilterWhereStatements(whereStatements)}`
     )
     .then(res => dispatch(setTable(res.data)))
     .catch(err => console.log(err));

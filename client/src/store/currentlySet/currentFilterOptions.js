@@ -8,11 +8,12 @@
  * INITIAL STATE
  */
 const initialState = {
-  force: "",
+  // NO ALT TABLES AVAILABLE
+  // force: "",
   limit: "",
-  order: "",
-  sumlevel: "",
-  year: ""
+  sumlevel: ""
+  // YEAR IS MOSTLY EMPTY OR JUST "all"
+  // year: ""
 };
 
 /*
