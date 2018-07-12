@@ -9,13 +9,18 @@ import { addOrRemove } from "../utils";
  * ACTION TYPES
  */
 const SET_CURRENT_COLUMNS = "SET_CURRENT_COLUMNS";
+const SET_ALL_COLUMNS = "SET_ALL_COLUMNS";
 
 /*
  * ACTION CREATORS
  */
-export const setCurrentColumns = currentColumns => ({
+export const setCurrentColumns = column => ({
   type: SET_CURRENT_COLUMNS,
-  currentColumns
+  column
+});
+export const setAllColumns = columns => ({
+  type: SET_ALL_COLUMNS,
+  columns
 });
 
 /*
@@ -24,11 +29,14 @@ export const setCurrentColumns = currentColumns => ({
 export default (state = [], action) => {
   switch (action.type) {
     case SET_CURRENT_COLUMNS:
-      return addOrRemove(state, action.currentColumns).sort((a, b) => {
+      return addOrRemove(state, action.column).sort((a, b) => {
         if (a < b) return -1;
         if (a > b) return 1;
         return 0;
       });
+
+    case SET_ALL_COLUMNS:
+      return action.columns;
 
     default:
       return state;
