@@ -42,12 +42,13 @@ router.get("/:table", (req, res) => {
 });
 
 // GET - datausa tables using selected fields
-router.get("/:table/:fields/:filters/", (req, res) => {
+router.get("/:table/:fields/:filters/:where", (req, res) => {
   const { table, fields, filters, where } = req.params;
   const requiredColumns = fields === ":" ? "" : `&required=${fields}`;
   const filtersAvailable = filters === ":" ? "" : filters;
+  const statementsAvailable = where === ":" ? "" : where;
   const options = {
-    uri: `http://api.datausa.io/api/?show=${table}${requiredColumns}${filtersAvailable}`,
+    uri: `http://api.datausa.io/api/?show=${table}${requiredColumns}${filtersAvailable}${statementsAvailable}`,
     simple: false,
     json: true
   };
@@ -58,5 +59,3 @@ router.get("/:table/:fields/:filters/", (req, res) => {
 });
 
 module.exports = router;
-
-// :where

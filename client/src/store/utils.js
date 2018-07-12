@@ -131,24 +131,47 @@ export const formatFilterOptions = obj => {
   let request = "";
 
   for (let i = 0; i < keys.length; i++) {
-    if (keys[i] === "sumlevel") {
-      request += extractSumlevel(obj[keys[i]]);
-    } else if (obj[keys[i]]) {
-      request += `&${keys[i]}=${obj[keys[i]]}`;
+    if (obj[keys[i]]) {
+      if (keys[i] === "sumlevel") {
+        request += extractSumlevel(obj[keys[i]]);
+      } else {
+        request += `&${keys[i]}=${obj[keys[i]]}`;
+      }
     }
   }
   return request.length ? request : ":";
 };
 
+// template for translating filters to requests
+const filterTemplate = {
+  "Greater Than": ">",
+  "Less Than": "<",
+  "Starts With": "^",
+  "Ends With": "$", // place at end
+  "Number Not Equal To": "!",
+  "Text Not Equal To": "str!"
+};
+
 // format currentFilterOptions for api request
-export const formatFilterWhereStatements = obj => {
-  const keys = Object.keys(obj);
+export const formatFilterWhereStatements = arr => {
   let request = "";
 
-  for (let i = 0; i < keys.length; i++) {
-    if (obj[keys[i]]) {
-      request += `&${keys[i]}=${obj[keys[i]]}`;
+  for (let i = 0; i < arr.length; i++) {
+    const keys = Object.keys(arr[i].filters);
+
+    for (let j = 0; j < keys.length; j++) {
+      if (arr[i].filters[keys[j]]) {
+        request += request.length ? "," : "";
+        request +=
+          filterTemplate[keys[j]] !== "$"
+            ? `${arr[i].name}:${filterTemplate[keys[j]]}${
+                arr[i].filters[keys[j]]
+              }`
+            : `${arr[i].name}:${arr[i].filters[keys[j]]}${
+                filterTemplate[keys[j]]
+              }`;
+      }
     }
   }
-  return request;
+  return request.length ? `&where=${request}` : ":";
 };

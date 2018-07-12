@@ -34,7 +34,9 @@ export const fetchTable = (
   axios
     .get(
       `/api/datausa/${currentTable}/${currentColumns.toString() ||
-        ":"}/${formatFilterOptions(currentFilterOptions)}`
+        ":"}/${formatFilterOptions(
+        currentFilterOptions
+      )}/${formatFilterWhereStatements(whereStatements)}`
     )
     .then(res => dispatch(setTable(res.data)))
     .catch(err => console.log(err));
@@ -51,5 +53,3 @@ export default (state = {}, action) => {
       return state;
   }
 };
-
-// /${formatFilterWhereStatements(whereStatements)}
