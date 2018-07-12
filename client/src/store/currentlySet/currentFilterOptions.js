@@ -11,8 +11,9 @@ const initialState = {
   // NO ALT TABLES AVAILABLE
   // force: "",
   limit: "",
-  sumlevel: "",
-  year: ""
+  sumlevel: ""
+  // YEAR IS MOSTLY EMPTY OR JUST "all"
+  // year: ""
 };
 
 /*

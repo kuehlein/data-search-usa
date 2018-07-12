@@ -119,13 +119,21 @@ export const updateColumnInState = (state, oldColumn, newColumn) => {
   return state;
 };
 
+const extractSumlevel = str => {
+  const levels = str.split(" ");
+
+  return `&show=${levels[1].slice(1, -1)}&sumlevel=${levels[0]}`;
+};
+
 // format currentFilterOptions for api request
 export const formatFilterOptions = obj => {
   const keys = Object.keys(obj);
   let request = "";
 
   for (let i = 0; i < keys.length; i++) {
-    if (obj[keys[i]]) {
+    if (keys[i] === "sumlevel") {
+      request += extractSumlevel(obj[keys[i]]);
+    } else if (obj[keys[i]]) {
       request += `&${keys[i]}=${obj[keys[i]]}`;
     }
   }
@@ -139,7 +147,7 @@ export const formatFilterWhereStatements = obj => {
 
   for (let i = 0; i < keys.length; i++) {
     if (obj[keys[i]]) {
-      request += `&${keys[i]}=${obj[keys[i]]},`;
+      request += `&${keys[i]}=${obj[keys[i]]}`;
     }
   }
   return request;

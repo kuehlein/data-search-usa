@@ -26,13 +26,13 @@ const fields = (otherTables, currentColumns, sumlevel, year) => [
     field: checkIfEmpty(sumlevel),
     description:
       "This restricts the data fetched to only display the specified levels."
-  },
-  {
-    name: "Year",
-    type: "year",
-    field: checkIfEmpty(year),
-    description: "Filters the returned data to the given year."
   }
+  // {
+  //   name: "Year",
+  //   type: "year",
+  //   field: checkIfEmpty(year),
+  //   description: "Filters the returned data to the given year."
+  // }
 ];
 
 export default fields;

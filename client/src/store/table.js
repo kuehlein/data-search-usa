@@ -33,14 +33,11 @@ export const fetchTable = (
 ) => dispatch =>
   axios
     .get(
-      `/api/datausa/${currentTable}/${currentColumns.toString()}/${formatFilterOptions(
-        currentFilterOptions
-      )}/`
+      `/api/datausa/${currentTable}/${currentColumns.toString() ||
+        ":"}/${formatFilterOptions(currentFilterOptions)}`
     )
     .then(res => dispatch(setTable(res.data)))
     .catch(err => console.log(err));
-
-// make util functions to format data for request
 
 /*
  * REDUCER
@@ -55,4 +52,4 @@ export default (state = {}, action) => {
   }
 };
 
-// ${formatFilterWhereStatements(whereStatements)}
+// /${formatFilterWhereStatements(whereStatements)}
