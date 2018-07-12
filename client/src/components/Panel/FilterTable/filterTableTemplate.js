@@ -1,4 +1,4 @@
-import { checkIfEmpty } from "./utils";
+import { checkIfEmpty } from "../utils";
 
 const fields = (otherTables, currentOptions, sumlevel, year) => [
   {
