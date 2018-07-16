@@ -1,0 +1,89 @@
+.Table {
+  width: 100%;
+  margin-top: 15px;
+}
+.headerRow,
+.evenRow,
+.oddRow {
+  border-bottom: 1px solid #e0e0e0;
+}
+.oddRow {
+  background-color: #fafafa;
+}
+.headerColumn {
+  text-transform: none;
+}
+.column {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkboxLabel {
+  margin-left: 0.5rem;
+}
+.checkboxLabel:first-of-type {
+  margin-left: 0;
+}
+
+.noRows {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  color: #bdbdbd;
+}
+
+.labeledInput {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 10px 5px 0;
+}
+.labeledInput:last-of-type {
+  margin-right: 0;
+}
+
+.label {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+.input {
+  appearance: none;
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 5px 0;
+  font-size: 1em;
+  font-weight: 300;
+  background-color: transparent;
+}
+.input:focus {
+  outline: 0;
+}
+.input::placeholder {
+  color: #e0e0e0;
+}
+.input:disabled {
+  opacity: 0.5;
+}
+
+.label {
+  color: #bdbdbd;
+  font-size: 0.75em;
+  margin-bottom: 5px;
+  font-weight: 100;
+}
+
+.inputRow {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
