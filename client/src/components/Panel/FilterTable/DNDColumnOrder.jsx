@@ -16,7 +16,7 @@ class DNDColumnOrder extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { currentColumns } = this.props;
 
     this.setState({ treeData: formatColumnsForTree(currentColumns) });
