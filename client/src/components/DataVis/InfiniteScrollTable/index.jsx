@@ -187,11 +187,13 @@ class InfiniteScrollTable extends React.PureComponent {
   }
 }
 InfiniteScrollTable.defaultProps = {
-  list: {}
+  list: {},
+  headers: [""]
 };
 
 InfiniteScrollTable.propTypes = {
-  list: PropTypes.objectOf(PropTypes.any)
+  list: PropTypes.objectOf(PropTypes.any),
+  headers: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default InfiniteScrollTable;
