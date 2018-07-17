@@ -1,5 +1,9 @@
 import axios from "axios";
-import { formatFilterOptions, formatFilterWhereStatements } from "./utils";
+import {
+  formatCurrentColumns,
+  formatFilterOptions,
+  formatFilterWhereStatements
+} from "./utils";
 
 /*
  * table is the data retrieved from a
@@ -33,8 +37,9 @@ export const fetchTable = (
 ) => dispatch =>
   axios
     .get(
-      `/api/datausa/${currentTable}/${currentColumns.toString() ||
-        ":"}/${formatFilterOptions(
+      `/api/datausa/${currentTable}/${formatCurrentColumns(
+        currentColumns
+      )}/${formatFilterOptions(
         currentFilterOptions
       )}/${formatFilterWhereStatements(whereStatements)}`
     )

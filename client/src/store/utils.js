@@ -125,6 +125,13 @@ const extractSumlevel = str => {
   return `&show=${levels[1].slice(1, -1)}&sumlevel=${levels[0]}`;
 };
 
+// format currentColumns for api request
+export const formatCurrentColumns = columns => {
+  const str = columns.toString();
+
+  return str.length ? `&required=${str}` : ":";
+};
+
 // format currentFilterOptions for api request
 export const formatFilterOptions = obj => {
   const keys = Object.keys(obj);

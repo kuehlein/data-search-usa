@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const request = require("request-promise");
-// necessary models
+const { isEmpty, formatTable, lazyTableManager } = require("./utils");
 
 // GET - datausa catagory titles
 router.get("/", (req, res) => {
@@ -44,9 +44,9 @@ router.get("/:table", (req, res) => {
 // GET - datausa tables using selected fields
 router.get("/:table/:fields/:filters/:where", (req, res) => {
   const { table, fields, filters, where } = req.params;
-  const requiredColumns = fields === ":" ? "" : `&required=${fields}`;
-  const filtersAvailable = filters === ":" ? "" : filters;
-  const statementsAvailable = where === ":" ? "" : where;
+  const requiredColumns = isEmpty(fields);
+  const filtersAvailable = isEmpty(filters);
+  const statementsAvailable = isEmpty(where);
   const options = {
     uri: `http://api.datausa.io/api/?show=${table}${requiredColumns}${filtersAvailable}${statementsAvailable}`,
     simple: false,
@@ -54,7 +54,14 @@ router.get("/:table/:fields/:filters/:where", (req, res) => {
   };
 
   request(options)
-    .then(response => res.status(200).send(response))
+    .then(response => {
+      response.data = lazyTableManager(formatTable(response.data));
+      response.headers = response.headers.sort();
+
+      console.log("response", response);
+
+      res.status(200).send(response);
+    })
     .catch(err => res.status(400).send(err));
 });
 

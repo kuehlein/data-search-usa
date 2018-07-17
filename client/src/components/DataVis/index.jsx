@@ -5,25 +5,15 @@ import { List } from "immutable";
 
 import InfiniteScrollTable from "./InfiniteScrollTable";
 
-import formatTable from "./utils";
-
-// import LineChartRe from "./LineChartRe";
-
-// import generateRandomList from "./InfiniteScrollTable/test";
-
-const DataVis = props => {
-  const formed = props.table.data ? formatTable(props.table) : {};
-
-  return props.table.data ? (
+const DataVis = props =>
+  props.table.data ? (
     <InfiniteScrollTable
-      list={List(formed)}
-      headers={props.table.headers.sort()}
+      list={List(props.table.data)}
+      headers={props.table.headers}
     />
   ) : (
     ""
   );
-};
-
 DataVis.defaultProps = {
   table: {}
 };
