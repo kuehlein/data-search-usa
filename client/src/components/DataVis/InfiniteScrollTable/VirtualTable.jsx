@@ -22,11 +22,9 @@ class VirtualTable extends React.PureComponent {
       scrollToIndex: undefined,
       sortBy,
       sortDirection,
-      sortedList,
-      useDynamicRowHeight: false
+      sortedList
     };
 
-    this._getRowHeight = this._getRowHeight.bind(this);
     this._noRowsRenderer = this._noRowsRenderer.bind(this);
     this._onRowCountChange = this._onRowCountChange.bind(this);
     this._onScrollToRowChange = this._onScrollToRowChange.bind(this);
@@ -40,12 +38,6 @@ class VirtualTable extends React.PureComponent {
 
   _getDatum(list, index) {
     return list.get(index % list.size);
-  }
-
-  _getRowHeight({ index }) {
-    const { list } = this.props;
-
-    return this._getDatum(list, index).size;
   }
 
   _isSortEnabled() {
@@ -103,12 +95,6 @@ class VirtualTable extends React.PureComponent {
       );
   }
 
-  _updateUseDynamicRowHeight(value) {
-    this.setState({
-      useDynamicRowHeight: value
-    });
-  }
-
   render() {
     const {
       disableHeader,
@@ -120,8 +106,7 @@ class VirtualTable extends React.PureComponent {
       scrollToIndex,
       sortBy,
       sortDirection,
-      sortedList,
-      useDynamicRowHeight
+      sortedList
     } = this.state;
 
     const rowGetter = ({ index }) => this._getDatum(sortedList, index);
@@ -139,7 +124,7 @@ class VirtualTable extends React.PureComponent {
               noRowsRenderer={this._noRowsRenderer}
               overscanRowCount={overscanRowCount}
               rowClassName={this._rowClassName}
-              rowHeight={useDynamicRowHeight ? this._getRowHeight : rowHeight}
+              rowHeight={rowHeight}
               rowGetter={rowGetter}
               rowCount={rowCount}
               scrollToIndex={scrollToIndex}
@@ -147,6 +132,9 @@ class VirtualTable extends React.PureComponent {
               sortBy={sortBy}
               sortDirection={sortDirection}
               width={width}
+              // ------------------------
+              onRowsRendered={this.props.onRowsRendered}
+              // rowRenderer={this.props.rowRenderer}
             >
               <Column
                 label="Index"
@@ -159,9 +147,10 @@ class VirtualTable extends React.PureComponent {
                 <Column
                   key={i}
                   label={column}
-                  cellRenderer={({ cellData }) => cellData}
+                  // cellRenderer={({ cellData }) => cellData}
                   dataKey={column}
                   width={300}
+                  cellRenderer={this.props.cellRenderer}
                 />
               ))}
             </Table>
@@ -188,12 +177,16 @@ class VirtualTable extends React.PureComponent {
 }
 VirtualTable.defaultProps = {
   list: {},
-  headers: [""]
+  headers: [""],
+  onRowsRendered: () => null,
+  cellRenderer: () => {}
 };
 
 VirtualTable.propTypes = {
   list: PropTypes.objectOf(PropTypes.any),
-  headers: PropTypes.arrayOf(PropTypes.string)
+  headers: PropTypes.arrayOf(PropTypes.string),
+  onRowsRendered: PropTypes.func,
+  cellRenderer: PropTypes.func
 };
 
 export default VirtualTable;

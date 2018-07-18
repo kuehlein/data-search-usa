@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { InfiniteLoader } from "react-virtualized";
+import { InfiniteLoader, List } from "react-virtualized";
 
 import VirtualTable from "./VirtualTable";
+
+import "./Table.css";
 
 // hasNextPage: Are there more items to load?
 // isNextPageLoading: Are we currently loading a page of items?
@@ -27,18 +29,21 @@ const InfiniteScrollTable = ({
   const isRowLoaded = ({ index }) => !hasNextPage || index < list.size;
 
   // Render a list item or a loading indicator.
-  const rowRenderer = ({ index, key, style }) => {
-    let content;
+  const cellRenderer = cellData => {
+    let content; // { index, key, style }
 
-    if (!isRowLoaded({ index })) {
+    console.log("cellData", cellData);
+
+    if (!isRowLoaded(cellData.columnIndex)) {
       content = "Loading...";
     } else {
-      content = list.getIn([index, "name"]);
+      content = list.getIn([cellData.columnIndex]); //, "name"]); // ?
     }
 
     return (
-      <div key={key} style={style}>
-        {content}
+      <div key={cellData.dataKey} /* style={cellData.style} */>
+        {/* {console.log("content", content)} */}
+        {cellData.cellData}
       </div>
     );
   };
@@ -52,23 +57,45 @@ const InfiniteScrollTable = ({
       {({ onRowsRendered, registerChild }) => (
         <VirtualTable
           ref={registerChild} // ??
-          onRowsRendered={onRowsRendered} // ??
-          rowRenderer={rowRenderer} // ??
+          onRowsRendered={onRowsRendered}
+          cellRenderer={cellRenderer}
           list={list}
           headers={headers}
         />
+        // <List
+        //   ref={registerChild}
+        //   className="list"
+        //   onRowsRendered={onRowsRendered}
+        //   rowRenderer={rowRenderer}
+        //   list={list}
+        //   // -----------------
+        //   height={300}
+        //   overscanRowCount={10}
+        //   noRowsRenderer={() => <div className="noRows">No rows</div>}
+        //   rowCount={rowCount}
+        //   rowHeight={50}
+        //   width={1000}
+        // />
       )}
     </InfiniteLoader>
   );
 };
 InfiniteScrollTable.defaultProps = {
+  hasNextPage: false,
+  isNextPageLoading: false,
   list: {},
+  loadNextPage: () => {},
   headers: [""]
 };
 
 InfiniteScrollTable.propTypes = {
+  hasNextPage: PropTypes.bool,
+  isNextPageLoading: PropTypes.bool,
   list: PropTypes.objectOf(PropTypes.any),
+  loadNextPage: PropTypes.func,
   headers: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default InfiniteScrollTable;
+
+// ref="List"

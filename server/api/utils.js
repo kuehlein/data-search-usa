@@ -36,12 +36,14 @@ const nextRows = (table, index) => {
       break;
     }
   }
+
   return rows;
 };
 
 // manages the rows for lazy loading
 function* lazyTableManager(table) {
-  let index = yield nextRows(table, 15);
+  let index = 15;
+  yield nextRows(table, 0);
 
   while (true) {
     const temp = index;

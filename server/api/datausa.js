@@ -2,6 +2,8 @@ const router = require("express").Router();
 const request = require("request-promise");
 const { isEmpty, formatTable, lazyTableManager } = require("./utils");
 
+let tableContext;
+
 // GET - datausa catagory titles
 router.get("/", (req, res) => {
   const options1 = {
@@ -41,6 +43,17 @@ router.get("/:table", (req, res) => {
     .catch(err => res.status(400).send(err));
 });
 
+// GET - the next rows in the current table
+router.get("/:table/:index", (req, res) => {
+  const { index } = req.params;
+
+  const nextRows = isEmpty(index)
+    ? tableContext.next()
+    : tableContext.next(index);
+
+  res.status(200).send(nextRows.value);
+});
+
 // GET - datausa tables using selected fields
 router.get("/:table/:fields/:filters/:where", (req, res) => {
   const { table, fields, filters, where } = req.params;
@@ -55,10 +68,13 @@ router.get("/:table/:fields/:filters/:where", (req, res) => {
 
   request(options)
     .then(response => {
-      response.data = lazyTableManager(formatTable(response.data));
-      response.headers = response.headers.sort();
+      const formatted = formatTable(response);
+      tableContext = lazyTableManager(formatted);
 
-      console.log("response", response);
+      response.size = response.data.length;
+      response.data = tableContext.next().value;
+      response.headers = response.headers.sort();
+      response.isLoading = false;
 
       res.status(200).send(response);
     })
