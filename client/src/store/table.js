@@ -28,7 +28,7 @@ export const setTable = table => ({
   table
 });
 export const isLoading = bool => ({
-  type: ADD_NEW_ROWS,
+  type: IS_LOADING,
   bool
 });
 export const addNewRows = newRows => ({
@@ -57,8 +57,8 @@ export const fetchTable = (
     .catch(err => console.log(err));
 
 export const fetchNewRows = table => dispatch =>
-  new Promise(() => dispatch(isLoading(true)))
-    .then(
+  new Promise(resolve => resolve(dispatch(isLoading(true))))
+    .then(() =>
       axios
         .get(`/api/datausa/:/${table.stopIndex}`)
         .then(res => dispatch(addNewRows(res.data)))

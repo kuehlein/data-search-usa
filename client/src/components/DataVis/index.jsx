@@ -10,7 +10,6 @@ const DataVis = ({ table, fetchNewRows }) =>
   table.data ? (
     <InfiniteScrollTable
       hasNextPage={table.size > table.data.length}
-      isNextPageLoading={table.isLoading}
       list={List(table.data)}
       loadNextPage={fetchNewRows}
       headers={table.headers}

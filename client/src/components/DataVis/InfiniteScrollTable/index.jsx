@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { InfiniteLoader, List } from "react-virtualized";
+import { InfiniteLoader } from "react-virtualized";
 
 import VirtualTable from "./VirtualTable";
 
@@ -30,22 +30,11 @@ const InfiniteScrollTable = ({
 
   // Render a list item or a loading indicator.
   const cellRenderer = cellData => {
-    let content; // { index, key, style }
-
-    console.log("cellData", cellData);
-
-    if (!isRowLoaded(cellData.columnIndex)) {
-      content = "Loading...";
-    } else {
-      content = list.getIn([cellData.columnIndex]); //, "name"]); // ?
+    if (cellData.isScrolling) {
+      return <div key={cellData.dataKey}>...</div>;
     }
 
-    return (
-      <div key={cellData.dataKey} /* style={cellData.style} */>
-        {/* {console.log("content", content)} */}
-        {cellData.cellData}
-      </div>
-    );
+    return <div key={cellData.dataKey}>{cellData.cellData}</div>;
   };
 
   return (
@@ -56,26 +45,13 @@ const InfiniteScrollTable = ({
     >
       {({ onRowsRendered, registerChild }) => (
         <VirtualTable
-          ref={registerChild} // ??
+          ref={registerChild}
           onRowsRendered={onRowsRendered}
           cellRenderer={cellRenderer}
           list={list}
           headers={headers}
+          rowCount={rowCount}
         />
-        // <List
-        //   ref={registerChild}
-        //   className="list"
-        //   onRowsRendered={onRowsRendered}
-        //   rowRenderer={rowRenderer}
-        //   list={list}
-        //   // -----------------
-        //   height={300}
-        //   overscanRowCount={10}
-        //   noRowsRenderer={() => <div className="noRows">No rows</div>}
-        //   rowCount={rowCount}
-        //   rowHeight={50}
-        //   width={1000}
-        // />
       )}
     </InfiniteLoader>
   );
@@ -97,5 +73,3 @@ InfiniteScrollTable.propTypes = {
 };
 
 export default InfiniteScrollTable;
-
-// ref="List"
