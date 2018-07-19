@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { List } from "immutable";
 
 import InfiniteScrollTable from "./InfiniteScrollTable";
+import Spinner from "./InfiniteScrollTable/Spinner";
 import { fetchNewRows } from "../../store";
 
 const DataVis = ({ table, fetchNewRows }) =>
@@ -15,7 +16,7 @@ const DataVis = ({ table, fetchNewRows }) =>
       headers={table.headers}
     />
   ) : (
-    ""
+    <Spinner />
   );
 DataVis.defaultProps = {
   table: {},

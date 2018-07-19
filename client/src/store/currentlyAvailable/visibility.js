@@ -14,7 +14,8 @@ const initialState = {
   filterTable: false,
   filterField: false,
   filterColumnButton: false,
-  goButton: false
+  goButton: false,
+  spinner: false
 };
 
 /*
@@ -25,6 +26,7 @@ const CHOOSE_VISIBILITY_FILTER_FIELD = "CHOOSE_VISIBILITY_FILTER_FIELD";
 const CHOOSE_VISIBILITY_FILTER_COLUMN_BUTTON =
   "CHOOSE_VISIBILITY_FILTER_COLUMN_BUTTON";
 const CHOOSE_VISIBILITY_GO_BUTTON = "CHOOSE_VISIBILITY_GO_BUTTON";
+const CHOOSE_VISIBILITY_SPINNER = "CHOOSE_VISIBILITY_SPINNER";
 const HIDE_ALL = "HIDE_ALL";
 
 /*
@@ -44,6 +46,10 @@ export const chooseVisibilityFilterColumnButton = visibility => ({
 });
 export const chooseVisibilityGoButton = visibility => ({
   type: CHOOSE_VISIBILITY_GO_BUTTON,
+  visibility
+});
+export const chooseVisibilitySpinner = visibility => ({
+  type: CHOOSE_VISIBILITY_SPINNER,
   visibility
 });
 export const hideAll = () => ({
@@ -70,6 +76,9 @@ export default (state = initialState, action) => {
 
     case CHOOSE_VISIBILITY_GO_BUTTON:
       return Object.assign({}, state, { goButton: action.visibility });
+
+    case CHOOSE_VISIBILITY_SPINNER:
+      return Object.assign({}, state, { spinner: action.visibility });
 
     case HIDE_ALL:
       return initialState;

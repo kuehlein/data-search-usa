@@ -27,11 +27,11 @@ export const setTable = table => ({
   type: TABLE,
   table
 });
-export const isLoading = bool => ({
+const isLoading = bool => ({
   type: IS_LOADING,
   bool
 });
-export const addNewRows = newRows => ({
+const addNewRows = newRows => ({
   type: ADD_NEW_ROWS,
   newRows
 });
