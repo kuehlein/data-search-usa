@@ -78,7 +78,11 @@ router.get("/:table/:fields/:filters/:where", (req, res) => {
 
       res.status(200).send(response);
     })
-    .catch(err => res.status(400).send(err));
+    .catch(() =>
+      res
+        .status(400)
+        .send({ error: "This dataset is unavailable at this time." })
+    );
 });
 
 module.exports = router;
