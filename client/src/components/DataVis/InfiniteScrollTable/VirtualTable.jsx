@@ -16,10 +16,10 @@ class VirtualTable extends React.PureComponent {
       disableHeader: false,
       headerHeight: 30,
       height: 270,
-      overscanRowCount: 10,
+      overscanRowCount: 15,
       rowHeight: 40,
       rowCount: this.props.rowCount,
-      scrollToIndex: undefined,
+      scrollToIndex: this.props.scrollToIndex,
       sortBy,
       sortDirection,
       sortedList
@@ -48,13 +48,6 @@ class VirtualTable extends React.PureComponent {
     return list.get(index % list.size);
   }
 
-  _isSortEnabled() {
-    const { list } = this.props;
-    const { rowCount } = this.state;
-
-    return rowCount <= list.size;
-  }
-
   _noRowsRenderer() {
     return <div className="noRows">No rows</div>;
   }
@@ -66,25 +59,27 @@ class VirtualTable extends React.PureComponent {
   }
 
   _onScrollToRowChange(event) {
-    const { rowCount } = this.state;
-    let scrollToIndex = Math.min(
-      rowCount - 1,
-      parseInt(event.target.value, 10)
-    );
+    // const { rowCount } = this.state;
+    // let scrollToIndex = Math.min(
+    //   rowCount - 1,
+    //   parseInt(event.target.value, 10)
+    // );
+
+    let scrollToIndex = +event.target.value;
 
     if (isNaN(scrollToIndex)) {
       scrollToIndex = undefined;
     }
 
+    this.props.handleScroll(scrollToIndex);
     this.setState({ scrollToIndex });
   }
 
   _rowClassName({ index }) {
     if (index < 0) {
       return "headerRow";
-    } else {
-      return index % 2 === 0 ? "evenRow" : "oddRow";
     }
+    return index % 2 === 0 ? "evenRow" : "oddRow";
   }
 
   _sort({ sortBy, sortDirection }) {
@@ -147,7 +142,6 @@ class VirtualTable extends React.PureComponent {
                 label="Index"
                 cellDataGetter={({ rowData }) => rowData.index}
                 dataKey="index"
-                disableSort={!this._isSortEnabled()}
                 width={150}
               />
               {this.props.headers.map((column, i) => (
@@ -156,18 +150,13 @@ class VirtualTable extends React.PureComponent {
                   label={column}
                   dataKey={column}
                   width={300}
-                  // cellRenderer={cellData => {
-                  //   console.log(cellData);
-
-                  //   return cellData.cellData;
-                  // }}
                   cellRenderer={this.props.cellRenderer}
                 />
               ))}
             </Table>
           )}
         </AutoSizer>
-        {/* <label
+        <label
           htmlFor="Scroll to"
           className="labeledInput label"
           title="Scroll to"
@@ -181,7 +170,7 @@ class VirtualTable extends React.PureComponent {
             onChange={this._onScrollToRowChange}
             value={scrollToIndex || ""}
           />
-        </label> */}
+        </label>
       </div>
     );
   }
@@ -191,7 +180,9 @@ VirtualTable.defaultProps = {
   headers: [""],
   onRowsRendered: () => null,
   cellRenderer: () => {},
-  rowCount: 1
+  rowCount: 1,
+  scrollToIndex: undefined,
+  handleScroll: () => {}
 };
 
 VirtualTable.propTypes = {
@@ -199,7 +190,9 @@ VirtualTable.propTypes = {
   headers: PropTypes.arrayOf(PropTypes.string),
   onRowsRendered: PropTypes.func,
   cellRenderer: PropTypes.func,
-  rowCount: PropTypes.number
+  rowCount: PropTypes.number,
+  scrollToIndex: PropTypes.number,
+  handleScroll: PropTypes.func
 };
 
 export default VirtualTable;

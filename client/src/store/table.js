@@ -56,11 +56,11 @@ export const fetchTable = (
     .then(res => dispatch(setTable(res.data)))
     .catch(error => dispatch(setTable(error.response.data)));
 
-export const fetchNewRows = table => dispatch =>
+export const fetchNewRows = index => dispatch => table =>
   new Promise(resolve => resolve(dispatch(isLoading(true))))
     .then(() =>
       axios
-        .get(`/api/datausa/:/${table.stopIndex}`)
+        .get(`/api/datausa/:/${index || ":"}`)
         .then(res => dispatch(addNewRows(res.data)))
         .catch(err => console.log(err))
     )

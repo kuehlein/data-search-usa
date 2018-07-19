@@ -5,7 +5,6 @@ import { InfiniteLoader } from "react-virtualized";
 import VirtualTable from "./VirtualTable";
 
 import "./Table.css";
-import table from "../../../store/table";
 
 // hasNextPage: Are there more items to load?
 // isNextPageLoading: Are we currently loading a page of items?
@@ -22,9 +21,17 @@ const InfiniteScrollTable = ({
   // If there are more items to be loaded then add an extra row to hold a loading indicator.
   const rowCount = hasNextPage ? list.size + 1 : list.size;
 
+  let scrollToIndex;
+
+  const handleScroll = newRow => {
+    scrollToIndex = newRow;
+  };
+
   // Only load 1 page of items at a time.
   // Pass an empty callback to InfiniteLoader in case it asks us to load more than once.
-  const loadMoreRows = isNextPageLoading ? () => {} : loadNextPage;
+  const loadMoreRows = isNextPageLoading
+    ? () => {}
+    : loadNextPage(scrollToIndex);
 
   // Every row is loaded except for our loading indicator row.
   const isRowLoaded = ({ index }) => !hasNextPage || index < list.size;
@@ -52,6 +59,8 @@ const InfiniteScrollTable = ({
           list={list}
           headers={headers}
           rowCount={rowCount}
+          scrollToIndex={scrollToIndex}
+          handleScroll={handleScroll}
         />
       )}
     </InfiniteLoader>
