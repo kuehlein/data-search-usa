@@ -54,7 +54,7 @@ export const fetchTable = (
       )}/${formatFilterWhereStatements(whereStatements)}`
     )
     .then(res => dispatch(setTable(res.data)))
-    .catch(err => console.log(err));
+    .catch(error => dispatch(setTable(error.response.data)));
 
 export const fetchNewRows = table => dispatch =>
   new Promise(resolve => resolve(dispatch(isLoading(true))))

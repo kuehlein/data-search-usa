@@ -5,6 +5,7 @@ import { InfiniteLoader } from "react-virtualized";
 import VirtualTable from "./VirtualTable";
 
 import "./Table.css";
+import table from "../../../store/table";
 
 // hasNextPage: Are there more items to load?
 // isNextPageLoading: Are we currently loading a page of items?

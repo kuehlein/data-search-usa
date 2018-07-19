@@ -16,7 +16,7 @@ const DataVis = ({ table, fetchNewRows }) =>
       headers={table.headers}
     />
   ) : (
-    <Spinner />
+    <Spinner error={table.error} />
   );
 DataVis.defaultProps = {
   table: {},
