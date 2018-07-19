@@ -4,36 +4,38 @@ import { connect } from "react-redux";
 import { List } from "immutable";
 
 import InfiniteScrollTable from "./InfiniteScrollTable";
+import { fetchNewRows } from "../../store";
 
-import formatTable from "./utils";
-
-// import LineChartRe from "./LineChartRe";
-
-// import generateRandomList from "./InfiniteScrollTable/test";
-
-const DataVis = props => {
-  const formed = props.table.data ? formatTable(props.table) : {};
-
-  return props.table.data ? (
+const DataVis = ({ table, fetchNewRows }) =>
+  table.data ? (
     <InfiniteScrollTable
-      list={List(formed)}
-      headers={props.table.headers.sort()}
+      hasNextPage={table.size > table.data.length}
+      list={List(table.data)}
+      loadNextPage={fetchNewRows}
+      headers={table.headers}
     />
   ) : (
     ""
   );
-};
-
 DataVis.defaultProps = {
-  table: {}
+  table: {},
+  fetchNewRows: () => {}
 };
 
 DataVis.propTypes = {
-  table: PropTypes.objectOf(PropTypes.any)
+  table: PropTypes.objectOf(PropTypes.any),
+  fetchNewRows: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   table: state.table
 });
 
-export default connect(mapStateToProps)(DataVis);
+const mapDispatchToProps = dispatch => ({
+  fetchNewRows: newRows => dispatch(fetchNewRows(newRows))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DataVis);
