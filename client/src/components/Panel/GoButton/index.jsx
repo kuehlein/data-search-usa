@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { fetchTable } from "../../../store";
+import { fetchTable, chooseVisibilitySpinner, setTable } from "../../../store";
 
 // request datausa with given params
 const GoButton = props => {
@@ -12,7 +12,9 @@ const GoButton = props => {
     currentColumns,
     currentFilterOptions,
     whereStatements,
-    visibility
+    visibility,
+    chooseVisibilitySpinner,
+    setTable
   } = props;
 
   return (
@@ -20,14 +22,16 @@ const GoButton = props => {
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() =>
+        onClick={() => {
+          setTable({});
+          chooseVisibilitySpinner(true);
           fetchTable(
             currentTable,
             currentColumns,
             currentFilterOptions,
             whereStatements
-          )
-        }
+          );
+        }}
       >
         Go!
       </button>
@@ -40,7 +44,9 @@ GoButton.defaultProps = {
   currentFilterOptions: {},
   whereStatements: [{}],
   fetchTable: () => {},
-  visibility: {}
+  visibility: {},
+  chooseVisibilitySpinner: () => {},
+  setTable: () => {}
 };
 
 GoButton.propTypes = {
@@ -49,7 +55,9 @@ GoButton.propTypes = {
   currentFilterOptions: PropTypes.objectOf(PropTypes.any),
   whereStatements: PropTypes.arrayOf(PropTypes.object),
   fetchTable: PropTypes.func,
-  visibility: PropTypes.objectOf(PropTypes.bool)
+  visibility: PropTypes.objectOf(PropTypes.bool),
+  chooseVisibilitySpinner: PropTypes.func,
+  setTable: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -62,7 +70,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchTable: (table, columns, tableFilters, columnFilters) =>
-    dispatch(fetchTable(table, columns, tableFilters, columnFilters))
+    dispatch(fetchTable(table, columns, tableFilters, columnFilters)),
+  chooseVisibilitySpinner: visibility =>
+    dispatch(chooseVisibilitySpinner(visibility)),
+  setTable: table => dispatch(setTable(table))
 });
 
 export default connect(
