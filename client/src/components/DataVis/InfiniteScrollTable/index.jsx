@@ -26,13 +26,6 @@ class InfiniteScrollTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(
-      "props",
-      this.props.list.size,
-      "nextProps",
-      nextProps.list.size
-    );
-
     if (this.props.list.size < nextProps.list.size) {
       this.setState({
         rowCount: nextProps.hasNextPage
