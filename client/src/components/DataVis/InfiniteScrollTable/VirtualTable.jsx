@@ -43,7 +43,10 @@ class VirtualTable extends React.PureComponent {
       this.setState({ rowCount: nextProps.rowCount, sortedList: nextList });
     }
 
-    if (nextProps.scrollToIndex === this.state.scrollToIndex) {
+    if (
+      nextProps.scrollToIndex === this.state.scrollToIndex &&
+      typeof nextProps.scrollToIndex !== "undefined"
+    ) {
       this.props.handleScroll(undefined);
     }
   }
@@ -63,20 +66,17 @@ class VirtualTable extends React.PureComponent {
   }
 
   _onScrollToRowChange(event) {
-    // const { rowCount } = this.state;
-    // let scrollToIndex = Math.min(
-    //   rowCount - 1,
-    //   parseInt(event.target.value, 10)
-    // );
+    const index = +event.target.value;
 
-    let index = +event.target.value;
+    if (!Number.isNaN(index)) {
+      this.setState({ scrollToIndex: index });
 
-    if (isNaN(index)) {
-      index = undefined;
+      if (index < this.state.rowCount) {
+        this.props.handleScroll(index);
+      } else {
+        this.props.handleScroll(index, index + 15);
+      }
     }
-
-    this.props.handleScroll(index);
-    this.setState({ scrollToIndex: index });
   }
 
   _rowClassName({ index }) {
@@ -118,6 +118,8 @@ class VirtualTable extends React.PureComponent {
     } = this.state;
 
     const rowGetter = ({ index }) => this._getDatum(sortedList, index);
+
+    console.log("rowCount", rowCount);
 
     return (
       <div>

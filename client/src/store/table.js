@@ -66,16 +66,6 @@ export const fetchNewRows = (index, table) => dispatch =>
       .finally(() => dispatch(isLoading(false)))
   );
 
-// courtesy of Glen Lebec 🙏
-// export const fetchNewRows = (index, table) => dispatch => {
-//   dispatch(isLoading(true));
-//   return axios
-//     .get(`/api/datausa/:/${index}`)
-//     .then(res => dispatch(addNewRows(res.data)))
-//     .catch(err => console.log(err))
-//     .finally(() => dispatch(isLoading(false)));
-// };
-
 /*
  * REDUCER
  */

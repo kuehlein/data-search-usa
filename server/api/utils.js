@@ -47,16 +47,15 @@ function* lazyTableManager(table) {
   index = index || 30;
 
   while (true) {
-    const temp = old;
-    // console.log("old", old, "\nindex", index);
+    const temp = index;
 
     index = yield nextRows(table, old, index);
 
     if (typeof index === "undefined") {
-      index = old + 15;
+      index = temp + 15;
       old = index;
     } else {
-      old = temp;
+      old = temp + 15;
     }
   }
 }

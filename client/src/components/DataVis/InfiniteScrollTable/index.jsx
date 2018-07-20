@@ -14,15 +14,41 @@ import "./Table.css";
 class InfiniteScrollTable extends Component {
   constructor(props) {
     super(props);
+    const { hasNextPage, list } = this.props;
+
     this.state = {
-      scrollToIndex: undefined
+      scrollToIndex: undefined,
+      rowCount: hasNextPage ? list.size + 1 : list.size
     };
+
     this.handleScroll = this.handleScroll.bind(this);
     this._cellRenderer = this._cellRenderer.bind(this);
   }
 
-  handleScroll(newIndex) {
+  componentWillReceiveProps(nextProps) {
+    console.log(
+      "props",
+      this.props.list.size,
+      "nextProps",
+      nextProps.list.size
+    );
+
+    if (this.props.list.size < nextProps.list.size) {
+      this.setState({
+        rowCount: nextProps.hasNextPage
+          ? nextProps.list.size + 1
+          : nextProps.list.size
+      });
+    }
+  }
+
+  handleScroll(newIndex, newTotal) {
     this.setState({ scrollToIndex: newIndex });
+
+    if (typeof newTotal !== "undefined") {
+      this.setState({ rowCount: newTotal });
+      this.forceUpdate();
+    }
   }
 
   // Render a list item or a loading indicator.
@@ -43,7 +69,7 @@ class InfiniteScrollTable extends Component {
     } = this.props;
 
     // If there are more items to be loaded then add an extra row to hold a loading indicator.
-    const rowCount = hasNextPage ? list.size + 1 : list.size;
+    // const rowCount = hasNextPage ? list.size + 1 : list.size;
 
     // Only load 1 page of items at a time.
     // Pass an empty callback to InfiniteLoader in case it asks us to load more than once.
@@ -52,14 +78,17 @@ class InfiniteScrollTable extends Component {
     // Every row is loaded except for our loading indicator row.
     const isRowLoaded = ({ index }) => !hasNextPage || index < list.size;
 
+    // choose new size of table if user chooses a higher index
+    const nextRows =
+      this.state.scrollToIndex > this.state.rowCount
+        ? this.state.scrollToIndex
+        : this.state.rowCount;
+
     return (
       <InfiniteLoader
         isRowLoaded={isRowLoaded}
-        loadMoreRows={
-          console.log("scrollToIndex", this.state.scrollToIndex) ||
-          loadMoreRows(this.state.scrollToIndex)
-        }
-        rowCount={rowCount}
+        loadMoreRows={loadMoreRows(this.state.scrollToIndex)}
+        rowCount={this.state.rowCount}
       >
         {({ onRowsRendered, registerChild }) => (
           <VirtualTable
@@ -68,7 +97,7 @@ class InfiniteScrollTable extends Component {
             cellRenderer={this._cellRenderer}
             list={list}
             headers={headers}
-            rowCount={rowCount}
+            rowCount={nextRows}
             handleScroll={this.handleScroll}
             scrollToIndex={this.state.scrollToIndex}
           />
