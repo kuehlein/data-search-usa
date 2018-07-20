@@ -26,10 +26,10 @@ const formatTable = table => {
 };
 
 // sorts the batches that will be used by the table
-const nextRows = (table, index) => {
+const nextRows = (table, oldIndex, newIndex) => {
   const rows = [];
 
-  for (let i = index; i < index + 15; i++) {
+  for (let i = oldIndex; i < newIndex + 15; i++) {
     if (table[i]) {
       rows.push(table[i]);
     } else {
@@ -40,18 +40,22 @@ const nextRows = (table, index) => {
   return rows;
 };
 
-// manages the rows for lazy loading
+// manages chunking the rows for lazy loading
 function* lazyTableManager(table) {
-  let index = 15;
-  yield nextRows(table, 0);
+  let index = yield nextRows(table, 0, 15);
+  let old = 30;
+  index = index || 30;
 
   while (true) {
     const temp = index;
 
-    index = yield nextRows(table, index);
+    index = yield nextRows(table, old, index);
 
     if (typeof index === "undefined") {
       index = temp + 15;
+      old = index;
+    } else {
+      old = temp + 15;
     }
   }
 }

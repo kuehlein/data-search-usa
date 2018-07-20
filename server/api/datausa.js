@@ -47,9 +47,9 @@ router.get("/:table", (req, res) => {
 router.get("/:table/:index", (req, res) => {
   const { index } = req.params;
 
-  const nextRows = isEmpty(index)
+  const nextRows = !isEmpty(index)
     ? tableContext.next()
-    : tableContext.next(index);
+    : tableContext.next(+index);
 
   res.status(200).send(nextRows.value);
 });
