@@ -47,6 +47,8 @@ function* lazyTableManager(table) {
   index = index || 30;
 
   while (true) {
+    if (old >= table.length) return;
+
     const temp = index;
 
     index = yield nextRows(table, old, index);
