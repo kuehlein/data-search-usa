@@ -43,39 +43,23 @@ const nextRows = (table, oldIndex, newIndex) => {
 // manages chunking the rows for lazy loading
 function* lazyTableManager(table) {
   let index = yield nextRows(table, 0, 15);
+  let old = 30;
   index = index || 30;
 
   while (true) {
-    const temp = index;
+    const temp = old;
+    // console.log("old", old, "\nindex", index);
 
-    index = yield nextRows(table, temp, index);
+    index = yield nextRows(table, old, index);
 
     if (typeof index === "undefined") {
-      index = temp + 15;
+      index = old + 15;
+      old = index;
+    } else {
+      old = temp;
     }
   }
 }
-
-// manages chunking the rows for lazy loading
-// function* lazyTableManager(table) {
-//   let index = 15;
-//   let temp = yield nextRows(table, 0, 15);
-//   temp = temp || index;
-
-//   while (true) {
-//     const newIndex = temp;
-
-//     index = yield nextRows(table, index, newIndex);
-
-//     if (typeof index === "undefined") {
-//       index = newIndex + 15;
-//       temp = index
-//     } else {
-//       index = newIndex;
-//       temp = index;
-//     }
-//   }
-// }
 
 module.exports = {
   err,

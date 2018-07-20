@@ -56,16 +56,25 @@ export const fetchTable = (
     .then(res => dispatch(setTable(res.data)))
     .catch(error => dispatch(setTable(error.response.data)));
 
-export const fetchNewRows = index => dispatch => table =>
-  new Promise(resolve => resolve(dispatch(isLoading(true))))
-    .then(() =>
-      axios
-        .get(`/api/datausa/:/${index || ":"}`)
-        .then(res => dispatch(addNewRows(res.data)))
-        .catch(err => console.log(err))
-    )
-    .then(() => dispatch(isLoading(false)))
-    .catch(err => console.log(err));
+// courtesy of Glen Lebec 🙏
+export const fetchNewRows = (index, table) => dispatch =>
+  Promise.resolve(dispatch(isLoading(true))).then(() =>
+    axios
+      .get(`/api/datausa/:/${index || ":"}`)
+      .then(res => dispatch(addNewRows(res.data)))
+      .catch(err => console.log(err))
+      .finally(() => dispatch(isLoading(false)))
+  );
+
+// courtesy of Glen Lebec 🙏
+// export const fetchNewRows = (index, table) => dispatch => {
+//   dispatch(isLoading(true));
+//   return axios
+//     .get(`/api/datausa/:/${index}`)
+//     .then(res => dispatch(addNewRows(res.data)))
+//     .catch(err => console.log(err))
+//     .finally(() => dispatch(isLoading(false)));
+// };
 
 /*
  * REDUCER

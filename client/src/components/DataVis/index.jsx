@@ -33,7 +33,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchNewRows: newRows => dispatch(fetchNewRows(newRows))
+  fetchNewRows: index => table => dispatch(fetchNewRows(index, table))
 });
 
 export default connect(

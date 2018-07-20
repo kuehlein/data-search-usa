@@ -19,7 +19,7 @@ class VirtualTable extends React.PureComponent {
       overscanRowCount: 15,
       rowHeight: 40,
       rowCount: this.props.rowCount,
-      scrollToIndex: this.props.scrollToIndex,
+      scrollToIndex: undefined,
       sortBy,
       sortDirection,
       sortedList
@@ -41,6 +41,10 @@ class VirtualTable extends React.PureComponent {
       );
 
       this.setState({ rowCount: nextProps.rowCount, sortedList: nextList });
+    }
+
+    if (nextProps.scrollToIndex === this.state.scrollToIndex) {
+      this.props.handleScroll(undefined);
     }
   }
 
@@ -65,14 +69,14 @@ class VirtualTable extends React.PureComponent {
     //   parseInt(event.target.value, 10)
     // );
 
-    let scrollToIndex = +event.target.value;
+    let index = +event.target.value;
 
-    if (isNaN(scrollToIndex)) {
-      scrollToIndex = undefined;
+    if (isNaN(index)) {
+      index = undefined;
     }
 
-    this.props.handleScroll(scrollToIndex);
-    this.setState({ scrollToIndex });
+    this.props.handleScroll(index);
+    this.setState({ scrollToIndex: index });
   }
 
   _rowClassName({ index }) {
@@ -181,8 +185,8 @@ VirtualTable.defaultProps = {
   onRowsRendered: () => null,
   cellRenderer: () => {},
   rowCount: 1,
-  scrollToIndex: undefined,
-  handleScroll: () => {}
+  handleScroll: () => {},
+  scrollToIndex: undefined
 };
 
 VirtualTable.propTypes = {
@@ -191,8 +195,8 @@ VirtualTable.propTypes = {
   onRowsRendered: PropTypes.func,
   cellRenderer: PropTypes.func,
   rowCount: PropTypes.number,
-  scrollToIndex: PropTypes.number,
-  handleScroll: PropTypes.func
+  handleScroll: PropTypes.func,
+  scrollToIndex: PropTypes.number
 };
 
 export default VirtualTable;
