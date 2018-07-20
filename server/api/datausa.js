@@ -51,7 +51,7 @@ router.get("/:table/:index", (req, res) => {
     ? tableContext.next()
     : tableContext.next(+index);
 
-  res.status(200).send(nextRows.value);
+  res.status(200).send(nextRows.value || []);
 });
 
 // GET - datausa tables using selected fields

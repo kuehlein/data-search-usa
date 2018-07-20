@@ -74,7 +74,7 @@ class VirtualTable extends React.PureComponent {
     if (!Number.isNaN(index)) {
       this.setState({ scrollToIndex: index });
 
-      if (index < this.state.rowCount) {
+      if (index <= this.state.rowCount) {
         this.props.handleScroll(index);
       } else {
         const nextRowCount = this.props.size !== index ? index + 15 : index;
@@ -123,8 +123,6 @@ class VirtualTable extends React.PureComponent {
     } = this.state;
 
     const rowGetter = ({ index }) => this._getDatum(sortedList, index);
-
-    console.log("state", rowCount, "scrollToIndex", scrollToIndex);
 
     return (
       <div>
