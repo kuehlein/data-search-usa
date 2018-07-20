@@ -11,19 +11,47 @@ const isEmpty = param => (param === ":" ? "" : param);
 // formats the response table recieved from datausa
 const formatTable = table => {
   const list = [];
+  let index = 0;
+  let row = 0;
+  let column = 0;
+  let obj = {};
 
-  for (let i = 0; i < table.data.length; i++) {
-    const obj = { index: i };
-
-    for (let j = table.headers.length; j--; ) {
-      obj[table.headers[j]] = table.data[i][j];
+  while (row < table.data.length) {
+    if (!column) {
+      obj.index = index;
     }
 
-    list.push(obj);
+    obj[table.headers[column]] = table.data[row][column];
+    column++;
+
+    if (column > table.headers.length) {
+      column = 0;
+      row++;
+      list.push(obj);
+      obj = {};
+      index++;
+    }
   }
 
   return list;
 };
+
+// formats the response table recieved from datausa
+// const formatTable = table => {
+//   const list = [];
+
+//   for (let i = 0; i < table.data.length; i++) { // DO THIS IN N
+//     const obj = { index: i };
+
+//     for (let j = table.headers.length; j--; ) {
+//       obj[table.headers[j]] = table.data[i][j];
+//     }
+
+//     list.push(obj);
+//   }
+
+//   return list;
+// };
 
 // sorts the batches that will be used by the table
 const nextRows = (table, oldIndex, newIndex) => {
