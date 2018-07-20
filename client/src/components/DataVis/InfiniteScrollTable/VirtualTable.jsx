@@ -119,8 +119,6 @@ class VirtualTable extends React.PureComponent {
 
     const rowGetter = ({ index }) => this._getDatum(sortedList, index);
 
-    console.log("rowCount", rowCount);
-
     return (
       <div>
         <AutoSizer disableHeight>
