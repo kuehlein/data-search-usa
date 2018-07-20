@@ -27,11 +27,12 @@ class InfiniteScrollTable extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.list.size < nextProps.list.size) {
-      this.setState({
-        rowCount: nextProps.hasNextPage
+      const nextListSize =
+        nextProps.hasNextPage && nextProps.size !== nextProps.list.size
           ? nextProps.list.size + 1
-          : nextProps.list.size
-      });
+          : nextProps.list.size;
+
+      this.setState({ rowCount: nextListSize });
     }
   }
 
@@ -58,7 +59,8 @@ class InfiniteScrollTable extends Component {
       isNextPageLoading,
       list,
       loadNextPage,
-      headers
+      headers,
+      size
     } = this.props;
 
     // If there are more items to be loaded then add an extra row to hold a loading indicator.
@@ -93,6 +95,7 @@ class InfiniteScrollTable extends Component {
             rowCount={nextRows}
             handleScroll={this.handleScroll}
             scrollToIndex={this.state.scrollToIndex}
+            size={size}
           />
         )}
       </InfiniteLoader>
@@ -104,7 +107,8 @@ InfiniteScrollTable.defaultProps = {
   isNextPageLoading: false,
   list: {},
   loadNextPage: () => {},
-  headers: [""]
+  headers: [""],
+  size: 0
 };
 
 InfiniteScrollTable.propTypes = {
@@ -112,7 +116,8 @@ InfiniteScrollTable.propTypes = {
   isNextPageLoading: PropTypes.bool,
   list: PropTypes.objectOf(PropTypes.any),
   loadNextPage: PropTypes.func,
-  headers: PropTypes.arrayOf(PropTypes.string)
+  headers: PropTypes.arrayOf(PropTypes.string),
+  size: PropTypes.number
 };
 
 export default InfiniteScrollTable;

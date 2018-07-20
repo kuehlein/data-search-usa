@@ -14,6 +14,7 @@ const DataVis = ({ table, fetchNewRows }) =>
       list={List(table.data)}
       loadNextPage={fetchNewRows}
       headers={table.headers}
+      size={table.size}
     />
   ) : (
     <Spinner error={table.error} />
