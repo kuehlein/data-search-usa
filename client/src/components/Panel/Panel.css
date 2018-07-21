@@ -17,4 +17,24 @@
   align-items: center;
   margin: 3.25em 0 0 0;
   min-height: 5em;
+  border-radius: 0%;
+  font-family: "Catamaran", sans-serif;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 30%; /* ??? */
+  outline-color: #252525;
+}
+
+select {
+  text-align-last: center;
+}
+
+input {
+  text-align: center;
+  /* background:  */
 }

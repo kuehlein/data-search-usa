@@ -46,8 +46,10 @@ class TableFilterDisplay extends Component {
       visibility.filterTable && (
         <div>
           {field.type !== "order" ? (
-            <label htmlFor={field.name}>
-              {field.name}
+            <div className="input-group-prepend">
+              <label className="input-group-text" htmlFor={field.name}>
+                {field.name}
+              </label>
               {Array.isArray(field.field) ? (
                 <SelectField
                   field={field}
@@ -63,7 +65,7 @@ class TableFilterDisplay extends Component {
                   onChange={e => this.handleChange(e, field.type)}
                 />
               )}
-            </label>
+            </div>
           ) : (
             <ToggleDND
               field={field}

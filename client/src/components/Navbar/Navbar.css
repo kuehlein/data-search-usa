@@ -1,4 +1,4 @@
-.nav-font {
+.nav-display {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,4 +9,15 @@
   position: absolute;
   left: 0.5em;
   height: 3em;
+}
+.nav-text {
+  display: inline-block;
+  text-decoration: none;
+  color: #ed8236;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.3125rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
 }

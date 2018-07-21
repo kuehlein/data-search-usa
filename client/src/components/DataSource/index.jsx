@@ -11,7 +11,7 @@ const DataSource = props => {
     <div>
       <p>dataset: {table.source.dataset}</p>
       <p>
-        org: <a href={`${table.source.link}`}>{table.source.org}</a>
+        org: <a href={table.source.link}>{table.source.org}</a>
       </p>
       <p>table: {table.source.table}</p>
     </div>

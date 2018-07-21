@@ -7,6 +7,7 @@ const SelectField = props => {
 
   return (
     <select
+      className="custom-select"
       name={field.name}
       title={field.description}
       value={value}
