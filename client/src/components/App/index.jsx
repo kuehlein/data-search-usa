@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import "./App.css";
-import { Panel, Map, Navbar, DataVis } from "../index";
+import { Panel, DataSource, Navbar, DataVis } from "../index";
 
 const App = ({ visibility }) => (
   <div>
-    {/* <Navbar /> */}
+    <Navbar />
     <Panel />
     {visibility.spinner && <DataVis />}
-    {/* <Map /> */}
+    {visibility.spinner && <DataSource />}
   </div>
 );
 App.defaultProps = {

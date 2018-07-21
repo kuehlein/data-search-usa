@@ -1,0 +1,12 @@
+.nav-font {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Righteous", cursive;
+}
+
+.logo {
+  position: absolute;
+  left: 0.5em;
+  height: 3em;
+}
