@@ -52,15 +52,10 @@ class TableFilters extends Component {
     const { currentOptions } = this.props;
 
     return (
-      <div
-        className="d-flex flex-column justify-content-center btn-group"
-        role="group"
-      >
-        <OptionsSelect
-          handleClick={this.handleClick}
-          currentOptions={currentOptions}
-        />
-      </div>
+      <OptionsSelect
+        handleClick={this.handleClick}
+        currentOptions={currentOptions}
+      />
     );
   }
 }

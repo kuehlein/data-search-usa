@@ -38,12 +38,12 @@ class DNDColumnOrder extends Component {
     const divHeight = this.state.treeData.length * 62;
 
     return (
-      <div style={{ height: divHeight, width: 420 }}>
-        <SortableTree
-          treeData={this.state.treeData}
-          onChange={e => this.handleChange(e)}
-        />
-      </div>
+      <SortableTree
+        style={{ height: divHeight }}
+        className="sortable-tree"
+        treeData={this.state.treeData}
+        onChange={e => this.handleChange(e)}
+      />
     );
   }
 }

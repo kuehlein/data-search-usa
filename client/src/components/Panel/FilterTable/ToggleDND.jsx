@@ -24,7 +24,7 @@ class ToggleDND extends Component {
     return (
       <label htmlFor={field.name}>
         <button
-          className="btn btn-secondary"
+          className="btn order-columns-button"
           onClick={() => this.handleClick()}
           disabled={currentColumns.length < 2}
         >

@@ -7,7 +7,7 @@ const OptionsSelect = props => {
   const { handleClick, currentOptions } = props;
 
   return (
-    <div className="d-flex justify-content-center flex-wrap">
+    <div className="group-margin">
       <MapButtons handleClick={handleClick} currentOptions={currentOptions} />
     </div>
   );

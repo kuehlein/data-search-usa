@@ -7,14 +7,10 @@ const TableSelect = props => {
   const { handleChange, allTables } = props;
 
   return (
-    <div className="form-group">
-      <label htmlFor="sel1">
-        Select table:
-        <select
-          className="form-control"
-          id="sel1"
-          onChange={e => handleChange(e)}
-        >
+    <div className="input-group-prepend group-margin">
+      <label className="input-group-text" htmlFor="Select table:">
+        <div className="label-pad">Select table: </div>
+        <select className="custom-select" onChange={e => handleChange(e)}>
           <option />
           <MapOptions allTables={allTables} />
         </select>

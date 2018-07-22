@@ -15,17 +15,17 @@ const fields = (otherTables, currentColumns, sumlevel, year) => [
     description: "Limits the number of rows returned by the query."
   },
   {
-    name: "Order of Columns",
-    type: "order",
-    field: "",
-    description: "Column name to use for ordering the resulting data array."
-  },
-  {
     name: "Level",
     type: "sumlevel",
     field: checkIfEmpty(sumlevel),
     description:
       "This restricts the data fetched to only display the specified levels."
+  },
+  {
+    name: "Order of Columns",
+    type: "order",
+    field: "",
+    description: "Column name to use for ordering the resulting data array."
   }
   // {
   //   name: "Year",
