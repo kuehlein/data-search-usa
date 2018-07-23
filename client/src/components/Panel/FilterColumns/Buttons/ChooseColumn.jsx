@@ -13,26 +13,24 @@ const ChooseColumn = props => {
   } = props;
 
   return (
-    <div className="input-group-prepend group-margin">
-      <label className="input-group-text" htmlFor={LABEL_TEXT}>
-        <div className="label-pad">{LABEL_TEXT}</div>
-        <select
-          className="custom-select"
-          value={value}
-          onChange={e => {
-            chooseVisibilityFilterField(!e.target.value);
-            handleChange(value, e.target.value);
-          }}
-        >
-          <option />
-          {currentColumns.map((column, i) => (
-            <option key={i} value={column}>
-              {column}
-            </option>
-          ))}
-        </select>
-      </label>
-    </div>
+    <label className="label-column-filter" htmlFor={LABEL_TEXT}>
+      <div className="label-pad text-position-column-filter">{LABEL_TEXT}</div>
+      <select
+        className="custom-select"
+        value={value}
+        onChange={e => {
+          chooseVisibilityFilterField(!e.target.value);
+          handleChange(value, e.target.value);
+        }}
+      >
+        <option />
+        {currentColumns.map((column, i) => (
+          <option key={i} value={column}>
+            {column}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 };
 ChooseColumn.defaultProps = {

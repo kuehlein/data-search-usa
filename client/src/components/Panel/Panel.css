@@ -50,13 +50,21 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* margin: 0 0 0.5em 0; */
 }
 
 .position-column-filters {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.label-column-filter {
+  display: flex;
+  margin: 0;
+}
+
+.text-position-column-filter {
+  padding-top: 0.5em;
 }
 
 .choose-options {
@@ -124,6 +132,10 @@
   color: #ffffff;
 }
 
+.order-columns-button:disabled {
+  cursor: not-allowed;
+}
+
 .filter-columns-button {
   background-color: #353a3f;
   color: #ffffff;
@@ -155,10 +167,19 @@ button:focus {
 
 button:hover {
   text-decoration: none;
-  box-shadow: 0 0 1em #666;
+  box-shadow: 0 0 1em #666666;
   z-index: 1;
 }
 
 select:focus {
   outline-color: #fef050 !important;
+}
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  width: 96%;
+  background-color: #4a5056;
+  height: 1px;
 }

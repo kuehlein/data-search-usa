@@ -18,13 +18,26 @@ const ColumnFilterTemplate = props => {
 
   return (
     <div className="filter-columns">
-      <ChooseColumn
-        whereStatements={whereStatements}
-        chooseVisibilityFilterField={chooseVisibilityFilterField}
-        currentColumns={currentColumns}
-        handleChange={handleChange}
-        value={value.name}
-      />
+      <hr />
+      <div className="input-group-prepend group-margin input-group-text position-column-filters">
+        <ChooseColumn
+          whereStatements={whereStatements}
+          chooseVisibilityFilterField={chooseVisibilityFilterField}
+          currentColumns={currentColumns}
+          handleChange={handleChange}
+          value={value.name}
+        />
+        {!value.name && (
+          <RemoveFilterButton
+            value={value.name}
+            handleChange={handleChange}
+            chooseVisibilityFilterField={chooseVisibilityFilterField}
+            chooseVisibilityFilterColumnButton={
+              chooseVisibilityFilterColumnButton
+            }
+          />
+        )}
+      </div>
       {value.name && (
         <div className="table-filters input-grouping">
           <MapFields value={value} handleInputChange={handleInputChange} />
@@ -37,16 +50,6 @@ const ColumnFilterTemplate = props => {
             }
           />
         </div>
-      )}
-      {!value.name && (
-        <RemoveFilterButton
-          value={value.name}
-          handleChange={handleChange}
-          chooseVisibilityFilterField={chooseVisibilityFilterField}
-          chooseVisibilityFilterColumnButton={
-            chooseVisibilityFilterColumnButton
-          }
-        />
       )}
     </div>
   );
