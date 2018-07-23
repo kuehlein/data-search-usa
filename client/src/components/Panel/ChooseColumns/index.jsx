@@ -49,12 +49,13 @@ class TableFilters extends Component {
   }
 
   render() {
-    const { currentOptions } = this.props;
+    const { currentOptions, currentColumns } = this.props;
 
     return (
       <OptionsSelect
         handleClick={this.handleClick}
         currentOptions={currentOptions}
+        currentColumns={currentColumns}
       />
     );
   }

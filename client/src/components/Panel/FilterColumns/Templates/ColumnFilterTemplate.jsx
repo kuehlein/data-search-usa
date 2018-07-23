@@ -17,7 +17,7 @@ const ColumnFilterTemplate = props => {
   } = props;
 
   return (
-    <div>
+    <div className="filter-columns">
       <ChooseColumn
         whereStatements={whereStatements}
         chooseVisibilityFilterField={chooseVisibilityFilterField}

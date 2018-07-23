@@ -9,7 +9,7 @@ const MapFields = props => {
   const { value, handleInputChange } = props;
 
   return (
-    <div className="column-filters input-grouping">
+    <div className="table-filters input-grouping">
       {where &&
         where.map((field, i) => (
           <InputFilter

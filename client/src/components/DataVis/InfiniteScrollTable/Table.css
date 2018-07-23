@@ -1,6 +1,7 @@
 .Table {
   width: 100%;
   margin-top: 15px;
+  /* font-family: "Catamaran", sans-serif !important; */
 }
 .headerRow,
 .evenRow,
@@ -60,8 +61,10 @@
   border: 0;
   border-bottom: 1px solid #e0e0e0;
   padding: 5px 0;
+  margin: 1em;
   font-size: 1em;
   font-weight: 300;
+  font-family: "Catamaran", sans-serif;
   background-color: transparent;
 }
 .input:focus {
@@ -69,6 +72,7 @@
 }
 .input::placeholder {
   color: #e0e0e0;
+  font-family: "Catamaran", sans-serif;
 }
 .input:disabled {
   opacity: 0.5;
@@ -79,6 +83,7 @@
   font-size: 0.75em;
   margin-bottom: 5px;
   font-weight: 100;
+  font-family: "Catamaran", sans-serif;
 }
 
 .inputRow {
@@ -86,12 +91,4 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-}
-
-/*-----------------------------*/
-
-.list {
-  width: 100%;
-  border: 1px solid #ddd;
-  margin-top: 15px;
 }

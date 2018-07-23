@@ -57,7 +57,7 @@ class FilterColumns extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div className="position-column-filters">
         <MapTemplate
           handleChange={updateColumn}
           handleInputChange={newWhereStatement}
