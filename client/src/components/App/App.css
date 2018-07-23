@@ -6,12 +6,47 @@
 }
 
 .information {
-  margin-top: 3em;
+  margin: 3em 1em 0 0;
   width: 95vw;
 }
 
 .step-signifier {
   color: #ed8236;
+}
+
+.instruction-details {
+  text-indent: 0.5em;
+}
+
+.toggle-views {
+  position: relative;
+
+  padding: 7px 8px;
+  min-width: 64px;
+  font-size: 0.8125rem;
+  min-height: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  color: #4a5056;
+  line-height: 1.4em;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none !important;
+  user-select: none;
+  align-items: center;
+  vertical-align: middle;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  text-align: center;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0px;
+  text-shadow: none;
+  font: 400 11px system-ui;
+  -webkit-writing-mode: horizontal-tb !important;
+  -webkit-font-smoothing: antialiased;
+  background-color: #ffffff;
 }
 
 /* Desktops and laptops ---1224-------- */
@@ -26,7 +61,17 @@
   }
 
   .information {
-    margin-top: 10vh;
-    width: 70vw;
+    margin: 10vh 0 0 5vw;
+    width: 65vw;
+  }
+
+  .instruction-details {
+    text-indent: 2em;
+  }
+
+  .toggle-views {
+    position: absolute;
+    top: 6em;
+    right: 1em;
   }
 }
