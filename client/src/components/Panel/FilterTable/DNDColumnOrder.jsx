@@ -21,11 +21,21 @@ class DNDColumnOrder extends Component {
   componentDidMount() {
     const { currentColumns } = this.props;
 
-    this.setState({ treeData: formatColumnsForTree(currentColumns) });
+    // crop column names so that they fit in panel
+    const cropped = currentColumns.map(
+      str => (str.length > 23 ? `${str.slice(0, 24)}...` : str)
+    );
+
+    this.setState({ treeData: formatColumnsForTree(cropped) });
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ treeData: formatColumnsForTree(nextProps.currentColumns) });
+    // crop column names so that they fit in panel
+    const cropped = nextProps.currentColumns.map(
+      str => (str.length > 23 ? `${str.slice(0, 24)}...` : str)
+    );
+
+    this.setState({ treeData: formatColumnsForTree(cropped) });
   }
 
   handleChange(treeData) {

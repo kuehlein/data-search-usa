@@ -17,19 +17,6 @@
   margin-left: -3em !important;
 }
 
-/* body .rst_nodeContent,
-.rst_rowWrapper,
-.rst_row,
-.rst_moveHandle {
-  margin-left: -3em !important;
-} */
-
-/* body .rst_nodeContent,
-.rst_rowWrapper,
-.rst_row {
-  margin-left: -3em !important;
-} */
-
-.rst_rowContents {
-  width: 2em !important;
+body .rst_rowContents {
+  max-width: 2em !important;
 }
