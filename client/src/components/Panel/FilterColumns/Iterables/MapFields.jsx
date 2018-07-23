@@ -9,17 +9,15 @@ const MapFields = props => {
   const { value, handleInputChange } = props;
 
   return (
-    <div className="table-filters input-grouping">
-      {where &&
-        where.map((field, i) => (
-          <InputFilter
-            key={i}
-            field={field}
-            value={value}
-            handleInputChange={handleInputChange}
-          />
-        ))}
-    </div>
+    where &&
+    where.map((field, i) => (
+      <InputFilter
+        key={i}
+        field={field}
+        value={value}
+        handleInputChange={handleInputChange}
+      />
+    ))
   );
 };
 MapFields.defaultProps = {
