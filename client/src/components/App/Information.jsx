@@ -14,8 +14,7 @@ const Information = () => (
     </p>
     <hr />
     <h3>
-      <span className="step-signifier">Step 2</span>: Select Desired Table
-      Filters
+      <span className="step-signifier">Step 2</span>: Filter the Table
     </h3>
     <p className="instruction-details">
       Limit the amount of rows in your table, or choose what level of data that
@@ -32,8 +31,7 @@ const Information = () => (
     </p>
     <hr />
     <h3>
-      <span className="step-signifier">Step 4</span>: Select Desired Column
-      Filters
+      <span className="step-signifier">Step 4</span>: Filter Columns
     </h3>
     <p className="instruction-details">
       Further refine your request by narrowing the scope of the data in a

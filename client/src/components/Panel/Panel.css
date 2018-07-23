@@ -210,7 +210,6 @@ hr {
 /* Desktops and laptops ---1224-------- */
 @media only screen and (min-width: 1000px) {
   .panel {
-    /* position: absolute; */
     width: 25vw;
     min-height: 100vh;
     overflow: scroll;
