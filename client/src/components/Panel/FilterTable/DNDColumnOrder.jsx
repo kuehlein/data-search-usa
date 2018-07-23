@@ -42,6 +42,7 @@ class DNDColumnOrder extends Component {
         style={{ height: divHeight }}
         className="sortable-tree"
         treeData={this.state.treeData}
+        maxDepth="0"
         onChange={e => this.handleChange(e)}
       />
     );

@@ -31,6 +31,7 @@
   background-color: #e9ecef;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+  overflow: hidden;
 }
 
 .filter-columns {
@@ -123,7 +124,6 @@ label {
   text-indent: 0px;
   text-shadow: none;
   font: 400 11px system-ui;
-  -webkit-writing-mode: horizontal-tb !important;
   -webkit-font-smoothing: antialiased;
   background-color: #ffffff;
 }
@@ -205,6 +205,22 @@ hr {
   width: 96%;
   background-color: #4a5056;
   height: 1px;
+}
+
+.rst__lineBlock,
+.rst_lineHalfHorizonRight,
+.rst_lineHalfVerticalBottom,
+.rst_lineHalfVerticalTop,
+.rst__absoluteLineBlock {
+  display: none !important;
+}
+
+/* .rst_node, */
+.rst_nodeContent,
+/* .rst_rowWrapper, */
+.rst_row {
+  margin-left: -3em !important;
+  /* width: 5em !important; */
 }
 
 /* Desktops and laptops ---1224-------- */
