@@ -21,7 +21,7 @@
 }
 
 .instruction-details {
-  text-indent: 0.5em;
+  text-indent: 1em;
 }
 
 .toggle-views {
@@ -73,16 +73,16 @@
 }
 
 .footer {
-  position: fixed;
-  width: 75vw;
-  height: 10vh;
+  position: relative;
+  width: 100vw;
+  height: 17vh;
   padding: 1rem;
   background-color: #909397;
   bottom: 0;
 }
 
 .footer-text {
-  margin: 0;
+  margin-bottom: 0.5em;
 }
 
 /* Desktops and laptops ---1224-------- */
@@ -110,5 +110,15 @@
     top: 6em;
     right: 1em;
     margin-top: 0;
+  }
+
+  .footer {
+    position: fixed;
+    width: 75vw;
+    height: 10vh;
+  }
+
+  .footer-text {
+    margin: 0;
   }
 }
