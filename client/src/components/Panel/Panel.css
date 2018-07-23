@@ -154,6 +154,7 @@
 .order-columns-button {
   background-color: #353a3f;
   color: #ffffff;
+  margin: 0.5em 0 0 0;
 }
 
 .order-columns-button:disabled {
@@ -198,6 +199,11 @@ button:hover {
 
 select:focus,
 select:active {
+  outline: none !important;
+}
+
+imput:focus,
+input:active {
   outline: none !important;
 }
 

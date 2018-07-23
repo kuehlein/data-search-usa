@@ -39,7 +39,7 @@ const ColumnFilterTemplate = props => {
         )}
       </div>
       {value.name && (
-        <div className="table-filters input-grouping">
+        <div className="input-grouping table-filters group-margin">
           <MapFields value={value} handleInputChange={handleInputChange} />
           <RemoveFilterButton
             value={value.name}

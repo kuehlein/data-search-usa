@@ -59,7 +59,7 @@ class TableFilterDisplay extends Component {
             title={field.description}
             value={this.state.value}
             onChange={e => this.handleChange(e, field.type)}
-            className="group-margin"
+            className="form-control"
           />
         )}
       </div>

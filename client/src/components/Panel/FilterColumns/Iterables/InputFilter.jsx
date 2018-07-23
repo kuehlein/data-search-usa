@@ -7,9 +7,9 @@ const InputFilter = props => {
   const inputValue = value.filters ? value.filters[field.name] : "";
 
   return (
-    <div className="input-group-prepend">
-      <label htmlFor={field.name}>
-        <div className="input-group-text label-pad">{`${field.name}:`}</div>
+    <div className="input-group-prepend group-margin">
+      <label className="input-group-text" htmlFor={field.name}>
+        {`${field.name}:`}
       </label>
       <input
         type="text"
