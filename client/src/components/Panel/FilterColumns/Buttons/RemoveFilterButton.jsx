@@ -25,7 +25,10 @@ class RemoveFilterButton extends Component {
 
   render() {
     return (
-      <button className="btn remove-button" onClick={() => this.handleClick()}>
+      <button
+        className="panel-button remove-button"
+        onClick={() => this.handleClick()}
+      >
         Remove?
       </button>
     );

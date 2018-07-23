@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const NewColumnFilterButton = props => (
   <label htmlFor="Filter Another Column?">
     <button
-      className="btn filter-columns-button"
+      className="panel-button filter-columns-button"
       value="filter"
       onClick={() => props.handleClick()}
     >
