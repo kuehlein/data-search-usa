@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import "./App.css";
-import { Panel, DataSource, Navbar, DataVis } from "../index";
+import { Panel, DataSource, Navbar, DataVis, Information } from "../index";
 
 const App = ({ visibility }) => (
   <div className="app">
@@ -15,7 +15,7 @@ const App = ({ visibility }) => (
         <DataSource />
       </div>
     ) : (
-      <div>NEW COMPONENT</div>
+      <Information className="information" />
     )}
   </div>
 );

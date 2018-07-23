@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.information {
+  margin-top: 2em;
+  width: 95vw;
+}
+
 /* Desktops and laptops ---1224-------- */
 @media only screen and (min-width: 1000px) {
   .app {
@@ -14,5 +19,10 @@
   .app-main {
     width: 75vw;
     height: 100vh;
+  }
+
+  .information {
+    margin-top: 6em;
+    width: 70vw;
   }
 }
