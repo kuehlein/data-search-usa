@@ -95,7 +95,7 @@ const Spinner = ({ error }) =>
       </g>
     </svg>
   ) : (
-    error
+    <div className="no-response">{error}</div>
   );
 Spinner.defaultProps = {
   error: ""
