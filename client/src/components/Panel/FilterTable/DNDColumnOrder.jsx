@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import "react-sortable-tree/style.css";
 import SortableTree from "react-sortable-tree";
+
+import "react-sortable-tree/style.css";
+import "./SortableTree.css";
 
 import { formatColumnsForTree, formatColumnsForState } from "../utils";
 
@@ -40,9 +42,9 @@ class DNDColumnOrder extends Component {
     return (
       <SortableTree
         style={{ height: divHeight }}
-        className="sortable-tree"
+        className="sortable-tree sortable-tree-margin"
         treeData={this.state.treeData}
-        maxDepth="0"
+        maxDepth={0}
         onChange={e => this.handleChange(e)}
       />
     );

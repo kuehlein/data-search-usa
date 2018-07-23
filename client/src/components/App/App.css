@@ -86,8 +86,8 @@
   margin-bottom: 0.5em;
 }
 
-/* Desktops and laptops ---1224-------- */
-@media only screen and (min-width: 1000px) {
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
   .app {
     display: flex;
   }

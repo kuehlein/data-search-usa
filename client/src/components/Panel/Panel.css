@@ -170,13 +170,6 @@ label {
   margin: 0.5em;
 }
 
-.sortable-tree {
-  width: 90vw;
-  overflow: hidden !important;
-  padding: 0;
-  margin: 0;
-}
-
 .panel-button:focus,
 .panel-button:active {
   outline: none !important;
@@ -207,24 +200,8 @@ hr {
   height: 1px;
 }
 
-.rst__lineBlock,
-.rst_lineHalfHorizonRight,
-.rst_lineHalfVerticalBottom,
-.rst_lineHalfVerticalTop,
-.rst__absoluteLineBlock {
-  display: none !important;
-}
-
-/* .rst_node, */
-.rst_nodeContent,
-/* .rst_rowWrapper, */
-.rst_row {
-  margin-left: -3em !important;
-  /* width: 5em !important; */
-}
-
-/* Desktops and laptops ---1224-------- */
-@media only screen and (min-width: 1000px) {
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
   .panel {
     width: 25vw;
     min-height: 100vh;

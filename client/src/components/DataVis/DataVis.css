@@ -4,8 +4,8 @@
   width: 95vw;
 }
 
-/* Desktops and laptops ---1224-------- */
-@media only screen and (min-width: 1000px) {
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
   .data-container {
     margin-top: 6em;
     width: 70vw;
