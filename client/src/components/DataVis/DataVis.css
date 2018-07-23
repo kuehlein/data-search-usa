@@ -4,6 +4,21 @@
   width: 95vw;
 }
 
+.no-response {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 2em 0 2em 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  white-space: nowrap;
+  background-color: #eaecef;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
 /* Desktops and laptops ----------- */
 @media only screen and (min-width: 1224px) {
   .data-container {
@@ -13,5 +28,9 @@
 
   .spinner {
     margin-top: 25vh;
+  }
+
+  .no-response {
+    margin-top: 15vh;
   }
 }
