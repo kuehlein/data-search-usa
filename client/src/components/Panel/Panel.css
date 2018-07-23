@@ -1,19 +1,6 @@
-/* @include media-breakpoint-up(sm) {
-  ;
-}
-@include media-breakpoint-up(md) {
-  ...;
-}
-@include media-breakpoint-up(lg) {
-  ...;
-}
-@include media-breakpoint-up(xl) {
-  ...;
-} */
-
+/* Phone and Tablets / all --------- */
 .panel {
   display: flex;
-  justify-content: center;
   align-items: center;
   margin: 3.25em 0 0 0;
   font-family: "Catamaran", sans-serif;
@@ -81,6 +68,10 @@
   align-items: stretch;
   width: 100%;
   margin: 0.5em 0 0.5em 0;
+}
+
+label {
+  font-size: 0.9rem !important;
 }
 
 .panel-button {
@@ -214,4 +205,14 @@ hr {
   width: 96%;
   background-color: #4a5056;
   height: 1px;
+}
+
+/* Desktops and laptops ---1224-------- */
+@media only screen and (min-width: 1000px) {
+  .panel {
+    /* position: absolute; */
+    width: 25vw;
+    min-height: 100vh;
+    overflow: scroll;
+  }
 }

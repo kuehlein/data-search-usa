@@ -7,6 +7,8 @@ import InfiniteScrollTable from "./InfiniteScrollTable";
 import Spinner from "./InfiniteScrollTable/Spinner";
 import { fetchNewRows } from "../../store";
 
+import "./DataVis.css";
+
 const DataVis = ({ table, fetchNewRows }) =>
   table.data ? (
     <InfiniteScrollTable

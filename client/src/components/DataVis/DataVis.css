@@ -1,0 +1,10 @@
+/* Phone and Tablets / all -------- */
+.data-container {
+  margin-top: 3.5em;
+  width: 70vw;
+  height: 60vh;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+}

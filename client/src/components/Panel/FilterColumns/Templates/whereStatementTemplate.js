@@ -21,12 +21,12 @@ const where = [
     description: "Search for values that end with the input word."
   },
   {
-    name: "Number Not Equal To",
+    name: "Num Not",
     type: ":!",
     description: "Search for values that are not equal to input number."
   },
   {
-    name: "Text Not Equal To",
+    name: "Text Not",
     type: ":str!",
     description: "Search for values that are not equal to input text."
   }

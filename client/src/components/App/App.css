@@ -1,3 +1,18 @@
-/* .App {
-  text-align: center;
-} */
+/* Phone and Tablets / all -------- */
+.app-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 75vw;
+  height: 100vh;
+}
+
+/* Desktops and laptops ---1224-------- */
+@media only screen and (min-width: 1000px) {
+  .app {
+    display: flex;
+    /* justify-content: center; */
+    /* align-items: center; */
+  }
+}

@@ -9,7 +9,7 @@ import GoButton from "./GoButton";
 
 // the presentaional component for the control panel
 const Panel = () => (
-  <div className="panel jumbotron container-fluid flex-column pt-4">
+  <div className="panel container-fluid flex-column pt-4">
     <ChooseTable />
     <FilterTable />
     <ChooseColumns />

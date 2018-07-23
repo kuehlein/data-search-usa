@@ -6,11 +6,13 @@ import "./App.css";
 import { Panel, DataSource, Navbar, DataVis } from "../index";
 
 const App = ({ visibility }) => (
-  <div>
+  <div className="app">
     <Navbar />
     <Panel />
-    {visibility.spinner && <DataVis />}
-    {visibility.spinner && <DataSource />}
+    <div className="app-main">
+      {visibility.spinner && <DataVis />}
+      {visibility.spinner && <DataSource />}
+    </div>
   </div>
 );
 App.defaultProps = {
