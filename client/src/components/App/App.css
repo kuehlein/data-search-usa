@@ -6,8 +6,12 @@
 }
 
 .information {
-  margin-top: 2em;
+  margin-top: 3em;
   width: 95vw;
+}
+
+.step-signifier {
+  color: #ed8236;
 }
 
 /* Desktops and laptops ---1224-------- */
@@ -22,7 +26,7 @@
   }
 
   .information {
-    margin-top: 6em;
+    margin-top: 10vh;
     width: 70vw;
   }
 }

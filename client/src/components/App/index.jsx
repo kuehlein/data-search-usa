@@ -15,7 +15,7 @@ const App = ({ visibility }) => (
         <DataSource />
       </div>
     ) : (
-      <Information className="information" />
+      <Information />
     )}
   </div>
 );
