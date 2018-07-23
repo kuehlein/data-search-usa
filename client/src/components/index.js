@@ -3,5 +3,4 @@
 export { default as App } from "./App/index.jsx";
 export { default as Panel } from "./Panel/index.jsx";
 export { default as DataVis } from "./DataVis/index.jsx";
-export { default as DataSource } from "./DataSource/index.jsx";
 export { default as Navbar } from "./Navbar/index.jsx";

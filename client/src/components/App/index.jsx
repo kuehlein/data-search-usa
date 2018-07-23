@@ -7,28 +7,38 @@ import "./App.css";
 import { chooseVisibilitySpinner } from "../../store";
 import Information from "./Information";
 import ToggleViews from "./ToggleViews";
-import { Panel, DataSource, Navbar, DataVis } from "../index";
+import DataSource from "./DataSource";
+import Footer from "./Footer";
+import { Panel, Navbar, DataVis } from "../index";
 
-const App = ({ table, visibility, chooseVisibilitySpinner }) => (
-  <div className="app">
-    <Navbar />
-    <Panel />
-    {table.data && (
-      <ToggleViews
-        handleClick={chooseVisibilitySpinner}
-        visibility={visibility.spinner}
-      />
-    )}
-    {visibility.spinner ? (
-      <div className="app-main">
-        <DataVis />
-        <DataSource />
-      </div>
-    ) : (
-      <Information />
-    )}
-  </div>
-);
+const App = ({ table, visibility, chooseVisibilitySpinner }) => {
+  const showToggle = table.data || table.error;
+
+  return (
+    <div className="app">
+      <Navbar />
+      <Panel />
+      {showToggle && (
+        <ToggleViews
+          handleClick={chooseVisibilitySpinner}
+          visibility={visibility.spinner}
+        />
+      )}
+      {visibility.spinner ? (
+        <div className="app-main">
+          <DataVis />
+          <DataSource />
+          <Footer />
+        </div>
+      ) : (
+        <div>
+          <Information />
+          <Footer />
+        </div>
+      )}
+    </div>
+  );
+};
 App.defaultProps = {
   table: {},
   visibility: {},

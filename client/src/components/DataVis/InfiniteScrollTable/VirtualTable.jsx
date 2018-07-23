@@ -167,7 +167,7 @@ class VirtualTable extends React.PureComponent {
         </AutoSizer>
         <label
           htmlFor="Scroll to"
-          className="labeledInput label"
+          className="labeled-input label"
           title="Scroll to"
         >
           Scroll to

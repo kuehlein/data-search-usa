@@ -40,14 +40,14 @@
   color: #bdbdbd;
 }
 
-.labeledInput {
+.labeled-input {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   min-width: 0;
   margin: 0 10px 5px 0;
 }
-.labeledInput:last-of-type {
+.labeled-input:last-of-type {
   margin-right: 0;
 }
 

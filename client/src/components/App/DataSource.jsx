@@ -2,18 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import "./Map.css";
-
 const DataSource = props => {
   const { table } = props;
 
   return table.source ? (
-    <div>
-      <p>dataset: {table.source.dataset}</p>
+    <div className="data-source">
       <p>
-        org: <a href={table.source.link}>{table.source.org}</a>
+        <span className="step-signifier">dataset:</span> {table.source.dataset}
       </p>
-      <p>table: {table.source.table}</p>
+      <p>
+        <span className="step-signifier">org:</span>{" "}
+        <a href={table.source.link}>{table.source.org}</a>
+      </p>
+      <p>
+        <span className="step-signifier">table:</span> {table.source.table}
+      </p>
     </div>
   ) : (
     ""
