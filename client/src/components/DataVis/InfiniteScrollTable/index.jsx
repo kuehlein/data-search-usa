@@ -80,25 +80,27 @@ class InfiniteScrollTable extends Component {
         : this.state.rowCount;
 
     return (
-      <InfiniteLoader
-        isRowLoaded={isRowLoaded}
-        loadMoreRows={loadMoreRows(this.state.scrollToIndex)}
-        rowCount={this.state.rowCount}
-      >
-        {({ onRowsRendered, registerChild }) => (
-          <VirtualTable
-            ref={registerChild}
-            onRowsRendered={onRowsRendered}
-            cellRenderer={this._cellRenderer}
-            list={list}
-            headers={headers}
-            rowCount={nextRows}
-            handleScroll={this.handleScroll}
-            scrollToIndex={this.state.scrollToIndex}
-            size={size}
-          />
-        )}
-      </InfiniteLoader>
+      <div className="data-container">
+        <InfiniteLoader
+          isRowLoaded={isRowLoaded}
+          loadMoreRows={loadMoreRows(this.state.scrollToIndex)}
+          rowCount={this.state.rowCount}
+        >
+          {({ onRowsRendered, registerChild }) => (
+            <VirtualTable
+              ref={registerChild}
+              onRowsRendered={onRowsRendered}
+              cellRenderer={this._cellRenderer}
+              list={list}
+              headers={headers}
+              rowCount={nextRows}
+              handleScroll={this.handleScroll}
+              scrollToIndex={this.state.scrollToIndex}
+              size={size}
+            />
+          )}
+        </InfiniteLoader>
+      </div>
     );
   }
 }

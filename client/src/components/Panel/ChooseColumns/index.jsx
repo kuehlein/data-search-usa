@@ -49,15 +49,14 @@ class TableFilters extends Component {
   }
 
   render() {
-    const { currentOptions } = this.props;
+    const { currentOptions, currentColumns } = this.props;
 
     return (
-      <div className="d-flex flex-column justify-content-center">
-        <OptionsSelect
-          handleClick={this.handleClick}
-          currentOptions={currentOptions}
-        />
-      </div>
+      <OptionsSelect
+        handleClick={this.handleClick}
+        currentOptions={currentOptions}
+        currentColumns={currentColumns}
+      />
     );
   }
 }

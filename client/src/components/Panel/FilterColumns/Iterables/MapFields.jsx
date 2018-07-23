@@ -9,18 +9,15 @@ const MapFields = props => {
   const { value, handleInputChange } = props;
 
   return (
-    <div>
-      {where &&
-        where.map((field, i) => (
-          <div key={i}>
-            <InputFilter
-              field={field}
-              value={value}
-              handleInputChange={handleInputChange}
-            />
-          </div>
-        ))}
-    </div>
+    where &&
+    where.map((field, i) => (
+      <InputFilter
+        key={i}
+        field={field}
+        value={value}
+        handleInputChange={handleInputChange}
+      />
+    ))
   );
 };
 MapFields.defaultProps = {

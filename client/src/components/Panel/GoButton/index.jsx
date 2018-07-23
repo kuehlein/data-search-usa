@@ -21,7 +21,7 @@ const GoButton = props => {
     visibility.goButton && (
       <button
         type="button"
-        className="btn btn-primary"
+        className="panel-button go-button"
         onClick={() => {
           setTable({});
           chooseVisibilitySpinner(true);

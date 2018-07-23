@@ -9,6 +9,7 @@ const Spinner = ({ error }) =>
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
+      className="spinner"
       style={{ height: "15em" }}
     >
       <g transform="translate(50,50)">
@@ -29,7 +30,7 @@ const Spinner = ({ error }) =>
                 ng-attr-fill-opacity="{{config.opacity}}"
                 ng-attr-fill="{{config.c1}}"
                 d="M50 50L50 0A50 50 0 0 1 100 50Z"
-                fill="#337ab7"
+                fill="#aa2a24"
               />
             </g>
             <g transform="rotate(270 50 50)">
@@ -48,7 +49,7 @@ const Spinner = ({ error }) =>
                 ng-attr-fill="{{config.c2}}"
                 d="M50 50L50 0A50 50 0 0 1 100 50Z"
                 transform="rotate(90 50 50)"
-                fill="#5bc0de"
+                fill="#ed8236"
               />
             </g>
             <g transform="rotate(300 50 50)">
@@ -67,7 +68,7 @@ const Spinner = ({ error }) =>
                 ng-attr-fill="{{config.c3}}"
                 d="M50 50L50 0A50 50 0 0 1 100 50Z"
                 transform="rotate(180 50 50)"
-                fill="#5cb85c"
+                fill="#FEF050"
               />
             </g>
             <g transform="rotate(330 50 50)">
@@ -86,7 +87,7 @@ const Spinner = ({ error }) =>
                 ng-attr-fill="{{config.c4}}"
                 d="M50 50L50 0A50 50 0 0 1 100 50Z"
                 transform="rotate(270 50 50)"
-                fill="#f0ad4e"
+                fill="#04235D"
               />
             </g>
           </g>

@@ -7,8 +7,10 @@ const InputFilter = props => {
   const inputValue = value.filters ? value.filters[field.name] : "";
 
   return (
-    <label htmlFor={field.name}>
-      {field.name}
+    <div className="input-group-prepend group-margin">
+      <label className="input-group-text" htmlFor={field.name}>
+        {`${field.name}:`}
+      </label>
       <input
         type="text"
         name={field.name}
@@ -17,8 +19,9 @@ const InputFilter = props => {
         onChange={e =>
           handleInputChange(value.name, field.name, e.target.value)
         }
+        className="form-control"
       />
-    </label>
+    </div>
   );
 };
 InputFilter.defaultProps = {

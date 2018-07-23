@@ -1,3 +1,125 @@
-/* .App {
+/* Phone and Tablets / all -------- */
+.app-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.information {
+  margin: 2em 0 2em 2em;
+  width: 85vw;
+}
+
+.step-signifier {
+  color: #ed8236;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.step-signifier:active,
+.step-signifier:focus {
+  color: #ed8236;
+}
+
+.instruction-details {
+  text-indent: 1em;
+}
+
+.toggle-views {
+  position: absolute;
+  right: 1em;
+  margin-top: -4em;
+
+  padding: 7px 8px;
+  min-width: 64px;
+  font-size: 0.8125rem;
+  min-height: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  color: #4a5056;
+  line-height: 1.4em;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none !important;
+  user-select: none;
+  align-items: center;
+  vertical-align: middle;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
   text-align: center;
-} */
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0px;
+  text-shadow: none;
+  font: 400 11px system-ui;
+  -webkit-writing-mode: horizontal-tb !important;
+  -webkit-font-smoothing: antialiased;
+  background-color: #ffffff;
+}
+
+.data-source {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 1em 0 2em 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  white-space: nowrap;
+  background-color: #eaecef;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.footer {
+  position: relative;
+  width: 100vw;
+  height: 17vh;
+  padding: 1rem;
+  background-color: #909397;
+  bottom: 0;
+}
+
+.footer-text {
+  margin-bottom: 0.5em;
+}
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+  .app {
+    display: flex;
+  }
+
+  .app-main {
+    width: 75vw;
+    height: 100vh;
+  }
+
+  .information {
+    margin: 10vh 0 0 5vw;
+    width: 65vw;
+  }
+
+  .instruction-details {
+    text-indent: 2em;
+  }
+
+  .toggle-views {
+    position: absolute;
+    top: 6em;
+    right: 1em;
+    margin-top: 0;
+  }
+
+  .footer {
+    position: fixed;
+    width: 75vw;
+    height: 10vh;
+  }
+
+  .footer-text {
+    margin: 0;
+  }
+}

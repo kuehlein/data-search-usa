@@ -8,7 +8,7 @@ const MapFields = props => {
   const { template, currentColumns } = props;
 
   return (
-    <div>
+    <div className="input-grouping table-filters group-margin">
       {template &&
         template.map((field, i) => (
           <TableFilterDisplay

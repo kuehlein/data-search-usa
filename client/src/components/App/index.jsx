@@ -3,28 +3,65 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import "./App.css";
-import { Panel, Map, Navbar, DataVis } from "../index";
 
-const App = ({ visibility }) => (
-  <div>
-    {/* <Navbar /> */}
-    <Panel />
-    {visibility.spinner && <DataVis />}
-    {/* <Map /> */}
-  </div>
-);
+import { chooseVisibilitySpinner } from "../../store";
+import Information from "./Information";
+import ToggleViews from "./ToggleViews";
+import DataSource from "./DataSource";
+import Footer from "./Footer";
+import { Panel, Navbar, DataVis } from "../index";
+
+const App = ({ table, visibility, chooseVisibilitySpinner }) => {
+  const showToggle = table.data || table.error;
+
+  return (
+    <div className="app">
+      <Navbar />
+      <Panel />
+      {showToggle && (
+        <ToggleViews
+          handleClick={chooseVisibilitySpinner}
+          visibility={visibility.spinner}
+        />
+      )}
+      {visibility.spinner ? (
+        <div className="app-main">
+          <DataVis />
+          <DataSource />
+          <Footer />
+        </div>
+      ) : (
+        <div>
+          <Information />
+          <Footer />
+        </div>
+      )}
+    </div>
+  );
+};
 App.defaultProps = {
-  visibility: {}
+  table: {},
+  visibility: {},
+  chooseVisibilitySpinner: () => {}
 };
 
 App.propTypes = {
-  visibility: PropTypes.objectOf(PropTypes.bool)
+  table: PropTypes.objectOf(PropTypes.any),
+  visibility: PropTypes.objectOf(PropTypes.bool),
+  chooseVisibilitySpinner: PropTypes.func
 };
 
 const mapStateToProps = state => ({
+  table: state.table,
   visibility: state.visibility
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  chooseVisibilitySpinner: visibility =>
+    dispatch(chooseVisibilitySpinner(visibility))
+});
 
-// hide datavis when until go is clicked
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

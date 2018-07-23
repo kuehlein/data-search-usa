@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import "react-sortable-tree/style.css";
 import SortableTree from "react-sortable-tree";
+
+import "react-sortable-tree/style.css";
+import "./SortableTree.css";
 
 import { formatColumnsForTree, formatColumnsForState } from "../utils";
 
@@ -19,11 +21,21 @@ class DNDColumnOrder extends Component {
   componentDidMount() {
     const { currentColumns } = this.props;
 
-    this.setState({ treeData: formatColumnsForTree(currentColumns) });
+    // crop column names so that they fit in panel
+    const cropped = currentColumns.map(
+      str => (str.length > 23 ? `${str.slice(0, 24)}...` : str)
+    );
+
+    this.setState({ treeData: formatColumnsForTree(cropped) });
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ treeData: formatColumnsForTree(nextProps.currentColumns) });
+    // crop column names so that they fit in panel
+    const cropped = nextProps.currentColumns.map(
+      str => (str.length > 23 ? `${str.slice(0, 24)}...` : str)
+    );
+
+    this.setState({ treeData: formatColumnsForTree(cropped) });
   }
 
   handleChange(treeData) {
@@ -38,12 +50,13 @@ class DNDColumnOrder extends Component {
     const divHeight = this.state.treeData.length * 62;
 
     return (
-      <div style={{ height: divHeight, width: 420 }}>
-        <SortableTree
-          treeData={this.state.treeData}
-          onChange={e => this.handleChange(e)}
-        />
-      </div>
+      <SortableTree
+        style={{ height: divHeight }}
+        className="sortable-tree sortable-tree-margin"
+        treeData={this.state.treeData}
+        maxDepth={0}
+        onChange={e => this.handleChange(e)}
+      />
     );
   }
 }

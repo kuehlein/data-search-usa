@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const LABEL_TEXT = "Select a column to filter: ";
+const LABEL_TEXT = "Filter Column: ";
 
 // generate a field to select a column to filter
 const ChooseColumn = props => {
@@ -13,9 +13,10 @@ const ChooseColumn = props => {
   } = props;
 
   return (
-    <label htmlFor={LABEL_TEXT}>
-      {LABEL_TEXT}
+    <label className="label-column-filter" htmlFor={LABEL_TEXT}>
+      <div className="label-pad text-position-column-filter">{LABEL_TEXT}</div>
       <select
+        className="custom-select"
         value={value}
         onChange={e => {
           chooseVisibilityFilterField(!e.target.value);
