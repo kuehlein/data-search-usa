@@ -25,15 +25,15 @@ const ColumnFilterTemplate = props => {
         handleChange={handleChange}
         value={value.name}
       />
+      {value.name && (
+        <MapFields value={value} handleInputChange={handleInputChange} />
+      )}
       <RemoveFilterButton
         value={value.name}
         handleChange={handleChange}
         chooseVisibilityFilterField={chooseVisibilityFilterField}
         chooseVisibilityFilterColumnButton={chooseVisibilityFilterColumnButton}
       />
-      {value.name && (
-        <MapFields value={value} handleInputChange={handleInputChange} />
-      )}
     </div>
   );
 };

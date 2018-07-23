@@ -62,6 +62,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0.5em 0 0.5em 0;
 }
 
 .input-grouping {
@@ -70,6 +71,7 @@
   flex-wrap: wrap;
   align-items: stretch;
   width: 100%;
+  margin: 0.5em 0 0.5em 0;
 }
 
 .options-button {
@@ -124,19 +126,19 @@
 .filter-columns-button {
   background-color: #353a3f;
   color: #ffffff;
-  margin: 0.5em;
+  margin: 0.5em 0.5em 0 0.5em;
 }
 
 .remove-button {
   background-color: #aa2a24;
   color: #ffffff;
-  margin: 0.5em 0.5em 1em 0.5em;
+  margin: 0.5em 0.5em 0 0.5em;
 }
 
 .go-button {
   background-color: #ed8236;
   color: #ffffff;
-  margin: 0 0.5em 0.5em 0.5em;
+  margin: 0.5em;
 }
 
 .sortable-tree {
