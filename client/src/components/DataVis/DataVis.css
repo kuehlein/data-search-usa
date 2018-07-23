@@ -1,10 +1,17 @@
 /* Phone and Tablets / all -------- */
 .data-container {
-  margin-top: 3.5em;
-  width: 70vw;
-  height: 60vh;
+  margin-top: 2em;
+  width: 95vw;
 }
 
-/* Desktops and laptops ----------- */
-@media only screen and (min-width: 1224px) {
+/* Desktops and laptops ---1224-------- */
+@media only screen and (min-width: 1000px) {
+  .data-container {
+    margin-top: 6em;
+    width: 70vw;
+  }
+
+  .spinner {
+    margin-top: 25vh;
+  }
 }

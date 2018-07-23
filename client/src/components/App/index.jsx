@@ -9,10 +9,14 @@ const App = ({ visibility }) => (
   <div className="app">
     <Navbar />
     <Panel />
-    <div className="app-main">
-      {visibility.spinner && <DataVis />}
-      {visibility.spinner && <DataSource />}
-    </div>
+    {visibility.spinner ? (
+      <div className="app-main">
+        <DataVis />
+        <DataSource />
+      </div>
+    ) : (
+      <div>NEW COMPONENT</div>
+    )}
   </div>
 );
 App.defaultProps = {
@@ -28,5 +32,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(App);
-
-// hide datavis when until go is clicked

@@ -22,6 +22,7 @@ class FilterColumns extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       chooseVisibilityFilterColumnButton,
+      chooseVisibilityFilterField,
       currentColumns,
       whereStatements
     } = nextProps;
@@ -31,6 +32,9 @@ class FilterColumns extends Component {
       this.props.currentColumns !== nextProps.currentColumns ||
       this.props.whereStatements !== nextProps.whereStatements
     ) {
+      if (!currentColumns.length) {
+        chooseVisibilityFilterField(false);
+      }
       chooseVisibilityFilterColumnButton(shouldHide);
     }
   }
