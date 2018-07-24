@@ -12,7 +12,7 @@ const MapOptions = ({ handleClick, currentOptions, currentColumns }) =>
         currentColumns.includes(column) ? "options-button-selected" : ""
       } options-button`}
       value="column"
-      disabled={column === "THIS TABLE IS CURRENTLY UNAVAILABLE"}
+      disabled={column === "THIS TABLE IS UNAVAILABLE"}
       onClick={() => handleClick(column)}
     >
       {column}

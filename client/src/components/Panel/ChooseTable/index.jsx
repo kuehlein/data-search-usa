@@ -30,7 +30,7 @@ class ChooseTable extends Component {
   componentWillReceiveProps(nextProps) {
     const { chooseVisibilityFilterTable, hideAll } = this.props;
 
-    if (nextProps.currentOptions[0] === "THIS TABLE IS CURRENTLY UNAVAILABLE") {
+    if (nextProps.currentOptions[0] === "THIS TABLE IS UNAVAILABLE") {
       hideAll();
     } else {
       chooseVisibilityFilterTable(!!nextProps.currentTable);

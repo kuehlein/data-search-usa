@@ -46,7 +46,7 @@ export const fetchCurrentOptions = (nextTable, allOptions) => dispatch => {
           const { currentTable, allTables } = store.getState();
           const copyOfAllTables = removeMissingTable(currentTable, allTables);
 
-          dispatch(setCurrentOptions(["THIS TABLE IS CURRENTLY UNAVAILABLE"]));
+          dispatch(setCurrentOptions(["THIS TABLE IS UNAVAILABLE"]));
           dispatch(setAllTables(copyOfAllTables));
         } else {
           const filterOptions = {
