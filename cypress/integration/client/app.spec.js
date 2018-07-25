@@ -1,5 +1,3 @@
-/*eslint-disable*/
-
 describe("Making and filtering requests", function() {
   it("Selects a table", function() {
     cy.visit("http://localhost:3000/");
