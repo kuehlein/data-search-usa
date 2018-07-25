@@ -1,0 +1,25 @@
+{
+  "allOptions": {},
+  "allTables": [],
+  "currentColumns": [],
+  "currentFilterOptions": {
+    "limit": "",
+    "sumlevel": ""
+  },
+  "currentOptions": [],
+  "currentTable": "",
+  "filterOptions": {
+    "otherTables": [],
+    "sumlevel": [],
+    "tableName": "",
+    "year": []
+  },
+  "visibility": {
+    "filterColumnButton": false,
+    "filterField": false,
+    "filterTable": false,
+    "goButton": false,
+    "spinner": false
+  },
+  "whereStatements": []
+}
