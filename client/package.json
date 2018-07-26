@@ -19,7 +19,6 @@
     "recharts": "^1.0.1",
     "redux": "^4.0.0",
     "redux-devtools-extension": "^2.13.3",
-    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^4.37.10"
   },
@@ -30,5 +29,7 @@
     "eject": "react-scripts eject"
   },
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {
+    "redux-logger": "^3.0.6"
+  }
 }
