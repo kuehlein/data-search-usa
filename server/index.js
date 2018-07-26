@@ -19,20 +19,31 @@ const createApp = new Promise(() => {
   // route to api
   app.use("/api", api);
 
-  // static file-serving middleware
-  app.use(express.static(path.join(__dirname, "..", "client/", "public")));
-
   // staticly serve styles
   app.use(
     express.static(path.join(__dirname, "..", "client/", "src/", "main.css"))
   );
 
-  // sends index.html
-  app.use("*", (req, res) => {
-    res.sendFile(
-      path.join(__dirname, "..", "client/", "public/", "index.html")
-    );
-  });
+  // Express only serves static assets in production
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+
+    app.use("*", (req, res) => {
+      res.sendFile(
+        path.join(__dirname, "..", "client/", "build/", "index.html")
+      );
+    });
+  } else {
+    // static file-serving middleware
+    app.use(express.static(path.join(__dirname, "..", "client/", "public")));
+
+    // sends index.html
+    app.use("*", (req, res) => {
+      res.sendFile(
+        path.join(__dirname, "..", "client/", "public/", "index.html")
+      );
+    });
+  }
 
   // error handling endware
   app.use((err, req, res, next) => {
