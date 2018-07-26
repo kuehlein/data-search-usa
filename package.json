@@ -11,7 +11,8 @@
     "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=junit-results/my-test-output.xml'",
     "test-multiple": "cypress run --reporter mocha-multi-reporters --reporter-options configFile=config.json",
     "cy-open": "cypress open",
-    "lint": "concurrently \"eslint server\" \"eslint client/src\""
+    "lint": "concurrently \"eslint server\" \"eslint client/src\"",
+    "deploy": "cd client && npm run build && cd .. & npm run server"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
